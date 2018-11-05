@@ -30,7 +30,12 @@ module.exports = function(environment) {
 
     guidemaker: {
       title: 'Cardstack Documentation',
-      logo: '/images/full-logo.svg'
+      logo: '/images/full-logo.svg',
+      copyright: 'CARDSTACK FOUNDATION',
+      social: {
+        github: 'cardstack',
+        twitter: 'cardstack',
+      },
     }
   };
 
