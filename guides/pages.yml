@@ -1,0 +1,32 @@
+- title: "Guides and Tutorials"
+  url: "index"
+  skip_toc: true
+  pages:
+    - title: "Cardstack Guides"
+      url: ""
+
+- title: "Concepts"
+  url: "concepts"
+  pages:
+    - title: "Introduction"
+      url: "index"
+    - title: "File Based Dependency Injection"
+      url: "di"
+    - title: "Dependency Injection Types/Files"
+      url: "di-types"
+    - title: "Pluralisation"
+      url: "pluralisation"
+    - title: "Container"
+      url: "container"
+    - title: "Field Editors"
+      url: "field-editors"
+    - title: "Edges"
+      url: "edges"
+    - title: "CS-Field"
+      url: "cs-field"
+
+- title: "Data access and Indexing"
+  url: "data"
+  pages:
+    - title: "Introduction"
+      url: "index"

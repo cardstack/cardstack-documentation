@@ -1,0 +1,1 @@
+From an outside perspective it is clear that a lot of the underlying concepts in Cardstack reflect some of the useful architectural decisions of Ember. If you are familiar with Ember then you are likely going to understand the most/all of these concepts without too much effort.
