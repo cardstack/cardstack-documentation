@@ -36,7 +36,7 @@ module.exports = function(environment) {
         github: 'cardstack',
         twitter: 'cardstack',
       },
-      sourceRepo: 'https://github.com/mansona/cardstack-documentation',
+      sourceRepo: 'https://github.com/cardstack/cardstack-documentation',
     }
   };
 
