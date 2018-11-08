@@ -16,7 +16,9 @@ module.exports = function(deployTarget) {
     "revision-data": {
       "type": "version-commit"
     },
-    s3: {},
+    s3: {
+      filePattern: '**/*.{js,css,png,gif,ico,jpg,map,xml,txt,svg,swf,eot,ttf,woff,woff2,otf,wasm,json,html}'
+    },
     's3-index': {},
   };
 
