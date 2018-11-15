@@ -30,3 +30,5 @@
   pages:
     - title: "Introduction"
       url: "index"
+    - title: "Document Context"
+      url: "document-context"
