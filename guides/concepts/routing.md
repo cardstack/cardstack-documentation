@@ -65,7 +65,7 @@ module.exports = function (routingCard) {
 
 The router is leveraged when the client makes a request to get a `space`. A `space` is retrieved by URL. So if the client wants to enter the route `/latest-article`, it makes a request to the API: `GET https://<hub api domain>/api/spaces/%2Flatest-article`. The API then uses the router above to match the path to a particular route whose query will be used to find the card to display to the user. The router will match the path in the order that the routes appear in the router, so the first pattern that matches the path is the one that will be used in the case where potentially two routes match match a path.
 
-### Application Cards
+## Application Cards
 Each Cardstack application has an "application card" that is the top level routing card for the cardstack application. Any card can serve as the application card in the cardstack application. If no application card is specified, the hub uses a default, "Getting Started", application card. Additionally if the application card does not specify a router, the hub provided a default router (`@cardstack/routing`) that includes a static mapping route and a vanity URL of "/" to the application card itself. Cardstack applications can specify their application cards in the `plugin-configs/@cardstack-hub` configuration.
 
 In order to specify the name of the router to use for the application card, the cardstack developer can specify an attribute on the application card's content-type `router`. This is set to the feature name of the feature whose router that you want to use. The feature name is the npm module name of the feature. So typically this means that we would specify the npm module name of the card in its content-type's router attribute if we want the card to have a router.
@@ -84,12 +84,12 @@ factory.addResource('content-types', 'acme-applications')
 
 ```
 
-### Error Cards
+## Error Cards
 Additionally, when the router is unable to find a card for the provided path, it will return an error card. A system error card is provided. Cardstack application developers can provide their own custom error cards by creating a content-type that uses an `*-errors` suffix of the routing card's content type. So if the application card's content-type is `acme-applications`, a custom error card for this application card would be the content type of `acme-applications-errors`, and you should have at least one instance of this type with the ID of 'not-found' that is returned when the router cannot find a card for the path provided (this can be established in the `static-model` feature of your custom error card). You can then provide a custom template for this card in the same way a you provide for any card. You should also set a world read grant for this content type, so that errors are not inadvertently hidden for API clients.
 
 When a routing card triggers an error because a card cannot be found for the path, the error will bubble up through all the routing cards that where involved with the routing of the path. The custom error card that is closest to the router that was unable to resolve the path will be the error card that is returned from the server.
 
-### Canonical Paths for Cards
+## Canonical Paths for Cards
 The mechamism responsible for generating json:api documents for cards, `DocumentContext`, works such that if `meta.routing-card`, `meta.routing-id` appears on the document presented to it, DocumentContext will add `links.self` to all the resources in the json:api document that it constructs. These are the canonical paths for the resources based on the specified routing card's router. The way that we derive a canonical path for a resource is to introspect the routing card's router and look for (in the following order):
 
 1. A query that matches the specified resource specifically. This is a vanity URL to the resource, and has the highest precedence when deriving a canonical path to the resource.
@@ -98,7 +98,7 @@ The mechamism responsible for generating json:api documents for cards, `Document
 
 The resulting `links.self` property is used by the ember client in order to transition to a particular card's canonical path. Note that it is possible for a router to be fashioned that results in not all cards being routable. In such cases, the `{{cardstack-url}}` helper and various tools that depend on getting the route for a card will be unable to operate for non-routable cards.
 
-### Query Parameters
+## Query Parameters
 The `GET https://<hub api domain>/api/spaces/<path of card>` spaces json:api response has an attribute `query-params` that represents the unconsumed (not used by the router to make a routing decision) query params. These query params are then fed to the resulting card component with the `params` property. Card components can use the `params` property to access their query params. For query params that are used by the router, for example the route `/most-popular?since=:date` in the example router above, these query params must be name-spaced in the actual URL in order for the router to identify and consume the `date` query param. In this example, an actual URL for this route would look like:
 ```
 https://<application domain>/most-popular?since=acme-applications[date]=2018-01-01&highlight-terms=foo
