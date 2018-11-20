@@ -68,11 +68,23 @@ The router is leveraged when the client makes a request to get a `space`. A `spa
 ## Application Cards
 Each Cardstack application has an "application card" that is the top level routing card for the cardstack application. Any card can serve as the application card in the cardstack application. If no application card is specified, the hub uses a default, "Getting Started", application card. Additionally if the application card does not specify a router, the hub provided a default router (`@cardstack/routing`) that includes a static mapping route and a vanity URL of "/" to the application card itself. Cardstack applications can specify their application cards in the `plugin-configs/@cardstack-hub` configuration.
 
+```js
+// <cardstack HR application folder>/cardstack/data-sources/default.js
+
+factory.addResource('plugin-configs', '@cardstack/hub')
+  .withAttributes({
+    'plugin-config': {
+      'application-card': { type: '@acme-corp/applications', id: 'hr-application' }
+    }
+  })
+  .withRelated('default-data-source', { data: { type: 'data-sources', id: 'default' } });
+```
+
 In order to specify the name of the router to use for the application card, the cardstack developer can specify an attribute on the application card's content-type `router`. This is set to the feature name of the feature whose router that you want to use. The feature name is the npm module name of the feature. So typically this means that we would specify the npm module name of the card in its content-type's router attribute if we want the card to have a router.
 
 ```js
-// <card-module-folder>/cardstack/static-model.js for a card that has npm module name of "@acme-corp/acme-application"
-// the corresponding router would live in <card-module-folder>/cardstack/router.js within the same npm module
+// <@acme-corp/acme-application card module folder>/cardstack/static-model.js for a card that has npm module name of "@acme-corp/acme-application"
+// the corresponding router would live in <card module folder>/cardstack/router.js within the same npm module
 
 factory.addResource('content-types', 'acme-applications')
   .withAttributes({ router: '@acme-corp/acme-application' })
@@ -82,12 +94,46 @@ factory.addResource('content-types', 'acme-applications')
     })
   ]);
 
+// open read grant allows everyone to see the application card when routed directly to it
+factory.addResource('grants', 'acme-applications-grant')
+  .withAttributes({
+    'may-read-fields': true,
+    'may-read-resource': true
+  })
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('types', [{ type: 'content-types', id: 'acme-applications' }]);
+```
+
+```js
+// <cardstack HR application folder>/cardstack/static-models.js
+// this is the application card that the plugin-configs/@cardstack/hub points to for the HR application
+
+factory.addResource('acme-applications', 'hr-application')
+  .withAttributes({ 'application-name': 'Acme HR System' });
 ```
 
 ## Error Cards
-Additionally, when the router is unable to find a card for the provided path, it will return an error card. A system error card is provided. Cardstack application developers can provide their own custom error cards by creating a content-type that uses an `*-errors` suffix of the routing card's content type. So if the application card's content-type is `acme-applications`, a custom error card for this application card would be the content type of `acme-applications-errors`, and you should have at least one instance of this type with the ID of 'not-found' that is returned when the router cannot find a card for the path provided (this can be established in the `static-model` feature of your custom error card). You can then provide a custom template for this card in the same way a you provide for any card. You should also set a world read grant for this content type, so that errors are not inadvertently hidden for API clients.
+Additionally, when the router is unable to find a card for the provided path, it will return an error card. A system error card is provided. Cardstack application developers can provide their own custom error cards by creating a content-type that uses an `*-errors` suffix of the routing card's content type. So if the application card's content-type is `acme-applications`, a custom error card for this application card would be the content type of `acme-applications-errors`, and you should have at least one instance of this type with the ID of 'not-found' that is returned when the router cannot find a card for the path provided (this can be established in the `static-model` feature of your custom error card). You can then provide a custom template for this card as an ember addon in the same way a you provide for any card. You should also set a world read grant for this content type, so that errors are not inadvertently hidden for API clients.
 
 When a routing card triggers an error because a card cannot be found for the path, the error will bubble up through all the routing cards that where involved with the routing of the path. The custom error card that is closest to the router that was unable to resolve the path will be the error card that is returned from the server.
+
+```js
+// <@acme-corp/acme-application card module folder>/cardstack/static-model.js for a card that has npm module name of "@acme-corp/acme-application"
+
+factory.addResource('content-types', 'acme-applications-errors');
+
+// open read grant allows everyone to see the error card
+factory.addResource('grants', 'acme-applications-errors-grant')
+  .withAttributes({
+    'may-read-fields': true,
+    'may-read-resource': true
+  })
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('types', [{ type: 'content-types', id: 'acme-applications-errors' }]);
+
+// need to have a "not-found" instance of the error card
+factory.addResource('acme-applications-errors', 'not-found');
+```
 
 ## Canonical Paths for Cards
 The mechamism responsible for generating json:api documents for cards, `DocumentContext`, works such that if `meta.routing-card`, `meta.routing-id` appears on the document presented to it, DocumentContext will add `links.self` to all the resources in the json:api document that it constructs. These are the canonical paths for the resources based on the specified routing card's router. The way that we derive a canonical path for a resource is to introspect the routing card's router and look for (in the following order):
