@@ -98,6 +98,7 @@ The mechamism responsible for generating json:api documents for cards, `Document
 
 The resulting `links.self` property is used by the ember client in order to transition to a particular card's canonical path. Note that it is possible for a router to be fashioned that results in not all cards being routable. In such cases, the `{{cardstack-url}}` helper and various tools that depend on getting the route for a card will be unable to operate for non-routable cards.
 
+### Query Parameters
 The `GET https://<hub api domain>/api/spaces/<path of card>` spaces json:api response has an attribute `query-params` that represents the unconsumed (not used by the router to make a routing decision) query params. These query params are then fed to the resulting card component with the `params` property. Card components can use the `params` property to access their query params. For query params that are used by the router, for example the route `/most-popular?since=:date` in the example router above, these query params must be name-spaced in the actual URL in order for the router to identify and consume the `date` query param. In this example, an actual URL for this route would look like:
 ```
 https://<application domain>/most-popular?since=acme-applications[date]=2018-01-01&highlight-terms=foo
