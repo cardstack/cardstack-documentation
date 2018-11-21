@@ -10,7 +10,7 @@ module.exports = function (routingCard) {
     path: '/latest-article',
     query: {
       filter: {
-        type: 'articles'
+        type: { exact: 'articles' }
       },
       sort: '-publish-date'
     }
@@ -20,7 +20,7 @@ module.exports = function (routingCard) {
     path: '/good-reads/:friendly-id',
     query: {
       filter: {
-        type: 'articles',
+        type: { exact: 'articles' },
         slug: { exact: ':friendly_id' }
       }
     }
@@ -31,7 +31,7 @@ module.exports = function (routingCard) {
     path: '/most-popular?since=:date',
     query: {
       filter: {
-        type: 'articles',
+        type: { exact: 'articles' },
         'publish-date': {
           range: { gt: ':date' }
         }
@@ -44,7 +44,7 @@ module.exports = function (routingCard) {
     path: '/:type/:id',
     query: {
       filter: {
-        type: ':type',
+        type: { exact: ':type' },
         id: { exact: ':id' }
       }
     }
@@ -55,7 +55,7 @@ module.exports = function (routingCard) {
     path: '/',
     query: {
       filter: {
-        type: routingCard.data.type,
+        type: { exact: routingCard.data.type },
         id: { exact: routingCard.data.id }
       }
     }
