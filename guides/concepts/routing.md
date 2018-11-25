@@ -166,17 +166,20 @@ module.exports = function() {
       }
     }
   }];
+};
 ```
 
 Then you additionally have a content-type `blogs` that uses a query parameter `since` to constrain the articles displayed in a blog instance to only the articles that has been published after the `since` query parameter. To allow the `since` query parameter to be passed to your `blogs` card component, you can add the following `cardstack/routes.js` to your `blogs` card npm module.
 
 ```js
-// <@acme-corp/acme-blog card module folder>/cardstack/routes.js for the `blogs` content-type that the application consumes.
+// <@acme-corp/acme-blog card module folder>/cardstack/routes.js for the `blogs` content-type
+// that the application consumes.
 
 module.exports = function() {
   return [{
     path: '?since=:since'
   }];
+};
 ```
 
 In this example, the URL for the blog, which includes the name-spaced query parameter, looks like this:
