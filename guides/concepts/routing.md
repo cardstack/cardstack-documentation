@@ -145,11 +145,11 @@ The mechamism responsible for generating json:api documents for cards, `Document
 The resulting `links.self` property is used by the ember client in order to transition to a particular card's canonical path. Note that it is possible for a router to be fashioned that results in not all cards being routable. In such cases, the `{{cardstack-url}}` helper and various tools that depend on getting the route for a card will be unable to operate for non-routable cards.
 
 ## Query Parameters
-The `GET https://<hub api domain>/api/spaces/<path of card>` spaces json:api response has an attribute `query-params` that represents the query params declared in the route that matches the card path. These query params are then fed to the resulting card component with the `params` property. Card components can use the `params` property to access their query params. For query params that are used by the router, for example the route `/most-popular?since=:date` in the example router above, these query params must be name-spaced in the actual URL in order for the router to identify and consume the `date` query param. In this example, an actual URL for this route would look like:
+The `GET https://<hub api domain>/api/spaces/<path of card>` spaces json:api response has an attribute `query-params` that represents the query params declared in the route that matches the card path. These query params are then fed to the resulting card component with the `params` property. Card components can use the `params` property to access their query params. The query parameters in the actual card URL must be named spaced with the content-type of the card that consumes the query parameter. For example in the route `/most-popular?since=:date` in the example router above, the resulting URL for this route would look like:
 ```
-https://<application domain>/most-popular?since=acme-applications[date]=2018-01-01&highlight-terms=foo
+https://<application domain>/most-popular?since=acme-applications[date]=2018-01-01&im-ignored-by-card=blah
 ```
-where `acme-applications` is the content-type of the routing card that the query param pertains to. The query parameter `highlight-terms` is not specified in the router and as a result is not consumed by the router, and rather, it is *not* passed to the resulting card. The `space` for this particular path would specify a `query-params` attribute of `"?since=2018-01-01"`, which would then be passed to the `articles` card's component as the object `{ 'since'='2018-01-01' }` in the `params` property of the `articles` card component.
+where `acme-applications` is the content-type of the routing card that the query param pertains to. The query parameter `im-ignored-by-card` is not specified in the router and as a result is not consumed by the router, and rather, it is *not* passed to the resulting card. The `space` for this particular path would specify a `query-params` attribute of `"?since=2018-01-01"`, which would then be passed to the `articles` card's component as the object `{ since: '2018-01-01' }` in the `params` property of the `articles` card component.
 
 A convenience notation is supported for declaring query parameters consumed by a particular card. If a route omits the `query` property, the router will return the routing card as primary card for the space. In such a manner, you can use the router of a card to simply declare the query parameters that it can consume. Consider the example where the application card uses the following router:
 
@@ -178,3 +178,11 @@ module.exports = function() {
     path: '?since=:since'
   }];
 ```
+
+In this example, the URL for the blog, which includes the name-spaced query parameter, looks like this:
+
+```
+https://<application domain>/blogs/chris?blogs[since]=2018-01-01
+```
+
+Note that the namespace for the query parameter `since` is `blogs` since the `blogs` content-type's router is the router that declares the query param in the `{ path: '?since=:since' }` route above.
