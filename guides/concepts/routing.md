@@ -145,8 +145,36 @@ The mechamism responsible for generating json:api documents for cards, `Document
 The resulting `links.self` property is used by the ember client in order to transition to a particular card's canonical path. Note that it is possible for a router to be fashioned that results in not all cards being routable. In such cases, the `{{cardstack-url}}` helper and various tools that depend on getting the route for a card will be unable to operate for non-routable cards.
 
 ## Query Parameters
-The `GET https://<hub api domain>/api/spaces/<path of card>` spaces json:api response has an attribute `query-params` that represents the unconsumed (not used by the router to make a routing decision) query params. These query params are then fed to the resulting card component with the `params` property. Card components can use the `params` property to access their query params. For query params that are used by the router, for example the route `/most-popular?since=:date` in the example router above, these query params must be name-spaced in the actual URL in order for the router to identify and consume the `date` query param. In this example, an actual URL for this route would look like:
+The `GET https://<hub api domain>/api/spaces/<path of card>` spaces json:api response has an attribute `query-params` that represents the query params declared in the route that matches the card path. These query params are then fed to the resulting card component with the `params` property. Card components can use the `params` property to access their query params. For query params that are used by the router, for example the route `/most-popular?since=:date` in the example router above, these query params must be name-spaced in the actual URL in order for the router to identify and consume the `date` query param. In this example, an actual URL for this route would look like:
 ```
 https://<application domain>/most-popular?since=acme-applications[date]=2018-01-01&highlight-terms=foo
 ```
-where `acme-applications` is the content-type of the routing card that the query param pertains to. The query parameter `highlight-terms` is not specified in the router and as a result is not consumed by the router, and rather, passed to the resulting card. The `space` for this particular path would specify a `query-params` attribute of `"?highlight-terms=foo"`, which would then be passed to the `articles` card's component as the object `{ 'highlight-terms'='foo' }` in the `params` property of the `articles` card component.
+where `acme-applications` is the content-type of the routing card that the query param pertains to. The query parameter `highlight-terms` is not specified in the router and as a result is not consumed by the router, and rather, it is *not* passed to the resulting card. The `space` for this particular path would specify a `query-params` attribute of `"?since=2018-01-01"`, which would then be passed to the `articles` card's component as the object `{ 'since'='2018-01-01' }` in the `params` property of the `articles` card component.
+
+A convenience notation is supported for declaring query parameters consumed by a particular card. If a route omits the `query` property, the router will return the routing card as primary card for the space. In such a manner, you can use the router of a card to simply declare the query parameters that it can consume. Consider the example where the application card uses the following router:
+
+```js
+// <cardstack application folder>/cardstack/routes.js
+
+module.exports = function() {
+  return [{
+    path: '/:type/:id',
+    query: {
+      filter: {
+        type: { exact: ':type' },
+        id: { exact: ':id' }
+      }
+    }
+  }];
+```
+
+Then you additionally have a content-type `blogs` that uses a query parameter `since` to constrain the articles displayed in a blog instance to only the articles that has been published after the `since` query parameter. To allow the `since` query parameter to be passed to your `blogs` card component, you can add the following `cardstack/routes.js` to your `blogs` card npm module.
+
+```js
+// <@acme-corp/acme-blog card module folder>/cardstack/routes.js for the `blogs` content-type that the application consumes.
+
+module.exports = function() {
+  return [{
+    path: '?since=:since'
+  }];
+```
