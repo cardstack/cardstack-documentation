@@ -183,9 +183,9 @@ module.exports = function() {
 ```
 
 In this example, the URL for the blog, which includes the name-spaced query parameter, looks like this:
-
 ```
 https://<application domain>/blogs/chris?blogs[since]=2018-01-01
 ```
-
 Note that the namespace for the query parameter `since` is `blogs` since the `blogs` content-type's router is the router that declares the query param in the `{ path: '?since=:since' }` route above.
+
+The card's components can also modify the query params in the browser's URL location, i.e. browser history `pushState()`. Each card's component is decorated with a `setParams(name, value)` action that accepts a query param name and its value. The card can then use the `setParam` action to set query params that have been declared by the router for the card. The namespacing will automatically be added to the query param that is set, so that the card does not need to worry about handling the query param namespacing.
