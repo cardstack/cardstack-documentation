@@ -3,7 +3,7 @@ The idea is that a card can define a series of routes that it supports, and that
 ## Application Cards
 Each Cardstack application has an "application card" that is the top level routing card for the cardstack application. Any card can serve as the application card in the cardstack application. If no application card is specified, the hub uses a default, "Getting Started", application card. Additionally if the application card does not specify a router the hub provides a default router (`@cardstack/routing/cardstack/default-router`) that includes a static mapping route and a vanity URL of "/" to the application card itself. Cardstack applications can specify their application cards in the `plugin-configs/@cardstack-hub` configuration. Note that the default application card leverages the default router.
 
-Consider the following example for Acme Corp's HR application (Note that we use the term "Cardstack Application", when in fact a card stack application is really just another card. Consider "Cardstack Application" as the top level npm module in your project):
+Consider the following example for Acme Corp's HR application (Note that we use the term "Cardstack Application", when in fact a Cardstack application is really just another card. Consider "Cardstack Application" as the top level npm module in your project):
 
 ```js
 // <cardstack HR application folder>/cardstack/data-sources/default.js
@@ -18,7 +18,7 @@ factory.addResource('plugin-configs', '@cardstack/hub')
   .withRelated('default-data-source', { data: { type: 'data-sources', id: 'default' } });
 ```
 
-In order to specify the name of the router to use for the application card, the cardstack developer can specify an attribute on the application card's content-type `router`. This is set to the feature name of the feature whose router that you want to use. The feature name is the npm module name of the feature. So typically this means that we would specify the npm module name of the card in its content-type's router attribute if we want the card to have a router.
+In order to specify the name of the router to use for the application card, the cardstack developer can specify an attribute on the application card's content-type `router`. This is set to an array of routes for the card.
 
 ```js
 // <cardstack HR application folder>/cardstack/static-models.js
