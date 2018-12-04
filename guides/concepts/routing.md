@@ -168,10 +168,10 @@ The resulting `links.self` property is used by the ember client in order to tran
 ## Params
 
 When the `spaces` document is rendered for a particular route, it will supply the component for the card that is being routed to a bucket of properties in a `params` field. This will include:
-1. any replacement tags we added in the route's path (e.g. dynamic segments)
-2. any query parameters that we specified in the routes path
-3. the path segment for the route
-4. `additionalParams` that have been defined for the route. `additionalParams` may include `:card:field-name` replacement tags if we wish to pass the routing card's data into the card we are routing to.
+* any replacement tags we added in the route's path (e.g. dynamic segments)
+* any query parameters that we specified in the routes path
+* the path segment for the route
+* `additionalParams` that have been defined for the route. `additionalParams` may include `:card:field-name` replacement tags if we wish to pass the routing card's data into the card we are routing to.
 
 So for example, the following route, which is mounted on the `acme-applications` application card content-type, whose application card instance happens to have a `name` attribute set to "HR Application":
 ```js
@@ -195,11 +195,13 @@ So for example, the following route, which is mounted on the `acme-applications`
 When matched with the path: `https://acme-corp.com/hassan/most-popular?acme-applications[since]=2018-01-01` will result in the following params object being passed to the `articles` card's component:
 
 ```js
+{
   path: '/hassan/most-popular?acme-applications[since]=2018-01-01',
   foo: 'hassan',
   since: '2018-01-01',
   staticValue: 'i am static',
   routingCardData: 'HR Application'
+}
 ```
 
 ### Query Params
