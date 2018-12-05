@@ -31,6 +31,10 @@ module.exports = function(deployTarget) {
     ENV["s3-index"].secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
     ENV["s3-index"].bucket = 'cardstack-docs';
     ENV["s3-index"].region = 'ap-southeast-1';
+    ENV.cloudfront = {
+      distribution: 'E2TZ3PLCL45IAQ',
+      objectPaths: [ '/', '/*', '/**/*', '/index.html' ]
+    }
   }
 
   // Note: if you need to build some configuration asynchronously, you can return
