@@ -123,7 +123,7 @@ factory.addResource('grants', 'acme-applications-grant')
 ```
 
 ## Routing
-The router is leveraged when the client makes a request to get a `space`. A `space` is retrieved by URL. So if the client wants to enter the route `/latest-article`, it makes a request to the API: `GET https://<hub api domain>/api/spaces/%2Flatest-article`. The API then uses the router above to match the path to a particular route whose query will be used to find the card to display to the user.
+The router is leveraged when the client makes a request to get a `space`. A `space` is retrieved by URL. So if the client wants to enter the route `/latest-article`, it makes a request to the API: `GET https://<hub api domain>/api/spaces%2Flatest-article`. The API then uses the router above to match the path to a particular route whose query will be used to find the card to display to the user.
 
 In order to accomdate the ability to match paths to routes, on startup, the hub assembles a router map that represents all the possible routes in the system based on all the cards that have routes associated with them. The hub performs this by beginning at the application card, and recursively descending through all the possible cards that the application card routes to, and then descending through all those cards, and so on. As the hub discovers all the possible routes in the system it compiles these routes into the router map. The hub then arranges the routes in the router map such that the most specific routes are matched before the most general routes.
 
