@@ -27,8 +27,8 @@
     - title: "Routing"
       url: "routing"
 
-- title: "Plugins"
-  url: "plugins"
+- title: "Ethereum"
+  url: "ethereum"
   pages:
     - title: "Introduction"
       url: "index"
@@ -38,6 +38,8 @@
       url: "ethereum"
     - title: "Hub API"
       url: "smartcontractapi"
+    - title: "Install Hub"
+      url: "install-hub.md"
 
 - title: "Cards"
   url: "cards"
