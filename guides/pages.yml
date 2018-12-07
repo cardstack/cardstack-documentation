@@ -10,6 +10,8 @@
   pages:
     - title: "Introduction"
       url: "index"
+    - title: "External Dependencies"
+      url: "hubdependencies"
     - title: "File Based Dependency Injection"
       url: "di"
     - title: "Dependency Injection Types/Files"
@@ -26,6 +28,16 @@
       url: "cs-field"
     - title: "Routing"
       url: "routing"
+
+- title: "Plugins"
+  url: "plugins"
+  pages:
+    - title: "Introduction"
+      url: "index"
+    - title: "Ethereum"
+      url: "ethereum"
+    - title: "Hub API"
+      url: "smartcontractapi"
 
 - title: "Cards"
   url: "cards"
