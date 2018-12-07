@@ -40,6 +40,10 @@
       url: "smartcontractapi"
     - title: "Install Hub"
       url: "install-hub"
+    - title: "Ember App"
+      url: "ember-app"
+    - title: "Running a Hub App"
+      url: "eth-hub-app"
 
 - title: "Cards"
   url: "cards"
