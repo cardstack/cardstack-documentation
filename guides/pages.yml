@@ -39,7 +39,7 @@
     - title: "Hub API"
       url: "smartcontractapi"
     - title: "Install Hub"
-      url: "install-hub.md"
+      url: "install-hub"
 
 - title: "Cards"
   url: "cards"
