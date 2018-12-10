@@ -23,10 +23,10 @@ ember serve`
 
 You should see something that look like the following:
 
-IMAGE 1
+![Create an Ember Application](https://docs.cardstack.com/images/emberapp1.png)
 
 Your Ember.js application is now running on your machine. You can view it at [http://localhost:4200](http://localhost:4200).
 
-IMAGE 2
+![Create an Ember Application](https://docs.cardstack.com/images/emberapp2.png)
 
 The Ember.js application that we just set up can be used to build a user interface that then consumes API from the Cardstack Hub.
