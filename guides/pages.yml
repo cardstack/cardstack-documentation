@@ -26,6 +26,8 @@
       url: "cs-field"
     - title: "Routing"
       url: "routing"
+    - title: "Grants"
+      url: "grants"
 
 - title: "Ethereum"
   url: "ethereum"
