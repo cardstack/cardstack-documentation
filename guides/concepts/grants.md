@@ -140,7 +140,7 @@ For each field you include, we check for `may-writes-fields` *if* the value of t
 
 ### Delete
 When you try to delete a resource, we check for `may-delete-resource`, and that's it. We aren't checking `may-read-resource` because a DELETE doesn't echo back the resource.
-In practice, you will usually need `may-read-resourc`e anyway, because many data sources require an If-Match header on DELETE, in order to avoid race conditions, and you won't be able to come up with the current version for If-Match without first reading the resource.
+In practice, you will usually need `may-read-resource` anyway, because many data sources require an If-Match header on DELETE, in order to avoid race conditions, and you won't be able to come up with the current version for If-Match without first reading the resource.
 
 ## Types restrictions
 
