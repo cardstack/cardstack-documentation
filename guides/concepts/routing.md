@@ -38,7 +38,7 @@ factory.addResource('content-types', 'acme-applications')
     },{
       // This is an example of a using a "slug" or human friendly ID in the URL to identify a card
       // as opposed to the actual card's ID (which may not be easy for a human to remember or type).
-      path: '/good-reads/:friendly-id',
+      path: '/good-reads/:friendly_id',
       query: {
         filter: {
           type: { exact: 'articles' },
