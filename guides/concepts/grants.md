@@ -11,7 +11,7 @@ permissions in the grant to only the listed fields.
 The `who` relationship determines who we are giving permission to. It is a list, and a user must match _every_ entry in the list in order to benefit from the grant. Each item in the list is a reference to one of the following things:
 
 ### Who: A user
-Which content-types are used to represent users is app-specific, based on the set of authenticator plugins you configure and how you map them into your own user types. But if you allow people to log in as `{ type: 'users, id: '1' }`, then you can put `{ type: 'users', id: '1' }` here in the `who` relationship and it will apply to that specific user.
+Which content-types are used to represent users is app-specific, based on the set of authenticator plugins you configure and how you map them into your own user types. But if you allow people to log in as `{ type: 'users', id: '1' }`, then you can put `{ type: 'users', id: '1' }` here in the `who` relationship and it will apply to that specific user.
 
 ### Who: A group
 
