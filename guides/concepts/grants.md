@@ -25,7 +25,7 @@ factory
   .withRelated('who', [{ type: 'groups', id: 'everyone' }])
   .withRelated(
     'types',
-    { type: 'content-types', id: 'example-blogs' }
+    [{ type: 'content-types', id: 'example-blogs' }]
   )
   .withAttributes({
     'may-read-resource': true,
