@@ -1,7 +1,7 @@
 A grant is a combination of:
 - a **who** group that is receiving permissions
 - one or more **permissions** (may-read-resource, may-write-fields, etc)
-- an optional **types restriction**, which limits both resource-level
+- **types restriction**, which limits both resource-level
 and field-level permissions in the grant to only the listed
 content-types.
 - an optional **fields restriction**, which limits any field-level
@@ -78,14 +78,14 @@ factory.addResource('example-users', 'test-user')
 
 ### Who: A field
 
-A field defined as `{ type: 'fields', id: someFieldName }`, in which case the set of users will be determined dynamically by looking at the value of given resource's field. The field itself must be either:
+`who` can be described with a field defined as `{ type: 'fields', id: someFieldName }`, in which case the set of users will be determined dynamically by looking at the value of given resource's field. The field itself must be either:
 - a relationship to one or many users.
 - the `id` field, which is treated implicitly as a relationship
 to the record itself, meaning you can write a grant against the `id` field in order to give a user permissions to their own user record.
 
 In general, it is better to use groups rather than make lots of separate grants for each user. The biggest use for individual user grants is when you use them via field indirection, so that a resource can contain its own list of owners, etc.
 
-For example, you can have a resource like this that stores its own collaborators list:
+For example, you can have a resource like this that stores its own collaborators list and a set of unbanned users:
 ```javascript
 {
   type: 'posts',
@@ -93,24 +93,44 @@ For example, you can have a resource like this that stores its own collaborators
   relationships: {
     collaborators: {
       data: [ { type: 'users', id: '1'}, { type: 'users', id: '2' } ]
+    },
+    'unbanned-users': {
+      data: [ { type: 'users', id: '1' }, { type: 'users', id: '3' }]
     }
   }
 }
 ```
-And write a grant like this that allows people to edit only posts which list them as collaborators, and only if they are in the `unbanned-users` group.
+The `who` relationship in a grant when using a `field` works as an _and_ rather than an _or_. This means that if we specify a grant pointing to the `collaborators` as follows, we will give permissions to `users` `1` and `2`.
+
 ```javascript
-{
-  type: 'grants',
-  id: '432',
-  attributes: {
-    mayUpdateResource: true,
-    mayWriteFields: true
-  },
-  relationships: {
-    types: [ { type: 'content-types', id: 'posts' } ],
-    who: [ { type: 'fields', id: 'collaborators' }, { type: 'groups', id: 'unbanned-users' } ]
-  }
-}
+factory
+  .addResource('grants')
+  .withRelated('who', [
+    { type: 'fields', id: 'collaborators' }
+  ])
+  .withRelated('types', [{ type: 'content-types', id: 'posts' }])
+  .withAttributes({
+    'may-update-resource': true,
+    'may-write-fields': true
+  });
+  // Both `users` `1` and `2` will get permissions
+```
+
+But if we specify that the grant's `who` is both `collaborators` and `unbanned-users`, we will only give permissions to `users` `1` because it's the only one in both lists.
+
+```javascript
+factory
+  .addResource('grants')
+  .withRelated('who', [
+    { type: 'fields', id: 'collaborators' },
+    { type: 'groups', id: 'unbanned-users' }
+  ])
+  .withRelated('types', [{ type: 'content-types', id: 'posts' }])
+  .withAttributes({
+    'may-update-resource': true,
+    'may-write-fields': true
+  });
+  // Only `users` `1` will get permissions
 ```
 
 ## Permissions Architecture
@@ -144,7 +164,7 @@ In practice, you will usually need `may-read-resource` anyway, because many data
 
 ## Types restrictions
 
-We can apply restrictions to certain types by specifying the `type` relationship on a grant. For instance, we can protect some types as:
+We can apply restrictions to certain types by specifying the `type` relationship on a grant. You **must** specify the `types` relationship, otherwise no permissions will be applied. For instance, we to protect a certain type you can describe the grant as follows:
 
 ```javascript
 factory
@@ -190,9 +210,9 @@ factory
   });
 ```
 
-## Fields restrictions
+## Fields restrictions (optional)
 
-We can specify to which fields a certain grant applies. We can even apply different grants to specific fields in a single entity. The following example illustrates the concept:
+We can specify to which fields a certain grant applies. If you do not specify the fields for a grant, the permissions will be applied to all the fields of the types you describe. We can even apply different grants to specific fields in a single entity. The following example illustrates the concept:
 
 ```javascript
 let publicFields = [
