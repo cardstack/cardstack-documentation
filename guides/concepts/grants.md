@@ -54,7 +54,7 @@ factory
   .withRelated('who', [{ type: 'groups', id: 'example-readers' }])
   .withRelated(
     'types',
-    { type: 'content-types', id: 'example-blogs' }
+    [{ type: 'content-types', id: 'example-blogs' }]
   )
   .withAttributes({
     'may-read-resource': true,
