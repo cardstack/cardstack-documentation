@@ -15,7 +15,9 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "npm run test:node && npm run test:ember",
+    "test:ember": "ember test",
+    "test:node": "mocha node-tests"
   },
   "devDependencies": {
     "@ember/jquery": "^0.5.2",
@@ -49,7 +51,10 @@
     "eslint-plugin-ember": "^5.2.0",
     "guidemaker": "^0.6.1",
     "guidemaker-default-template": "^0.5.0",
+    "guidemaker-link-checker": "^1.0.0",
+    "guidemaker-toc-checker": "^1.0.0",
     "loader.js": "^4.7.0",
+    "mocha": "^5.2.0",
     "prember": "^1.0.0",
     "qunit-dom": "^0.8.0"
   },
