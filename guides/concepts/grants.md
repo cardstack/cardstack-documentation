@@ -152,7 +152,7 @@ factory
   .withRelated('who', [{ type: 'groups', id: 'example-managers' }])
   .withRelated(
     'types',
-    { type: 'content-types', id: 'financial-reports' }
+    [{ type: 'content-types', id: 'financial-reports' }]
   )
   .withAttributes({
     'may-read-resource': true,
