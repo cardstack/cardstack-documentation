@@ -192,7 +192,7 @@ factory
 
 ## Fields restrictions
 
-We can specify to which fields cetrain grant applies. We can even apply different grants to specific fields in a single entity. The following example illustrates the concept:
+We can specify to which fields a certain grant applies. We can even apply different grants to specific fields in a single entity. The following example illustrates the concept:
 
 ```javascript
 let publicFields = [
