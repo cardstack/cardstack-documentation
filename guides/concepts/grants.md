@@ -15,7 +15,66 @@ Which content-types are used to represent users is app-specific, based on the se
 
 ### Who: A group
 
-A group like { type: 'groups', id: someGroupId }, in which case it will apply to all users who are members of that group.
+A group in the `who` relationship is used like `{ type: 'groups', id: someGroupId }`, in which case the grant will apply to all users who are members of that group.
+
+Cardstack comes with a predefined group, `everyone`. It can be used to grant permissions to any user requesting a resource, whether they're authenticated or not. The following example illustrates its usage:
+
+```javascript
+factory
+  .addResource('grants')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated(
+    'types',
+    { type: 'content-types', id: 'example-blogs' }
+  )
+  .withAttributes({
+    'may-read-resource': true,
+    'may-read-fields': true
+  });
+```
+
+Whoever, we often want to have more specific groups to restrain permissions. Groups are defined as following:
+```javascript
+
+factory.addResource('groups', 'example-readers').withAttributes({
+  'search-query': {
+    filter: {
+      type: { exact: 'example-users' },
+      permissions: { exact: 'cardstack/example-data:read' }
+    }
+  }
+});
+```
+
+Then we can use our newly defined group in a grant as:
+
+```javascript
+factory
+  .addResource('grants')
+  .withRelated('who', [{ type: 'groups', id: 'example-readers' }])
+  .withRelated(
+    'types',
+    { type: 'content-types', id: 'example-blogs' }
+  )
+  .withAttributes({
+    'may-read-resource': true,
+    'may-read-fields': true
+  });
+```
+
+To assign a user to a group we set the group permissions on the user when we define it as:
+
+```javascript
+
+factory.addResource('example-users', 'test-user')
+  .withAttributes({
+    'name': 'Carl Stack',
+    'email-address': 'user@cardstack.com',
+    'permissions': [
+      'cardstack/example-data:read',
+    ]
+  });
+```
 
 ### Who: A field
 
@@ -57,6 +116,7 @@ And write a grant like this that allows people to edit only posts which list the
 ## Permissions Architecture
 
 Permissions fall into two categories: per-resource and per-field. Here I will explain how permissions interact under each CRUD operation:
+
 ### Create
 When you try to create a resource, we first check for `may-read-resource` and `may-create-resource`. It's not possible to create a resource that you aren't authorized to read, because JSON:API POST always echos back the created object.
 After you pass those two resource-level checks, we move on to field-level checks.
@@ -81,3 +141,108 @@ For each field you include, we check for `may-writes-fields` *if* the value of t
 ### Delete
 When you try to delete a resource, we check for `may-delete-resource`, and that's it. We aren't checking `may-read-resource` because a DELETE doesn't echo back the resource.
 In practice, you will usually need `may-read-resourc`e anyway, because many data sources require an If-Match header on DELETE, in order to avoid race conditions, and you won't be able to come up with the current version for If-Match without first reading the resource.
+
+## Types restrictions
+
+We can apply restrictions to certain types by specifying the `type` relationship on a grant. For instance, we can protect some types as:
+
+```javascript
+factory
+  .addResource('grants')
+  .withRelated('who', [{ type: 'groups', id: 'example-managers' }])
+  .withRelated(
+    'types',
+    { type: 'content-types', id: 'financial-reports' }
+  )
+  .withAttributes({
+    'may-read-resource': true,
+    'may-read-fields': true
+  });
+```
+
+In order to apply a grant to all types we need to be explicit. This means we need a list of all the types registered on the hub. We can speficy such grant as follows:
+
+```javascript
+
+// Form a lit of all the registered types
+let contentTypes = cardSchemas
+  .getModels()
+  .filter(i => i.type === 'content-types' && i.id !== 'search-results')
+  .map(i => {
+    return { type: 'content-types', id: i.id };
+  });
+
+factory
+  .addResource('grants')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated(
+    'types',
+    // We used the registered types, plus systemm cards too
+    contentTypes.concat([
+      { type: 'content-types', id: 'content-types' },
+      { type: 'content-types', id: 'spaces' },
+      { type: 'content-types', id: 'app-cards' },
+      { type: 'content-types', id: 'search-results' }
+    ])
+  )
+  .withAttributes({
+    'may-read-resource': true
+  });
+```
+
+## Fields restrictions
+
+We can specify to which fields cetrain grant applies. We can even apply different grants to specific fields in a single entity. The following example illustrates the concept:
+
+```javascript
+let publicFields = [
+  { type: 'fields', id: 'name' },
+  { type: 'fields', id: 'year' },
+  { type: 'fields', id: 'net-profits' },
+];
+let privateFields = [
+  { type: 'fields', id: 'payroll' }
+];
+
+factory
+  .addResource('grants')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('types', [{ type: 'content-types', id: 'reports' }])
+  .withRelated('fields', publicFields)
+  .withAttributes({
+    'may-read-fields': true
+  });
+
+factory
+  .addResource('grants')
+  .withRelated('who', [{ type: 'groups', id: 'example-managers' }])
+  .withRelated('types', [{ type: 'content-types', id: 'reports' }])
+  .withRelated('fields', privateFields)
+  .withAttributes({
+    'may-read-fields': true
+  });
+```
+
+However, due the way fields are defined in cardstack you cannot set different permissions to two fields of the same name, even if they are in different entities. For instance, the following **will not work**:
+
+```javascript
+factory
+  .addResource('grants')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('types', [{ type: 'content-types', id: 'sale-products' }])
+  .withRelated('fields', [{ id: 'fields', id: 'price' }])
+  .withAttributes({
+    'may-read-fields': true
+  });
+
+factory
+  .addResource('grants')
+  .withRelated('who', [{ type: 'groups', id: 'example-managers' }])
+  .withRelated('types', [{ type: 'content-types', id: 'secret-product' }])
+  .withRelated('fields', [{ id: 'fields', id: 'price' }])
+  .withAttributes({
+    'may-read-fields': true
+  });
+```
+
+You would have to rename the `price` field name to be unique for each to achieve the desired permissions.
