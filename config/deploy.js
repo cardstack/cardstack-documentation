@@ -33,6 +33,8 @@ module.exports = function(deployTarget) {
     ENV["s3-index"].region = 'ap-southeast-1';
     ENV.cloudfront = {
       distribution: 'E2TZ3PLCL45IAQ',
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       objectPaths: [ '/', '/*', '/**/*', '/index.html' ]
     }
   }
