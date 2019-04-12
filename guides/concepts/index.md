@@ -42,7 +42,7 @@ Then, the Cardstack environment will be able to understand and use that data aut
 
 Here's an example of a JSON:API response to `GET /articles`:
 
-```
+```json
 {
   "data": [{
     "type": "articles",
