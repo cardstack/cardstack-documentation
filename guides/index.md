@@ -20,4 +20,4 @@ These pages are not designed to be very detailed *API documentation. Cardstack i
 
 ## Contributing
 
-As an Open Source project, Cardstack welcomes participation from the community! There should be a pencil icon at the top right of every page that will allow you to edit this documentation so please feel free to contribute if you know how to make things a bit better.
+As an Open Source project, Cardstack welcomes participation from the community! There should be a pencil icon at the top right of every page that will allow you to edit this documentation, so please feel free to contribute if you know how to make things a bit better.

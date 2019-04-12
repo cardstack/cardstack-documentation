@@ -7,23 +7,33 @@ This section is a crash course in Cardstack concepts. It includes vocabulary tha
 
 Cards are reusable units of functionality - like a blog article, a text editor, a payment system, and more.
 A developer would use many cards, and cards inside of cards, to create the end user experience.
-Each card can have its own data schema, which flows from the front end to the data layer. When someone is looking at a card, it is reflected in the browser URL. The information contained in that URL informs communication with the back end servers.
+Each card can have its own data schema, which flows from the front end to the data layer. When someone is looking at a card, it is reflected in the browser URL.
+The information contained in that URL informs communication with the back end servers.
 
-### The Cardstack monorepo
+### The Cardstack mono-repo
 
-The Cardstack monorepo is a collection of the various elements that could be used to create a Cardstack environment. It contains some commonly-used Cards, the Cardstack Hub that connects data sources, and the code that ties everything together behind the scenes.
+The [Cardstack mono-repo](https://github.com/cardstack/cardstack) is a collection of the various elements that could be used to create a Cardstack environment.
+It contains some commonly-used Cards, the Cardstack Hub that connects data sources, and the code that ties everything together behind the scenes.
 
 ### Plugins and Data Adapters
 
-A plugin, or data adapter, is made up of four functions needed to connect with a new data source. For example, someone could write or use plugins to connect to GitHub, Firebase, and a blockchain source. That same plugin code could be used by anyone running a Cardstack environment who wants to connect to the same data source.
+A plugin, or data adapter, is made up of four functions needed to connect with a new data source.
+For example, someone could write or use plugins to connect to GitHub, Firebase, and a blockchain source.
+That same plugin code could be used by anyone running a Cardstack environment who wants to connect to the same data source.
 
 ### The Hub
 
-The Cardstack Hub is where data from many sources come together. Developers can activate any number of plugins provided by Cardstack or insert their own. The Cardstack Hub does all the heavy lifting that takes the data retrieved by plugins and makes it available to the front end. To connect to a new data source, a developer only has to write a plugin, not modify the Hub. The Hub's code is contained within the Cardstack monorepo.
+The Cardstack Hub is where data from many sources come together.
+Developers can activate any number of plugins provided by Cardstack or insert their own.
+The Cardstack Hub does all the heavy lifting that takes the data retrieved by plugins and makes it available to the front end.
+To connect to a new data source, a developer only has to write a plugin, not modify the Hub. The Hub's code is contained within the Cardstack monorepo.
 
 ### The Cardstack Environment
 
-It’s helpful to think of Cardstack “environments” rather than "apps." Although Cardstack is built for the web and not native, in some ways its mental model is more similar to an operating system than a web app. For example, say you make a Word doc, and then share it with someone else, who then makes revisions and sends it back to you via email. That’s analogous to a developer composing a Card, making it available for others to use, and accepting revisions. Someone could build an app _using_ Cardstack, but Cardstack itself is not an app.
+It’s helpful to think of Cardstack “environments” rather than "apps." 
+Although Cardstack is built for the web and not native, in some ways its mental model is more similar to an operating system than a web app.
+For example, say you make a Word doc, and then share it with someone else, who then makes revisions and sends it back to you via email.
+That’s analogous to a developer composing a Card, making it available for others to use, and accepting revisions. Someone could build an app _using_ Cardstack, but Cardstack itself is not an app.
 
 ### Schema
 
@@ -31,7 +41,9 @@ Schema is a general term to describe the shape that data takes. What attributes 
 
 ### Indexers, Searchers, and Writers
 
-These packages are responsible for data operations like caching, searching, and modifying. They are found within the Cardstack monorepo, and they define the flow of data through a Cardstack environment. They are internal to how Cardstack works, but can be helpful to look at when trying to understand how and when data requests are made.
+These packages are responsible for data operations like caching, searching, and modifying.
+They are found within the Cardstack monorepo, and they define the flow of data through a Cardstack environment.
+They are internal to how Cardstack works, but can be helpful to look at when trying to understand how and when data requests are made.
 
 ### JSON:API
 
