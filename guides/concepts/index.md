@@ -62,4 +62,27 @@ Here's an example of a JSON:API response to `GET /articles`:
 
 ## Connecting with JavaScript Concepts
 
-From an outside perspective it is clear that a lot of the underlying concepts in Cardstack reflect some of the useful architectural decisions of Ember. If you are familiar with Ember then you are likely going to understand the most/all of these concepts without too much effort.
+To be able to read the codebase, get a sense of the mental models, and make your own creations using Cardstack, it helps to be familiar with these concepts.
+
+### Classes
+
+You might already be familiar with
+[Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+from your work in JavaScript or other programming languages.
+If you haven't worked much with Classes, take some time to refresh your understanding.
+
+### async/await and Promises
+
+Cardstack makes significant use of JavaScript's [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) and [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
+
+### Data adapters
+
+A lot of Cardstack's data handling concepts are inspired by trends toward flexible APIs, like GraphQL, and architectural decisions of Ember.
+Many developers like GraphQL because you have flexibility in the data layer.
+When it comes to Ember, Cardstack's data adapters and plugins have some mental model similarities to model loading, and `ember-data` adapters and serializers.
+
+### Components
+
+You can kind of think of a Card as a Component that transcends the front and back end concerns.
+For example, a component in a traditional web app might be a form that sends a POST request to a back end.
+In Cardstack, a Card might consist of the form, but also the data serialization and storage method.
