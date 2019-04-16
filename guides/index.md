@@ -22,7 +22,7 @@ and
 
 ## About these Guides
 
-These pages are not designed to be very detailed *API documentation. Cardstack is pre-1.0, so there may be some inconsistencies in the documentation, and APIs are subject to change as we iterate, explore, and build new features.
+These pages are not designed to be very detailed API documentation. Cardstack is pre-1.0, so there may be some inconsistencies in the documentation, and APIs are subject to change as we iterate, explore, and build new features.
 
 ## Contributing
 
