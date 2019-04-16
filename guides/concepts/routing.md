@@ -1,7 +1,48 @@
-The idea is that a card can define a series of routes that it supports, and that the routes can cascade, such that if a card's router routes a path to a particular card, that card can then in turn route to another card. We use the term "routing-card" for a card that has a router. And specifically the top level routing card is called the "application card".
+In Cardstack, a user's journey through a UI is reflected in the browser's url and the data that is fetched at each segment.
 
-## Application Cards
-Each Cardstack application has an "application card" that is the top level routing card for the cardstack application. Any card can serve as the application card in the cardstack application. If no application card is specified, the hub uses a default, "Getting Started", application card. Additionally if the application card does not specify a router the hub provides a default router (`@cardstack/routing/cardstack/default-router`) that includes a static mapping route and a vanity URL of "/" to the application card itself. Cardstack applications can specify their application cards in the `plugin-configs/@cardstack-hub` configuration. Note that the default application card leverages the default router.
+For example, when someone visits `http://localhost:4200/articles/ten-reasons-love-cardstack`, it has a direct effect on which visual components are used and the information sent in a GET request.
+
+But how are those URLs made?
+What determines the data to fetch?
+What should happen if there are nested routes?
+And what should the user see?
+In this section, we will cover the basics of Routing and how Cards handle their data.
+
+## Routing features
+
+Since Cardstack's tools cover the full stack, the routing system offers some major benefits:
+
+- **Sharing:** Each Card defines the Routes that it supports, so Cards can be moved around and used in new projects.
+They bring their route functionality with them, and they continue to work inside any new context.
+- **Nesting:** Cards and their routes can be nested, like `/articles/my-article-title/authors`
+- **Data fetching:** The URL of a nested route is automatically transformed into the right API requests to make
+- **Data display:** Data retrieved becomes available as `content` in a Card's template
+- **Namespaced Query Parameters:** Query Parameters are namespaced by cards, so we don't need to worry about collisions if we are using someone else's Open Sourced Card or working on a massive project.
+For example, we could reuse "tag" as a query parameter throughout different Cards: `/articles/my-article-title/authors?articles[tag]=recent&authors[tag]=guest`.
+- **Flexibility:** Since routing belongs to individual Cards, a project's file structure is decoupled from its routing.
+Refactors and code sharing become easier.
+- **Speed:** relationship serialization, traversal, and filtering are done server-side.
+In one request, your Cards get the data they need.
+- **Low overhead:** we get to skip a bunch of steps when creating a new Route, compared to the typical web developer experience.
+For example, a typical Ember app would require that you write `model` hooks, create new Route files, and modify the Router. None of that is needed in Cardstack.
+
+## Types of Routing Cards
+
+A Card can define a series of routes that it supports, and that the routes can cascade, such that if a Card's router routes a path to a particular Card, that Card can then in turn route to another Card.
+The job of the Router is to determine which Cards live at which Route.
+
+We use the term "routing-card" to describe a Card that has a router. 
+
+The "application-card" is a top level routing Card.
+
+
+### Application Cards
+
+Each Cardstack application has an "application card" that is the top level routing card for the cardstack application. Any card can serve as the application card in the cardstack application. If no application card is specified, the hub uses a default, "Getting Started", application card. Additionally, if the application card does not specify a router, the hub provides a default router (`@cardstack/routing/cardstack/default-router`) that includes a static mapping route and a vanity URL of "/" to the application card itself. 
+
+#### Creating an application card
+
+Cardstack applications can specify their application cards in the `plugin-configs/@cardstack-hub` configuration. Note that the default application card leverages the default router.
 
 Consider the following example for Acme Corp's HR application (Note that we use the term "Cardstack Application", when in fact a Cardstack application is really just another card. Consider "Cardstack Application" as the top level npm module in your project):
 
@@ -122,7 +163,8 @@ factory.addResource('grants', 'acme-applications-grant')
   .withRelated('types', [{ type: 'content-types', id: 'acme-applications' }]);
 ```
 
-## Routing
+## How Routing works behind-the-scenes
+
 The router is leveraged when the client makes a request to get a `space`. A `space` is retrieved by URL. So if the client wants to enter the route `/latest-article`, it makes a request to the API: `GET https://<hub api domain>/api/spaces%2Flatest-article`. The API then uses the router above to match the path to a particular route whose query will be used to find the card to display to the user.
 
 In order to accomdate the ability to match paths to routes, on startup, the hub assembles a router map that represents all the possible routes in the system based on all the cards that have routes associated with them. The hub performs this by beginning at the application card, and recursively descending through all the possible cards that the application card routes to, and then descending through all those cards, and so on. As the hub discovers all the possible routes in the system it compiles these routes into the router map. The hub then arranges the routes in the router map such that the most specific routes are matched before the most general routes.
@@ -130,7 +172,12 @@ In order to accomdate the ability to match paths to routes, on startup, the hub 
 _TODO: Provide an illustration of the router map structure and how it relates to routing cards_
 
 ## Error Cards
-Additionally, when the router is unable to find a card for the provided path, it will return an error card. A system error card is provided. Cardstack application developers can provide their own custom error cards by creating a content-type that uses an `*-errors` suffix of the routing card's content type. So if the application card's content-type is `acme-applications`, a custom error card for this application card would be the content type of `acme-applications-errors`, and you should have at least one instance of this type with the ID of `not-found` that is returned when the router cannot find a card for the path provided (this can be established in the `static-model.js` feature of your cardstack application). You can then provide a custom template for this card as an ember addon in the same way a you provide for any card. You should also set a world read grant for this content type, so that errors fields are not inadvertently hidden for API clients.
+
+When the router is unable to find a card for the provided path, it will return an error card. A system error card is provided. 
+
+### Creating an Error Card
+
+Cardstack application developers can provide their own custom error cards by creating a content-type that uses an `*-errors` suffix of the routing card's content type. So if the application card's content-type is `acme-applications`, a custom error card for this application card would be the content type of `acme-applications-errors`, and you should have at least one instance of this type with the ID of `not-found` that is returned when the router cannot find a card for the path provided (this can be established in the `static-model.js` feature of your cardstack application). You can then provide a custom template for this card as an ember addon in the same way a you provide for any card. You should also set a world read grant for this content type, so that errors fields are not inadvertently hidden for API clients.
 
 When a routing card triggers an error because a card cannot be found for the path, the error will bubble up through all the routing cards that where involved with the routing of the path. The custom error card that is closest to the router that was unable to resolve the path will be the error card that is returned from the server.
 
@@ -153,6 +200,7 @@ factory.addResource('acme-applications-errors', 'not-found');
 ```
 
 ## Canonical Paths for Cards
+
 The mechamism responsible for generating json:api documents for cards, `DocumentContext`, works such that if `attributes.route-stack`, appears on the document presented to it, DocumentContext will add `links.self` to all the resources in the json:api document that it constructs (this is the case for the `spaces` content type). The route stack is an array of all the cards (as `type/id`) that the router routed through in order to reach a particular card. The `links.self` links are the canonical paths for the resources based on the `route-stack`. The way that we derive a canonical path for a resource is to introspect each routing card in the route stack, from the highest level routing card to the deepest level routing card and identify a route whose query will result in the card whose canonical path we are resolving (in the following order):
 
 1. A query that matches the specified resource specifically. This is a vanity URL to the resource, and has the highest precedence when deriving a canonical path to the resource.
@@ -238,9 +286,15 @@ factory.addResource('content-types', 'blogs')
 ```
 
 In this example, the URL for the blog, which includes the name-spaced query parameter, looks like this:
+
 ```
 https://<application domain>/blogs/chris?blogs[since]=2018-01-01
 ```
+
 Note that the namespace for the query parameter `since` is `blogs` since the `blogs` content-type's router is the router that declares the query param in the `{ path: '?since=:since' }` route above.
 
-The card's components can also modify the query params in the browser's URL location, i.e. browser history `pushState()`. Each card's component is decorated with a `setParams(name, value)` action that accepts a query param name and its value. The card can then use the `setParam` action to set query params that have been declared by the router for the card. The namespacing will automatically be added to the query param that is set, so that the card does not need to worry about handling the query param namespacing.
+#### Changing query params with actions
+
+The card's components can also modify the query params in the browser's URL location, i.e. browser history `pushState()`. Each card's component is decorated with a `setParams(name, value)` action that accepts a query param name and its value. An `action` is a function that is available to use in a Card's template.
+
+The card can then use the `setParam` action to set query params that have been declared by the router for the card. The namespacing will automatically be added to the query param that is set, so that the card does not need to worry about handling the query param namespacing.
