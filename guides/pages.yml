@@ -39,7 +39,19 @@
     - title: "Learn More"
       url: "learn-more"
 
-- title: "Developer Cookbook"
+- title: "Data Sources"
+  url: "data"
+  pages:
+    - title: "Overview"
+      url: "index"
+    - title: "Creating a plugin"
+      url: creating-a-plugin"
+    - title: "Making API requests"
+      url: "api-requests"
+    - title: "Extending"
+      url: "extending"
+
+      - title: "Developer Cookbook"
   url: "developer-cookbook"
   pages:
     - title: "Overview"
@@ -52,18 +64,6 @@
       url: "third-party-api"
      - title: "Using Ethereum as a data source"
       url: "ethereum"   
-
-- title: "Data Sources"
-  url: "data"
-  pages:
-    - title: "Overview"
-      url: "index"
-    - title: "Creating a plugin"
-      url: creating-a-plugin"
-    - title: "Making API requests"
-      url: "api-requests"
-    - title: "Extending"
-      url: "extending"
 
 - title: "Design System"
   url: "design"
@@ -110,8 +110,6 @@
       url: "hub-dependencies"
     - title: "Ethereum Plugin"
       url: "ethereum"
-    - title: ""
-      url: ""
 
 - title: "Chinese Learning Resources"
   url: "chinese-learning"
@@ -171,8 +169,3 @@
 #     - title: "Card Viewport"
 #       url: "viewport"
 
-# - title: "Data access and Indexing"
-#   url: "data"
-#   pages:
-#     - title: "Introduction"
-#       url: "index"
