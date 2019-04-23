@@ -1,0 +1,3 @@
+_This page is a work-in-progress! To help with content, click on the pencil icon in the top right corner._
+
+_Proposed content: describe how to write more middleware functions than the four provided out of the box (indexers, writers, searchers, authenticators). Show examples, like reading/writing to a really slow enterprise system w/10 min intervals. Another example is connecting to cloud data feeds, blockchain, authentication like OAuth/Auth0_

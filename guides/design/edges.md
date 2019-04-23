@@ -1,3 +1,5 @@
+_This page is a work-in-progress! To help with content, click on the pencil icon in the top right corner._
+
 The 4 Edges are a design system for making changes to cards.
 
 ## Learn more
