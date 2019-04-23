@@ -45,7 +45,7 @@
     - title: "Overview"
       url: "index"
     - title: "Creating a plugin"
-      url: creating-a-plugin"
+      url: "creating-a-plugin"
     - title: "Making API requests"
       url: "api-requests"
     - title: "Extending"
