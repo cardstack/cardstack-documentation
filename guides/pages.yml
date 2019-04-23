@@ -51,7 +51,7 @@
     - title: "Extending"
       url: "extending"
 
-      - title: "Developer Cookbook"
+- title: "Developer Cookbook"
   url: "developer-cookbook"
   pages:
     - title: "Overview"
@@ -62,7 +62,7 @@
       url: "forms"
     - title: "Connecting to a third-party API"
       url: "third-party-api"
-     - title: "Using Ethereum as a data source"
+    - title: "Using Ethereum as a data source"
       url: "ethereum"   
 
 - title: "Design System"
