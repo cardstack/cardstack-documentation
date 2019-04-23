@@ -32,10 +32,10 @@
       url: "routing"
     - title: "Grants"
       url: "grants"
+    - title: "Styling"
+      url: "styling"
     - title: "Animation"
       url: "animation"
-    - title: "Templates"
-      url: "templates"
     - title: "Learn More"
       url: "learn-more"
 
