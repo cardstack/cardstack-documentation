@@ -50,6 +50,8 @@
       url: "forms"
     - title: "Connecting to a third-party API"
       url: "third-party-api"
+     - title: "Using Ethereum as a data source"
+      url: "ethereum"   
 
 - title: "Data Sources"
   url: "data"
