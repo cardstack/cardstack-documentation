@@ -108,8 +108,8 @@
       url: "hub"
     - title: "Hub Dependencies"
       url: "hub-dependencies"
-    - title: ""
-      url: ""
+    - title: "Ethereum Plugin"
+      url: "ethereum"
     - title: ""
       url: ""
 
