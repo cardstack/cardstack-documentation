@@ -9,7 +9,7 @@
   url: "getting-started"
   pages:
     - title: "Quickstart"
-      url: "quickstart"
+      url: "index"
     - title: "Main Concepts"
       url: "main-concepts"
 
