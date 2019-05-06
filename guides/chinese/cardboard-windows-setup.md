@@ -34,7 +34,6 @@ PS D:\cardboard\cardboard> npm install --global --production windows-build-tools
 
 ![设置系统环境变量](/images/chinese/windows/set_environment_variables.png)
 
-
 ## 安装node模组
 
 此步骤需要提前开启梯子,不然会出现安装失败,整个安装过程大概需要5-30分钟
@@ -45,7 +44,6 @@ PS D:\cardboard\cardboard> npm install --global --production windows-build-tools
 
 ## 运行数据库PostgreSQL
  此功能需要在Docker进行运行,Cardboard已经设置好了相关的配置,此步骤只需要`yarn start-prereqs`这个命令就可以完成操作
- 
 
 ## 运行Cardboard
 在数据库运行成功后,使用`yarn start`来启动整个程序,等待程序自动构建完成后,通过[localhost:4200](localhost:4200)访问应用
