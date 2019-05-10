@@ -1,4 +1,4 @@
-在使用windows系统进行Cardboard编译时,由于系统的差异性,可能会出现一系统的安装问题,本文档提供一套相对完善的安装示例，并在最大程度上对一些问题进行了规避，使开发者能快速完成平台的运行
+这个教程是在Windows操作系统上安装Cardstack开源全栈应用Cardboard的流程。同样的安装流程可以应用到其他的开源全站应用上，例如[Cardfolio](https://github.com/cardstack/portfolio)。
 
 ## 示例系统环境
  + windows系统版本 *Windows 10 X64 Version 1809(OS Build 17763.107)*
@@ -19,7 +19,7 @@ PS D:\cardboard\cardboard> npm install --global --production windows-build-tools
 
 这此步骤中,很有可能出现安装异常情况,如果你在运行中出现此情况,接下来就需要手动进行安装
 
-![异常错误](/images/chinese/windows/error_download.png)
+![异常错误](/images/chinese-learning/cardboard-windows-setup-cn/error_download.png)
 
 1. [下载python 2.7.15](https://www.python.org/downloads/release/python-2715/) (必须下载2.7.x版本,3.x无法运行)
 2. [下载vs_buildTools.exe](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Professional&rel=15) (此步骤需要开梯子才能打开)
@@ -28,11 +28,11 @@ PS D:\cardboard\cardboard> npm install --global --production windows-build-tools
 
 以下为安装成功截图
 
-![安装成功](/images/chinese/windows/install_build_tools.png)
+![安装成功](/images/chinese-learning/cardboard-windows-setup-cn/install_build_tools.png)
 
 ## 添加VCTargetsPath系统环境变量
 
-![设置系统环境变量](/images/chinese/windows/set_environment_variables.png)
+![设置系统环境变量](/images/chinese-learning/cardboard-windows-setup-cn/set_environment_variables.png)
 
 ## 安装node模组
 
@@ -40,7 +40,7 @@ PS D:\cardboard\cardboard> npm install --global --production windows-build-tools
 
 在PowerShell中运行`yarn install`命令
 
-![安装成功](/images/chinese/windows/yarn_install.png)
+![安装成功](/images/chinese-learning/cardboard-windows-setup-cn/yarn_install.png)
 
 ## 运行数据库PostgreSQL
  此功能需要在Docker进行运行,Cardboard已经设置好了相关的配置,此步骤只需要`yarn start-prereqs`这个命令就可以完成操作
@@ -50,13 +50,13 @@ PS D:\cardboard\cardboard> npm install --global --production windows-build-tools
 
 以下为构建完成截图
 
-![构建完成](/images/chinese/windows/build_success.png)
+![构建完成](/images/chinese-learning/cardboard-windows-setup-cn/build_success.png)
 
 ## 错误解决
 ### 无法使用windows-build-tools完成安装的解决办法
 1. 双击执行python-2.7.15.amd64.msi,选中添加环境变量,然后安装
 
-![构建完成](/images/chinese/windows/python_install.png)
+![构建完成](/images/chinese-learning/cardboard-windows-setup-cn/python_install.png)
  
 2. 安装Build Tools 2015
 
@@ -66,10 +66,10 @@ PS D:\cardboard\cardboard> npm install --global --production windows-build-tools
  
 打开%userprofile%/.windows-build-tools,双击执行vs_BuildTools.exe,根据下图勾选的组件进行安装
 
-![vs_build_tools2017](/images/chinese/windows/build_tools2017_5.png)
+![vs_build_tools2017](/images/chinese-learning/cardboard-windows-setup-cn/build_tools2017_5.png)
  
 4. 在PowerShell中再次运行`yarn install`命令,即可完成安装
 ### MSB4019错误
 执行 yarn install,可能出现 X:\\Microsoft.Cpp.Default.props找不到的情况,此步骤为未设置VCTargetsPath环境
 
- ![vs_build_tools2017](/images/chinese/windows/default_props_not_found.png)
+ ![vs_build_tools2017](/images/chinese-learning/cardboard-windows-setup-cn/default_props_not_found.png)
