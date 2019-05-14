@@ -60,3 +60,11 @@
   pages:
     - title: "Introduction"
       url: "index"
+
+- title: "Chinese Learning Resources"
+  url: "chinese-learning"
+  pages:
+    - title: "简介"
+      url: "index"
+    - title: "Cardboard的Windows安装步骤"
+      url: "cardboard-windows-setup-cn"
