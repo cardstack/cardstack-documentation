@@ -1,12 +1,16 @@
 # Hub Plugins
-One of the foundational aspects of our framework is our ability to expose on-chain information to dApps in an easy-to-consume manner that allows developers to query the blockchain without any special Ethereum libraries (like web3.js).
-The [Cardstack Hub](https://medium.com/cardstack/what-is-the-cardstack-hub-1c9a9e3df343) provides a “data fusion” layer for decentralized applications built using Cardstack. Using the Hub, each Cardstack application can use off-the-shelf plugins in order to ingest data from some particular data source — be it a cloud service or a blockchain—into the Cardstack Hub’s index.
+
+The [Cardstack Hub](https://medium.com/cardstack/what-is-the-cardstack-hub-1c9a9e3df343) provides a “data fusion” layer for decentralized applications built using Cardstack. Using the Hub, each Cardstack application can use off-the-shelf plugins in order to ingest data from some particular data source — be it a cloud service or a blockchain — into the Cardstack Hub’s index.
+
+# Hub Plugins
 
 Examples of plugins for different data sources that we have built so far are:
+
 * PostgreSQL plugin that can ingest content from a PostgreSQL database,
 * Git plugin that can ingest content from a Git repository (e.g. GitHub)
 * Drupal plugin that can ingest content from a Drupal content management system
 * Ethereum plugin that can ingest content from smart contracts (including Oracles) running on Ethereum
+
 Additionally, we have a development kit that can be used to create new data source plugins for ingesting content from other sources.
 
 When the Cardstack Hub is booted, the very first thing it will do is to start crawling the directory structure of the application to discover the various plugins that are installed and the different features available for the plugin. The most basic feature that any data source plugin must have is an indexing feature.

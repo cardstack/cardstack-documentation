@@ -1,0 +1,3 @@
+_This page is a work-in-progress! To help with content, click on the pencil icon in the top right corner._
+
+_Proposed content: creating a plugin/building off an existing plugin. Look at what is in `index.md` and maybe migrate some of it to here. One of these two topics should cover [CQRS](https://martinfowler.com/bliki/CQRS.html), which is a well established, but uncommon architectural pattern compared to MVC._
