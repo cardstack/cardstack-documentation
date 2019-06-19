@@ -1,8 +1,3 @@
-
-These work-in-progress documentation resources provide a high level overview of features, the project architecture, how to use Cardstack to power your own creations, and some pointers for developers who are working on the framework itself.
-
-## What is Cardstack?
-
 Cardstack is an open source framework that [enables Web 3.0](https://medium.com/cardstack/rethinking-the-web-3-0-experience-9b5fe508aa77). “Cards” form the building blocks that allow for bringing in data from disparate sources, beautiful UI animations, encapsulated and flexible data schemas, and a quick ramp-up experience. Both JavaScript developers and end-users are empowered to add common application features (CMS, notifications, authentication).
 
 Cardstack is a full-stack development environment, meaning that it spans everything from the front-end browser experience, to API layers, to the database and caching. Under the hood, it makes use of other libraries such as Node, Koa, Ember.js, and postgres, but someone does not need to know those tools in order to build something of their own using Cardstack.
