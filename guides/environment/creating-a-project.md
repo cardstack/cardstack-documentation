@@ -20,14 +20,27 @@ Each Card follows the project structure of an [Ember Addon](https://cli.emberjs.
 Each Card can have its own independent tests.
 When you look at an individual Card's `package.json`, you will see some `@cardstack` dependencies. These are what help turn an Addon into a Card:
 
-```
-devDependencies: {
+```json
+"devDependencies": {
     "@cardstack/ethereum": "^0.14.16",
     "@cardstack/jsonapi": "^0.14.16",
     "@cardstack/mobiledoc": "^0.14.16",
     "@cardstack/routing": "^0.14.16",
 ...
 }
+```
+
+Each card should also have the following keywords and metadata added to `package.json`. This information helps others find a Card when it is published, and tells the Cardstack environment that the package is a Card:
+
+```json
+  "keywords": [
+    "cardstack-plugin",
+    "ember-addon"
+  ],
+  "cardstack-plugin": {
+    "api-version": 1,
+    "src": "cardstack"
+  },
 ```
 
 ### Card schema and data

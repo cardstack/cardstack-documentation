@@ -115,7 +115,7 @@
   pages:
     - title: "Overview"
       url: "index"
-    - title: "publishing a card"
+    - title: "Publishing a Card"
       url: "publish-a-card"
     - title: "Deploying your card experience"
       url: "deploying"
