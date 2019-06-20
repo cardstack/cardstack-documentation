@@ -55,6 +55,8 @@
 - title: "Assembling a deck of cards"
   url: "deck"
   pages:
+    - title: "Overview"
+      url: "index"
     - title: "Relationships"
       url: "relationships"
     - title: "Computed fields"
