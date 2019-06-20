@@ -11,6 +11,9 @@ First, you need the following installed on your Mac, Linux, or Windows computer:
 - Linux and Mac systems should also install [Watchman](https://facebook.github.io/watchman/)
 - If you are developing in a Windows environment, use [Bash](#todo) if you would like to be able to follow this tutorial exactly as written.
 
+Developers should be familiar with JavaScript, HTML, and git in order to follow
+along with these Guides.
+
 ## Download an existing project
 
 Developers using Cardstack will spend most of their time working on Cards,

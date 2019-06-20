@@ -3,6 +3,12 @@ This section is a crash course in Cardstack concepts. It includes vocabulary tha
 
 ## Essential Vocabulary
 
+### Card SDK
+
+SDK stands for Software Development Kit. The Card SDK contains the public
+API methods, properties, and events that developers can use to build their
+own projects.
+
 ### Cards
 
 Cards are reusable units of functionality - like a form, a text editor, a payment system, and more.
