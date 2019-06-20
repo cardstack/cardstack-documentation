@@ -1,1 +1,7 @@
-coming soon
+A Card Space is the real estate where cards from Decks are arranged. When a card is in a Space, it is “at rest” — behaving like an embedded widget.
+
+A Space can be built from cards in a single Deck, or include cards from multiple Decks, including Decks with different owners. Spaces themselves can be minimized and act as cards. That means you can embed Spaces within Spaces, Spaces within cards, cards within Spaces. The general idea is that a Space is designed to represent a collective truth, built from content owned by one or more participants.
+
+Spaces can be public, private or somewhere in between. To use a loose Web 2.0 analogy, if the Facebook web app is the “Deck,” then a Facebook profile, or the News Feed, would be examples of “Spaces”: where contributions from multiple parties come together to form a shared understanding.
+
+Cardstack represents an evolution from Web 2.0 because cards are not tied to their Spaces, and Spaces do not change the ownership of cards. Cards that exist in Spaces can simultaneously exist in other Spaces — and still belong to their Decks and their owners. This is why we refer to cards as carriers of truth: their original integrity and ownership is not compromised as they move through the Web and perform different roles within different spaces.
