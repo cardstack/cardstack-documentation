@@ -166,7 +166,14 @@ factory.addResource('fields', 'is-admin-user').withAttributes({
 
 You can learn more about field editors in the [`@cardstack/core-types`](https://github.com/cardstack/cardstack/tree/master/packages/core-types) source code.
 
+## Isolated and Embedded
+
+Cards can be displayed in one of two modes, `isolated` and `embedded`.
+Depending on where a Card is viewed from, different data may be fetched and displayed.
+Continue on to the [next Guide article](../templates) to learn more!
+
 ## `withRelated` and `defaultIncludes`
 
-Cards can have relationships to other Cards' data types. Continue on to the
-next section to learn more!
+Cards can have relationships to other Cards' data types. For example,
+an `article` might beloing to an `author`, or multiple `authors`.
+To jump ahead and learn more, see [Relationships](../../deck/relationships).
