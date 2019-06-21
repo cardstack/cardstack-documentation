@@ -5,9 +5,13 @@ For example, drafting an email, changing a blog article title, editing your user
 
 The Four Edges are tools that provide an out-of-the-box way for developers to offer editing capabilities. Those editing tools can be user-facing or can be used to power admin consoles.
 
+Each "edge" refers to a different aspect of data flow in an an application. There are environments, networks, libraries, and configurations. Put more simply, navigation, incoming data, available tools, and editing.
+
+![four edges diagram](/images/edges.png)
+
 ## Developer toolkit
 
-Developers who want to add the Four Edges to their Cards can use [ember-toolbars](https://github.com/cardstack/ember-toolbars/) and [cardstack-edges](https://github.com/cardstack/cardstack/tree/master/packages/edges) to get started.
+Developers who want to add the Four Edges to their Cards can use [ember-toolbars](https://github.com/cardstack/ember-toolbars/), [cardstack-edges](https://github.com/cardstack/cardstack/tree/master/packages/edges), and [card-picker](https://github.com/cardstack/cardstack/tree/master/packages/card-picker) to get started.
 
 ## Learn more
 
