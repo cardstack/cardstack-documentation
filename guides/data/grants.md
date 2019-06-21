@@ -1,3 +1,5 @@
+Grants are the main way to define authorization roles for Cardstack data. Authorization controls what kinds of data are allowed to be returned to which groups of users.
+
 A grant is a combination of:
 - a **who** group that is receiving permissions
 - one or more **permissions** (may-read-resource, may-write-fields, etc)
