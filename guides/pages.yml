@@ -17,8 +17,10 @@
   url: "environment"
   grouping: "Card SDK"
   pages:
-    - title: "Environment"
+    - title: "Overview"
       url: "index"
+    - title: "Environment"
+      url: "contents"
     - title: "Deck/project"
       url: "creating-a-project"
 
