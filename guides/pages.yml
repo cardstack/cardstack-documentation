@@ -144,19 +144,6 @@
     - title: "Tokens"
       url: "tokens"
 
-- title: "The Cardstack Hub"
-  url: "hub"
-  grouping: "developer reference"
-  pages:
-    - title: "Overview"
-      url: "index"
-    - title: "Running the Hub locally"
-      url: "local"
-    - title: "Deploying"
-      url: "deploying"
-    - title: "Extending"
-      url: "extending"
-
 - title: "Developer Cookbook"
   url: "developer-cookbook"
   pages:
