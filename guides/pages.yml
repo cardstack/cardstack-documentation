@@ -25,7 +25,7 @@
 - title: "Creating a stand-alone Card"
   url: "card-sdk"
   pages:
-    - title: "Creating cards"
+    - title: "Creating Cards"
       url: "index"
     - title: "Schema"
       url: "schema"
@@ -52,7 +52,7 @@
     # - title: "Learn More"
     #   url: "learn-more"
 
-- title: "Assembling a deck of cards"
+- title: "Assembling a deck of Cards"
   url: "deck"
   pages:
     - title: "Overview"
@@ -63,7 +63,7 @@
       url: "computed-fields"
     - title: "Linking Cards"
       url: "linking"
-    - title: "Embedding cards"
+    - title: "Embedding Cards"
       url: "embedding-cards"
     - title: "Space"
       url: "space"
@@ -89,7 +89,7 @@
       url: "grants"
     - title: "git as the default data source"
       url: "git"
-    - title: "plugins"
+    - title: "Plugins"
       url: "plugins"
     # - title: "Indexers"
     #   url: "indexers"
