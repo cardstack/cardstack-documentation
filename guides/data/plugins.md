@@ -16,10 +16,11 @@ A plugin defines where to make a request, what information to get, and how long 
 
 Examples of plugins for different data sources that we have built so far are:
 
-* PostgreSQL plugin that can ingest content from a PostgreSQL database,
-* Git plugin that can ingest content from a Git repository (e.g. GitHub)
+* [PostgreSQL plugin](https://github.com/cardstack/cardstack/tree/master/packages/postgresql) that can ingest content from a PostgreSQL database,
+* [Git plugin](https://github.com/cardstack/cardstack/tree/master/packages/git) that can ingest content from a Git repository (e.g. GitHub)
 * Drupal plugin that can ingest content from a Drupal content management system
-* Ethereum plugin that can ingest content from smart contracts (including Oracles) running on Ethereum
+* [Ethereum plugin](https://github.com/cardstack/cardstack/tree/master/packages/ethereum) that can ingest content from smart contracts (including Oracles) running on Ethereum
+* [S3 plugin](https://github.com/cardstack/cardstack/tree/master/packages/s3) for saving files to AWS
 
 Additionally, we have a development kit that can be used to create new data source plugins for ingesting content from other sources.
 
