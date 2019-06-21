@@ -1,6 +1,13 @@
-_This page is a work-in-progress! To help with content, click on the pencil icon in the top right corner._
+The Four Edges are a design system for making changes to cards.
 
-The 4 Edges are a design system for making changes to cards.
+Almost any web app you might use today has a way to edit the content.
+For example, drafting an email, changing a blog article title, editing your user profile - all these tasks required editing tools, yet most developers have to reinvent the wheel each time.
+
+The Four Edges are tools that provide an out-of-the-box way for developers to offer editing capabilities. Those editing tools can be user-facing or can be used to power admin consoles.
+
+## Developer toolkit
+
+Developers who want to add the Four Edges to their Cards can use [ember-toolbars](https://github.com/cardstack/ember-toolbars/) and [cardstack-edges](https://github.com/cardstack/cardstack/tree/master/packages/edges) to get started.
 
 ## Learn more
 

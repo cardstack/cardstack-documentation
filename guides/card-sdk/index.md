@@ -25,6 +25,6 @@ One of the key concepts that is fundamental to the idea of a Cardstack Card is t
 
 ## Learn more
 
-Cards are a lot more than just components. See [Cards at Rest, Cards in Motion](https://medium.com/cardstack/cards-at-rest-cards-in-motion-4a0f88a8b6c5) to learn more about the powers they have.
+Cards are a lot more than just components. See [Cards at Rest, Cards in Motion](https://medium.com/cardstack/cards-at-rest-cards-in-motion-4a0f88a8b6c5) and [Building the Card Catalog](https://medium.com/cardstack/building-the-card-catalog-bf034445d05e) to learn more about what makes them different from traditional web apps.
 
 You can also watch the [Card Folio community demo](https://medium.com/cardstack/cardstacks-card-folio-app-community-demo-c81b873ab596) and read [Community Q&A](https://medium.com/cardstack/community-q-a-the-card-folio-app-c07125a2e18d) to get the big picture for how Cards compose together.

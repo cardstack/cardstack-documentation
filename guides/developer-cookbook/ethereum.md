@@ -218,3 +218,8 @@ The Cardstack Hub also supports much more sophisticated queries of documents. Fo
     }
 }
 ```
+
+## Learn more
+
+Read more in [The Cardstack Ethereum Plugin: Technical Overview](https://medium.com/cardstack/exposing-your-smart-contract-as-a-restful-service-67e83fed11a9)
+and [Running an Ethereum Cardstack Hub Application](https://medium.com/cardstack/running-an-ethereum-cardstack-hub-application-961a4b2933ac).
