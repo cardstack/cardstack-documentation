@@ -20,19 +20,19 @@ but you should commit all of them.
 
 Next, you will need to make an addition to the `devDependencies` of the main app's `package.json`. The main app is in a directory that shares a name with your project, such as `my-project-name/my-project-name/package.json`. Here's the format of what to add to `devDependencies`:
 
-```
+```json
 "my-project-name-my-card-name": "*",
 ```
 
 For example, if your project is called "Cardboard" and your Card is "guest-author", you would add:
 
-```
+```json
 "cardboard-guest-author": "*",
 ```
 
 After saving your changes to `package.json`, run this command in the terminal:
 
-```
+```sh
 yarn install
 ```
 
