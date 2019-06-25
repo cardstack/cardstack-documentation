@@ -1,27 +1,60 @@
-You can think of a Card as a "mini app" that can be run in different contexts.
+You can think of a Card as a "mini app" that can be run in different places within an app, or shared between different apps.
 For example, someone might build a Card that fetches and displays user information from a GitHub profile.
 The information could be displayed on a standalone page, or as a small widget on another page.
+Every Card has its own templates, styling, JavaScript files, tests, and more.
+
+In this section of the Guides, you will create the essential files for a Card.
+In later sections, you will learn how to add and display data for your Card.
 
 ## Generating the project files
 
-```sh
-cd cards
-ember addon my-card-name --skip-git
-mkdir my-card-name/cardstack
-```
-
-Add the following dependencies to `my-card-name/package.json`:
+First, we'll run a command in the terminal that creates the Card's overall directory structure.
 
 ```sh
-yarn add --save-dev @cardstack/eslint-config @cardstack/files @cardstack/github-auth @cardstack/image @cardstack/jsonapi @cardstack/mobiledoc @cardstack/mock-auth @cardstack/routing @cardstack/test-support @cardstack/tools
+cd my-project-name
+ember generate card my-card-name
 ```
 
-With these commands, we have created the overall project structure.
-It will take more than this to get your card running, so keep reading to learn how to add templates, routes, and schema for your Card.
+You will see many new files in `cards/my-card-name`. You will do most of your work in just a few of these files,
+but you should commit all of them.
 
-## Combination of Data and Presentation
+Next, you will need to make an addition to the `devDependencies` of the main app's `package.json`. The main app is in a directory that shares a name with your project, such as `my-project-name/my-project-name/package.json`. Here's the format of what to add to `devDependencies`:
 
-One of the key concepts that is fundamental to the idea of a Cardstack Card is that there is a tight coupling between the data backing a Card and the presentational aspects of a Card. When referring to a card you are talking about the visual elements but also the data model that describes the attributes of that Card.
+```
+"my-project-name-my-card-name": "*",
+```
+
+For example, if your project is called "Cardboard" and your Card is "guest-author", you would add:
+
+```
+"cardboard-guest-author": "*",
+```
+
+After saving your changes to `package.json`, run this command in the terminal:
+
+```
+yarn install
+```
+
+This will automatically link your Card throughout the app so that you can use it.
+
+Lastly, make a CSS file at `my-card-name/tests/dummy/app/styles/app.css`, put a comment in it like `/* todo */`, and commit it. This file is needed for the tests to run.
+
+## What now?
+
+Great, you made the card's files! Continue on to the next section of the Guides to learn how to add some data and show it in the app.
+
+## Troubleshooting tips
+
+Having trouble? Not sure what to do? These notes might help you out.
+
+- When you generate a Card, run that command from inside `my-project-name/my-project-name` directory.
+Otherwise you will get an error, `node_modules appears empty, you may need to run yarn install`.
+- Every Card has its own `package.json`. You can always see the full name of your Card as the `name` in the `package.json` for your Card.
+- If you want to see which Cards are linked and active in your project, go to the top level
+`my-project-name/node_modules` directory, and run `ls -la`. You should see a Card listed there, as well as in the terminal output when you start the application.
+- A Card's name in `package.json` is always prefixed by the project name, and a Card must be listed correctly in the main app's `package.json` in order for it to load.
+- Note that in many Cardstack API methods, you will use the plural name of your card. For example, if you generated a card called `guest-author`, you will reference it as `guest-authors`. Checking whether something should be singular or plural is always a good first step in debugging.
 
 ## Learn more
 
