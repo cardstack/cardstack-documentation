@@ -26,6 +26,29 @@ In one request, your Cards get the data they need.
 - **Low overhead:** we get to skip a bunch of steps when creating a new Route, compared to the typical web developer experience.
 For example, a typical Ember app would require that you write `model` hooks, create new Route files, and modify the Router. None of that is needed in Cardstack.
 
+## Default routes
+
+By default, each Card has its own route that is auto-generated based on the Card's name.
+For example, if you have a Card named `contest-entry`, you could view an individual entry
+at `localhost:4200/contest-entries/1`, where `1` is the id of an entry.
+
+This work is done by the Cardstack Router. A default Router in a new project looks like this:
+
+```js
+module.exports = [{
+  path: '/:type/:id',
+  query: {
+    filter: {
+      type: { exact: ':type' },
+      id: { exact: ':id' }
+    }
+  },
+}];
+```
+
+What this means is, the Router will create a Route for each Card, and use its name to form the URL.
+This file can be customized to create custom URLs for each Card, show filtered results, and show a specific "home page" card.
+
 ## Types of Routing Cards
 
 A Card can define a series of routes that it supports, and that the routes can cascade, such that if a Card's router routes a path to a particular Card, that Card can then in turn route to another Card.
@@ -168,8 +191,6 @@ factory.addResource('grants', 'acme-applications-grant')
 The router is leveraged when the client makes a request to get a `space`. A `space` is retrieved by URL. So if the client wants to enter the route `/latest-article`, it makes a request to the API: `GET https://<hub api domain>/api/spaces%2Flatest-article`. The API then uses the router above to match the path to a particular route whose query will be used to find the card to display to the user.
 
 In order to accomdate the ability to match paths to routes, on startup, the hub assembles a router map that represents all the possible routes in the system based on all the cards that have routes associated with them. The hub performs this by beginning at the application card, and recursively descending through all the possible cards that the application card routes to, and then descending through all those cards, and so on. As the hub discovers all the possible routes in the system it compiles these routes into the router map. The hub then arranges the routes in the router map such that the most specific routes are matched before the most general routes.
-
-_TODO: Provide an illustration of the router map structure and how it relates to routing cards_
 
 ## Error Cards
 
