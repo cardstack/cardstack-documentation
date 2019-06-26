@@ -13,19 +13,28 @@ Template files end in `hbs`, and they contain regular HTML markup,
 references to the Card's data,
 and regular Ember [Components](https://guides.emberjs.com/release/components/defining-a-component/) and [Template helpers](https://guides.emberjs.com/release/templates/handlebars-basics/).
 
-## Example template
+### Example template
 
-For example, let's say that a Card has some data about an article author.
-Here's how that data could be referenced:
+For example, let's say that we have created a Card called `photographs` with `ember generate card photograph`, and added some `field`s for `title`, `location`, and `description` in the `static-model.js`, and made some seed data with an id of `1`.
+
+Here's how that data could be referenced in `addon/templates/isolated.hbs`:
 
 ```handlebars
-<h1>Meet one of our guest writers!</h1>
-<h2>{{content.authorName}}<h2>
-<p>{{content.bio}}</p>
-<ProfilePhotoComponent @photoSrc={{content.image}} />
+<h1>{{content.title}}<h1>
+<p>This photo was taken at {{content.location}}.</p>
+<p>{{content.description}}</p>
 ```
 
-## Isolated vs. Embedded
+If you wanted to see this template in action, first make sure you have the environment running:
+
+```sh
+yarn start-prereqs
+yarn start
+```
+
+Then visit `localhost:4200/photographs/1` to see your Card!
+
+## Isolated vs. Embedded Templates
 
 What is the difference between an isolated and an embedded template?
 
@@ -72,8 +81,8 @@ When you reference `content` data for the card, wrap it in double curly braces.
 The [`if`](https://guides.emberjs.com/release/templates/conditionals/) helper lets you add conditional logic to a template:
 
 ```handlebars
-{{#if content.isGuestAuthor}}
-    This article is by our guest writer, {{content.fullName}}!
+{{#if content.isGuestPhotographer}}
+    This article is by our guest, {{content.name}}!
 {{/if}}
 ```
 
@@ -83,8 +92,8 @@ If an attribute of your content is an array, iterate over it using an [`each`](h
 
 ```handlebars
 
-{{#each content.tags as |tag}}
-    <span class="topic-tag">{{tag}}</span>
+{{#each content.topics as |topicTag|}}
+    <span class="topic-tag">{{topicTag}}</span>
 {{/each}}
 ```
 

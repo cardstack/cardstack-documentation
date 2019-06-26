@@ -113,6 +113,8 @@ let models = factory.getModels();
 module.exports = function() { return models; };
 ```
 
+
+
 In this file, we've created a photographer record with an `id` of one, and the photographer's name is Ansel Adams. Later, we will use the `id` in order to navigate to the Card in the browser, and then display the name.
 
 At this point, it's a good idea to move ahead to the next part of the Guides, where you will try writing a template, start up the Cardstack environment, and see your Card's data in the browser. Keep reading if you want to know about more advanced schema features.
