@@ -1,6 +1,6 @@
 I have implied that there are various types of files that a Cardstack plugin can define. Thankfully there are some hints as to what types/files that you can provide which is saved as data in the `@cardstack/hub` package. There is a file named `bootstrap-shema.js` that lists some of the `content-types` that you can provide from your Cardstack plugin. You will see things like fields, computed-fields, constraints etc. I'm not exactly sure how to get from this list to the name of the files so potentially there should be a canonical documentation somewhere... You will also see the full list of plugins that have loaded when you run the cardstack/deck project:
 
-```sh
+```bash
 cardstack/plugin-loader starting from path /Users/mansona/git/cardstack/deck/test-harness
 cardstack/plugin-loader === found installed plugins===
 test-harness            static-models        test-harness

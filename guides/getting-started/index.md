@@ -23,13 +23,13 @@ which are reusable across many projects.
 The best way to learn the Card SDK is to explore an existing project.
 This project is called [Cardboard](https://github.com/cardstack/cardboard), and it's an educational content editor and viewer.
 
-```sh
+```bash
 git clone https://github.com/cardstack/cardboard.git
 ```
 
 ## Create a new Card
 
-```sh
+```bash
 cd cardboard/cardboard
 ember generate card photographer
 ```
@@ -44,7 +44,7 @@ At this step, pay careful attention to when a Card's name is singular or plural.
 
 Then in the terminal, activate your new Card with:
 
-```sh
+```bash
 yarn install
 ```
 
@@ -96,7 +96,7 @@ Next, it's time to start up the environment so that you can see your Card in the
 Check to see if you have Docker running before using these commands in the terminal. They will start some Docker containers that manage the Cardstack
 environment, create an API, and provide a local postgres database that holds your application data.
 
-```sh
+```bash
 yarn start-prereqs
 yarn start-hub
 ```

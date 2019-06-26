@@ -10,7 +10,7 @@ In later sections, you will learn how to add and display data for your Card.
 
 First, we'll run a command in the terminal that creates the Card's overall directory structure.
 
-```sh
+```bash
 cd my-project-name
 ember generate card my-card-name
 ```
@@ -32,7 +32,7 @@ For example, if your project is called "Cardboard" and your Card is "guest-autho
 
 After saving your changes to `package.json`, run this command in the terminal:
 
-```sh
+```bash
 yarn install
 ```
 
@@ -41,7 +41,7 @@ This will automatically link your Card throughout the app so that you can use it
 Whenever you make changes like adding a new Card or modifying its schema files, be sure to restart
 your environment:
 
-```sh
+```bash
 yarn stop-prereqs
 yarn start-prereqs
 yarn start

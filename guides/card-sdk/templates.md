@@ -27,7 +27,7 @@ Here's how that data could be referenced in `addon/templates/isolated.hbs`:
 
 If you wanted to see this template in action, first make sure you have the environment running:
 
-```sh
+```bash
 yarn start-prereqs
 yarn start
 ```
