@@ -25,15 +25,76 @@ This project is called [Cardboard](https://github.com/cardstack/cardboard), and 
 
 ```sh
 git clone https://github.com/cardstack/cardboard.git
-cd cardboard
+```
+
+## Create a new Card
+
+```sh
+cd cardboard/cardboard
+ember generate card photographer
+```
+
+In the `devDependencies` of `cardboard/package.json` (at the top level), add the Card:
+
+```json
+"cardboard-photographers": "*",
+```
+
+At this step, pay careful attention to when a Card's name is singular or plural.
+
+Then in the terminal, activate your new Card with:
+
+```sh
 yarn install
 ```
 
+## Create Card data
+
+In `cardboard/cards/photographers/cardstack/static-model.js`, we will add some attributes to the
+`photograph` schema, and create some sample data.
+
+```js
+const JSONAPIFactory = require('@cardstack/test-support/jsonapi-factory');
+
+let factory = new JSONAPIFactory();
+factory.addResource('content-types', 'photographers')
+  .withRelated('fields', [
+    factory.addResource('fields', 'name').withAttributes({
+      fieldType: '@cardstack/core-types::string'
+    }),
+    factory.addResource('fields', 'biography').withAttributes({
+      fieldType: '@cardstack/core-types::string'
+    })
+  ]);
+
+// this is the seed data
+factory.addResource('photographer', 1).withAttributes({
+  name: 'Dorothea Lange',
+  biography: "Known for her role in the development of documentary photography."
+});
+
+let models = factory.getModels();
+module.exports = function() { return models; };
+```
+
+## Set up the template
+
+Next, open `cardboard/cards/authors/addon/templates/isolated.hbs`. Here, we will add some
+HTML markup to display a single `photographer` record:
+
+```handlebars
+<div class="photographer-isolated">
+  <h1 data-test-photographer-isolated-title>{{content.name}}</h1>
+  <p>{{content.biography}}</p>
+</div>
+```
+
+Next, it's time to start up the environment so that you can see your Card in the browser.
+
 ## Start the back end services
 
-Next, we'll start some Docker containers that manage the Cardstack
+Check to see if you have Docker running before using these commands in the terminal. They will start some Docker containers that manage the Cardstack
 environment, create an API, and provide a local postgres database that holds your application data.
-Check to see if you have Docker running before using these commands.
 
 ```sh
 yarn start-prereqs
@@ -55,9 +116,11 @@ Next, let's start the front end and see Cardstack in action.
 yarn start-ember
 ```
 
-Visit [http://localhost:4200](http://localhost:4200) to see the app in action!
+Visit [http://localhost:4200](http://localhost:4200) to see the main Cardboard app in action:
 
 ![screenshot of the Cardboard project](/images/cardboard-initial.png)
+
+Your newly added Card can be found at [http://localhost:4200/authors/1](http://localhost:4200/authors/1).
 
 ## Next steps
 
