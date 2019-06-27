@@ -47,7 +47,7 @@ yarn start-prereqs
 yarn start
 ```
 
-Lastly, make a CSS file at `my-card-name/tests/dummy/app/styles/app.css`, put a comment in it like `/* todo */`, and commit it. This file is needed for the tests to run.
+Lastly, make a CSS file at `my-card-name/tests/dummy/app/styles/app.css` (you might need to create the `styles` folder as well), put a comment in it like `/* todo */`, and commit it. This file is needed for the tests to run.
 
 ## What now?
 

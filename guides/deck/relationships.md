@@ -67,3 +67,11 @@ let models = factory.getModels();
 module.exports = function() { return models; };
 
 ```
+
+#### Relationships to an already existing property
+
+When a new `factory.addResource(type, id)` statement is used, the resource is added to the schema of the card. If a resource already exists in the schema, the user can relate to it using `{type: resource-type, id: resource-id}`. For example, in the above code, `wallets` is related to `todays-rates-lookup`, which is an already created resource. Thus, the syntax for adding this realtionship is 
+```js
+.withRelated('fields', [
+    { type: 'computed-fields', id: 'todays-rates-lookup' },
+```

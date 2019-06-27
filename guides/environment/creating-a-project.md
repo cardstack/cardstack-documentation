@@ -47,7 +47,7 @@ Each card should also have the following keywords and metadata added to `package
 
 Card schema and data define what information a Card should access and
 the shape of that data. Each Card has a `cardstack` directory
-that contains files that define how a Card interacts with the envioronment
+that contains files that define how a Card interacts with the environment
 it is in.
 
 ### Packages

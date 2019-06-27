@@ -240,5 +240,23 @@ Depending on where a Card is viewed from, different data may be fetched and disp
 #### `withRelated` and `defaultIncludes`
 
 Cards can have relationships to other Cards' data types. For example,
-an `article` might beloing to an `author`, or multiple `authors`.
+an `article` might belonging to an `author`, or multiple `authors`.
 To jump ahead and learn more, see [Relationships](../../deck/relationships).
+
+#### `fieldsets`
+
+Cards can have many properties, and the need to display these properties might change according to which mode the card is in use. For example, a user would most likely want to see only a short description of an article in the `embedded` mode, while they need to see the entire body in the `isolated` mode. In this case, `fieldsets` will look like this:
+```js
+fieldsets: {
+      embedded: [
+        { field: 'title', format: 'embedded'},
+        { field: 'published-date', format: 'embedded'},
+        { field: 'description', format: 'embedded' },
+      ],
+      isolated: [
+        { field: 'title', format: 'embedded' },
+        { field: 'published-date', format: 'embedded' },
+        { field: 'body', format: 'embedded'},
+      ]
+    }
+```
