@@ -37,7 +37,7 @@ ember generate card photographer
 In the `devDependencies` of `cardboard/package.json` (at the top level), add the Card:
 
 ```json
-"cardboard-photographers": "*",
+"cardboard-photographer": "*",
 ```
 
 At this step, pay careful attention to when a Card's name is singular or plural.
@@ -68,7 +68,7 @@ factory.addResource('content-types', 'photographers')
   ]);
 
 // this is the seed data
-factory.addResource('photographer', 1).withAttributes({
+factory.addResource('photographers', 1).withAttributes({
   name: 'Dorothea Lange',
   biography: "Known for her role in the development of documentary photography."
 });
