@@ -20,7 +20,7 @@ and
 
 ## About these Guides
 
-These Guides provide an overview of the essential features of Cardstac.
+These Guides provide an overview of the essential features of Cardstack.
 The Card SDK is aimed at developers, and the Principles section is for all audiences interested in the Cardstack ecosystem, vision, and philosophy.
 
 ## Contributing
