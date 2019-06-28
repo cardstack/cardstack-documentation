@@ -79,7 +79,7 @@ module.exports = function() { return models; };
 
 ## Set up the template
 
-Next, open `cardboard/cards/authors/addon/templates/isolated.hbs`. Here, we will add some
+Next, open `cardboard/cards/photographer/addon/templates/isolated.hbs`. Here, we will add some
 HTML markup to display a single `photographer` record:
 
 ```handlebars
@@ -120,7 +120,7 @@ Visit [http://localhost:4200](http://localhost:4200) to see the main Cardboard a
 
 ![screenshot of the Cardboard project](/images/cardboard-initial.png)
 
-Your newly added Card can be found at [http://localhost:4200/authors/1](http://localhost:4200/authors/1).
+Your newly added Card can be found at [http://localhost:4200/photographers/1](http://localhost:4200/photographers/1).
 
 ## Next steps
 
