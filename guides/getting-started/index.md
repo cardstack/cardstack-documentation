@@ -25,6 +25,7 @@ This project is called [Cardboard](https://github.com/cardstack/cardboard), and 
 
 ```bash
 git clone https://github.com/cardstack/cardboard.git
+yarn install
 ```
 
 ## Create a new Card
