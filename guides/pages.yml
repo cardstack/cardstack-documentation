@@ -143,8 +143,6 @@
       url: "di-types"
     - title: "Field Editors"
       url: "field-editors"
-    - title: "The Hub"
-      url: "hub"
     - title: "Hub Dependencies"
       url: "hub-dependencies"
     - title: "Ethereum Plugin"

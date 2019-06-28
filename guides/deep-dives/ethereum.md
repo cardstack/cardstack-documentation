@@ -1,4 +1,3 @@
-# The Cardstack Ethereum Plugin
 In a nutshell, the [Ethereum plugin](https://github.com/cardstack/cardstack/tree/master/packages/ethereum) makes it so that:
 
 1. The Cardstack Hub can introspect your smart contract to derive a schema.

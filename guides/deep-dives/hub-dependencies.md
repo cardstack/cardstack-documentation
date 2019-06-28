@@ -1,7 +1,8 @@
-# Hub External Dependencies
 The Cardstack Hub has a few external dependencies it requires in order to operate correctly. Let’s go through them.
+
 ### Docker
 Docker is not a required dependency, but we highly recommend it. Docker is a great way to bundle services in simple and composable packages. For the examples below, we will assume that you have Docker installed. You can find installation instructions for Docker [here](https://www.docker.com/get-started).
+
 ### Postgres
 The Cardstack Hub uses a PostgreSQL database to persist the content index. Additionally, the PostgreSQL DB is used to orchestrate job queues used for indexing.
 
@@ -38,6 +39,7 @@ Until Geth has caught up to the latest block, it won’t respond to clients. So 
 In order to make life easier for AWS deployments, we have actually created a Terraform module to deploy a Geth node into AWS. If you are interested, you can find the Terraform module [here](https://registry.terraform.io/modules/cardstack/ethereum-node/aws/).
 
 ### Node.js
+
 The Cardstack Hub server is hosted by Node.js, a JavaScript-based server. The Cardstack Hub will automatically run on the Node.js server that hosts your Ember.js application when you execute `ember serve`. Additionally, if you prefer your Cardstack Hub to run on a separate Node.js server, you can start your Cardstack Hub with the command:
 
 `ember hub:start`
