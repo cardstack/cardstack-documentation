@@ -1,1 +1,0 @@
-I don't have anything specific to say here other than it seems a lot of the cardstack system uses the ember-inflector (or something functionally the same). So things like `field-type` -> `field-types` are common.

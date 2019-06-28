@@ -11,7 +11,7 @@
  **安装此工具之前,请确认系统已经安装.Net Framework 4.5以上版本或者[下载](https://www.microsoft.com/en-us/download/details.aspx?id=55170)安装最新的版本**</br>
  以管理员方式开启一个powerShell,并切换目录到项目路径的cardboard模块下,并执行安装命令
  
-```sh
+```bash
 PS C:\Windows\system32> cd d:\cardboard\
 PS D:\cardboard> cd .\cardboard\
 PS D:\cardboard\cardboard> npm install --global --production windows-build-tools

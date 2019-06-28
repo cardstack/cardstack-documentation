@@ -18,6 +18,7 @@ yarn.lock
 /testem.log
 /yarn-error.log
 /jsconfig.json
+.DS_Store
 
 # ember-try
 /.node_modules.ember-try/

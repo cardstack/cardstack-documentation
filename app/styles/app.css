@@ -2,3 +2,7 @@
     margin: 10px 0;
     height: 28px;
 }
+
+img {
+    max-width: 100%;
+}
