@@ -1,4 +1,4 @@
-Cards can have relationships to other cards, as defined in their [Card Schema](../../card-sdk/schema).
+Cards can have relationships to other cards, as defined in their [Card Schema](../../card-sdk/schema/).
 
 Relationships can be specified using the `belongs-to` and `has-many` core types, as shown in the example below from the [Portfolio](https://github.com/cardstack/portfolio/tree/master/cards) project:
 

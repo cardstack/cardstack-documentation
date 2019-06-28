@@ -241,7 +241,7 @@ Depending on where a Card is viewed from, different data may be fetched and disp
 
 Cards can have relationships to other Cards' data types. For example,
 an `article` might belonging to an `author`, or multiple `authors`.
-To jump ahead and learn more, see [Relationships](../../deck/relationships).
+To jump ahead and learn more, see [Relationships](../../deck/relationships/).
 
 #### `fieldsets`
 
