@@ -209,28 +209,15 @@ Let's dig a little deeper into the example above.
 
 #### `editorComponent` and Field Editors
 
-Cardstack has some built-in content editing tools. If your Card will use them,
-you will need to specify the correct `editorComponent` that goes with a field tupe.
+Cardstack has some built-in content editing tools, almost like a WYSIWYG (what you see is what you get) editor for the content in your Cards. For example, this Card has a `title` with a type of `string`, so the right edge toolbar automatically includes a text input that someone could use to change the title of the article:
 
-For example, if your `fieldType` is `@cardstack/core-types::string`, the `field-editors/string-editor` (which is essentially just a bound `<input type="text">`) will be used. The core-types package contains several built-in field editors (`string`, `integer`, `date`, etc), but you can specify your own custom field editor by specifying `editorComponent`. This is particularly useful for relationship field types, for which there may not be a "standard" UI:
+![An editor panel on the right edge, with field inputs](/images/card-sdk/right-edge-example.jpg)
 
-```js
-factory.addResource('fields', 'author').withAttributes({
-  fieldType: '@cardstack/core-types::belongs-to',
-  editorComponent: 'field-editors/author-picker'
-})
-```
+Some of these editor tools accept options, as shown in the [example advanced schema above](./#example-advanced-schema)
 
-Additionally, you can pass options to field editors using `editorOptions`:
+You can also create your own custom field editor components. To use them, you would specify an `editorComponent` for the field in your Card's schema.
 
-```js
-factory.addResource('fields', 'is-admin-user').withAttributes({
-  fieldType: '@cardstack/core-types::boolean',
-  editorOptions: { style: 'switch' }
-})
-```
-
-You can learn more about field editors in the [`@cardstack/core-types`](https://github.com/cardstack/cardstack/tree/master/packages/core-types) source code.
+Learn more in the [Field Editors Guide](../../deep-dives/field-editors/).
 
 #### `defaultIncludes` Isolated and Embedded
 
