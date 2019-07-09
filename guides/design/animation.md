@@ -7,7 +7,7 @@ For example, when you pick up a newspaper and hold it closer, it's as if you hav
 The main tool for developers is to use the embedded and isolated templates
 to get automatic animation between states.
 
-Cardstack works great with the [liquid-fire](https://ember-animation.github.io/liquid-fire/) and [ember-animated])(https://ember-animation.github.io/ember-animated/) libraries.
+Cardstack works great with the [liquid-fire](https://ember-animation.github.io/liquid-fire/) and [ember-animated](https://ember-animation.github.io/ember-animated/) libraries.
 
 Developers may also use regular CSS animation in order to help bring their work to life.
 
