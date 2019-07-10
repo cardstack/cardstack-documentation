@@ -62,10 +62,13 @@ factory.addResource('content-types', 'movies')
     factory.addResource('fields', 'playing').withAttributes({
       fieldType: '@cardstack/core-types::boolean'
     }),
+    factory.addResource('fields', 'notes').withAttributes({
+      fieldType: '@cardstack/core-types::boolean'
+    }),
   ]);
 ```
 
-###Viewing the Movie Card
+##Viewing the Movie Card
 
 In order to view a card, we first need to design its template view. For now, we can just work on the `isolated` view of our movie card. Follow the path `cards/movie/addon/templates/isolated.hbs` and replace the existing code with the following code 
 
@@ -76,6 +79,7 @@ In order to view a card, we first need to design its template view. For now, we 
   <h1 data-test-movie-isolated-title>Genre: {{content.genre}}</h1>
   <h1 data-test-movie-isolated-title>Short Summary: {{content.summary}}</h1>
   <h1 data-test-movie-isolated-title>Currently Playing: {{#if content.playing}} Yes {{else}} No {{/if}}</h1>
+  <h1 data-test-movie-isolated-title>Notes: {{content.notes}}</h1>
 </div>
 ```
 Now that we have a schema and a template view for this movie card, we can create an instance of it. Paste the below code to the bottom of the `cards/movie/cardstack/static-model.js`
@@ -86,7 +90,8 @@ factory.addResource('movies', 1).withAttributes({
     year: 2019,
     genre: 'adventure',
     summary: 'After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos actions and restore balance to the universe.',
-    playing: true
+    playing: true,
+    notes: ''
   });
 ```
 
@@ -103,6 +108,7 @@ factory.addResource('movies', 2).withAttributes({
     genre: 'adventure',
     summary: 'Following the events of Avengers: Endgame, Spider-Man must step up to take on new threats in a world that has changed forever.',
     playing: false,
+    notes: ''
   });
   factory.addResource('movies', 3).withAttributes({
     title: 'Thor Ragnarok',
@@ -110,6 +116,7 @@ factory.addResource('movies', 2).withAttributes({
     genre: 'comedy',
     summary: 'Thor (Chris Hemsworth) is imprisoned on the planet Sakaar, and must race against time to return to Asgard and stop Ragnarök, the destruction of his world, at the hands of the powerful and ruthless villain Hela (Cate Blanchett).',
     playing: false,
+    notes: ''
   });
   factory.addResource('movies', 4).withAttributes({
     title: 'Doctor Strange',
@@ -117,6 +124,7 @@ factory.addResource('movies', 2).withAttributes({
     genre: 'science-fiction',
     summary: 'While on a journey of physical and spiritual healing, a brilliant neurosurgeon is drawn into the world of the mystic arts.',
     playing: false,
+    notes: ''
   });
   factory.addResource('movies', 5).withAttributes({
     title: 'Black Widow',
@@ -124,6 +132,7 @@ factory.addResource('movies', 2).withAttributes({
     genre: 'horror',
     summary: 'Not announced',
     playing: false,
+    notes: ''
   });
   factory.addResource('movies', 6).withAttributes({
     title: 'Iron Man',
@@ -131,6 +140,7 @@ factory.addResource('movies', 2).withAttributes({
     genre: 'adventure',
     summary: 'After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.',
     playing: false,
+    notes: ''
   });
   factory.addResource('movies', 7).withAttributes({
     title: 'Captain America Civil War',
@@ -138,6 +148,7 @@ factory.addResource('movies', 2).withAttributes({
     genre: 'action',
     summary: 'Political involvement in the Avengers affairs causes a rift between Captain America and Iron Man.',
     playing: false,
+    notes: ''
   });
   factory.addResource('movies', 8).withAttributes({
     title: 'Guardians of the Galaxy Vol. 3',
@@ -145,15 +156,16 @@ factory.addResource('movies', 2).withAttributes({
     genre: 'comedy',
     summary: 'Not announced',
     playing: false,
+    notes: ''
   });
 ```
 
 
-###Creating the Main Board
+##Creating the Main Board
 
 For our application, we will also need a main board card that we will display and categorize the movie cards. So, let's go ahead and create the main-board card. Repeate the steps from only the 'Creating the Movie Card' section with replacing 'movie' with 'main-board'.
 
-### Adding the Main-Board Fields
+## Adding the Main-Board Fields
 
 For the movie card, we just added some basic features for holding data. In the main-board card, we will use the magic of the Cardstack application, and put multiple movie cards on top of the main-board card. Go to the `cards/main-board/cardstack/static-model.js` and replace the existing code with the following code
 
@@ -199,7 +211,7 @@ factory.addResource('content-types', 'main-boards')
   ]);
 
 ```
-### The Main-Board Fields Explained
+## The Main-Board Fields Explained
 
 This Cardstack Framework feature deserves a little more attention, so we will try to understand it more. 
 
@@ -209,7 +221,7 @@ Second, all three of the `watched-movies`, `currently-watching-movies`, and `to-
 
 Third, let's take a look at the `withAttributes` portion of the schema. Remember that `defaultIncludes` attribute sets which fields to be included at the start of the application. In our case, we want all of our fields to be included. Moreover, remember that `filedsets` attribute helps us to set which fields to be displayed in a particular format. In our case, we won't be using the `embedded` view of the main-board card, and want to include all fields in the `isolated` view.
 
-###Viewing the Main-Board Card
+##Viewing the Main-Board Card
 
 Now that we set up our schema for the main-board card, we can go ahead and create our first main-board instance. Copy the below code to the bottom of the `cards/main-board/cardstack/static-model.js` file.
 
@@ -232,9 +244,9 @@ factory.addResource('main-boards', 'main').withAttributes({
   ]);
 ```
 
-As you can see, since we already created the movie instances, we can relate them to appropriate fields, or in our case movie lists, with a very easy notion.
+As you can see, since we already created the movie instances, we can relate them to appropriate fields, or in our case movie lists, with a very easy notation.
 
-Now that we set our dat abacking with the schema, we can go ahead and design the frontend in `cards/main-board/addon/templates/isolated.hbs`. You can replace the existing code with the following code
+Now that we set our data backing with the schema, we can go ahead and design the frontend in `cards/main-board/addon/templates/isolated.hbs`. You can replace the existing code with the following code
 
 ```HTML
 <div class="main-board-isolated">
@@ -267,7 +279,9 @@ Now that we set our dat abacking with the schema, we can go ahead and design the
 </div>
 ```
 
-Obviously we used actions and local variables in this template, so you need to replace the existing code in `cards/main-board/addon/components/isolated.js` with the below code as well
+We will talk more about the syntax of this template when we start implementing the Editor for this app. However, we need to take two more steps before we view the main-board.
+
+First, obviously we used actions and local variables in this template, so you need to replace the existing code in `cards/main-board/addon/components/isolated.js` with the below code as well
 
 ```js
 import Component from '@ember/component';
@@ -284,22 +298,8 @@ export default Component.extend({
             'toWatchMovies' : this.content.toWatchMovies,
         })
     },
-    addEvent: false,
-    deleteEvent: false,
-    addButtonDisable: false,
-    deleteButtonDisable: false,
     showBoard: false,
     selectedStatue: "",
-
-    toggleAddEvent: function() {
-        this.set('addEvent', !this.addEvent);
-        this.set('deleteButtonDisable', !this.deleteButtonDisable);
-    },
-
-    toggleDeleteEvent: function() {
-        this.set('deleteEvent', !this.deleteEvent);
-        this.set('addButtonDisable', !this.addButtonDisable);
-    },
 
     movieAmount: computed('selectedStatue', function() {
         return this.get('statues')[this.get('selectedStatue')].length;
@@ -312,6 +312,180 @@ export default Component.extend({
 
  });
 ```
-Now, you can run the application and follow the route `/main-boards/main` you will see a fully functioning Movie Tracking application.
+Second, we want to put the `movie` cards on top of the `main-board` card. In this case, we need to use the `embedded` format of the `movie` card. Go ahead, and replace the code in the `cards/movie/addon/templates/embedded.js` with the following code
 
-###Editing the Data
+```html
+<div class='movie-embedded-view'>
+<a class="movie-embedded" href={{cardstack-url content}} >
+  <h3 data-test-movie-isolated-title>Title: {{content.title}}</h3>
+  <h3 data-test-movie-isolated-title>Year: {{content.year}}</h3>
+  <h3 data-test-movie-isolated-title>Genre: {{content.genre}}</h3>
+</a>
+</div>
+```
+Notice that we didn't include all the `fields` in the `embedded` view, since this format is meant to be a sneek peak of a card. Also notice that the tag
+```html
+<a class="movie-embedded" href={{cardstack-url content}} >
+```
+turns this template into a link that will get us to the `isolated` format of the `movie` card thanks to the Cardstack's build-in `{{cardstack-url}}` helper.
+
+Last but not least, in order to have a better looking application we are recommending to change the code inside `cards/movie/addon/styles/movie-embedded.css` with 
+```css
+.movie-embedded {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: black;
+}
+.movie-embedded-view {
+  border: 1px black dashed;
+  border-radius: 25px;
+  width: 350px;
+}
+```
+and the code inside the `cards/main-board/addon/styles/main-board-isolated.css` with
+
+```css
+.main-board-isolated {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border: 1px blue dashed;
+}
+
+.movie-list {
+  display: flex;
+  justify-content: center;
+}
+```
+
+Now, you can run the application and follow the route `/main-boards/main` and you will see a fully functioning Movie Tracking application!
+
+##Routing
+We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardboard/cardstack/router.js` and replace the `path: '/'` section with the following code
+```js
+{
+  path: '/',
+  query: {
+    filter: {
+      type: { exact: 'main-boards' },
+      id: { exact: 'main' }
+    }
+  },
+}
+```
+
+##Editing the Data
+
+Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its easy-to-use Editor for adding, editing, or deleting data from an application. Of course, it is very easy to access to this editor. Just go to the `cards/main-board/addon/templates/isolated.js` and paste 
+
+```html
+{{#mock-login as |login|}} <button {{action login}}>Edit Content</button>{{/mock-login}}
+```
+just before the `<br><br>`. Now, if you run the app again, and click on the `Edit Content` button you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component. The {{#mock-login}} helper is a built-in helper for easily enabling the Editor. if you don't want everyone to be able to edit your application, you can setup an authoritation system as well. Please visit the [Cardboard] (https://github.com/cardstack/cardboard) for more detail about that process.
+
+##Grants to Edit Content
+
+Now that we have access to the Editor, we need to set some grants on the card schemas to edit content. Go to the `cards/movie/cardstack/static-model.js` and past the code at the bottom 
+
+```js
+factory.addResource('grants', 'movie-world-read')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('types', [
+    { type: 'content-types', id: 'movies' }
+  ])
+  .withAttributes({
+    'may-read-resource': true,
+    'may-read-fields': true,
+  });
+
+factory.addResource('grants', 'movie-writers-update')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('types', [
+    { type: 'content-types', id: 'movies' }
+  ])
+  .withAttributes({
+    'may-create-resource': true,
+    'may-update-resource': true,
+    'may-delete-resource': true,
+    'may-write-fields': true
+  });
+```
+Likewise, go to the `cards/main-board/cardstack/static-model.js` and past the code at the bottom 
+
+```js
+  factory.addResource('grants', 'main-board-world-read')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('types', [
+    { type: 'content-types', id: 'main-boards' }
+  ])
+  .withAttributes({
+    'may-read-resource': true,
+    'may-read-fields': true,
+  });
+
+factory.addResource('grants', 'main-board-writers-update')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('types', [
+    { type: 'content-types', id: 'main-boards' }
+  ])
+  .withAttributes({
+    'may-create-resource': true,
+    'may-update-resource': true,
+    'may-delete-resource': true,
+    'may-write-fields': true
+  });
+```
+Last but not least, we need to set grants from the overall application schema as well. Thus, go to the `cardboard/cardstack/static-model.js`. Inside the file, find the grants
+```js
+factory.addResource('grants', 'cardstack-files-world-read')
+```
+
+and 
+
+```js
+factory.addResource('grants', 'cardstack-files-writers-create')
+```
+
+and then paste the following content to their `withRelated` portions
+
+```js
+{ type: 'content-types', id: 'movies' },
+{ type: 'content-types', id: 'main-boards' },
+```
+
+Great! Now, if you restart the application, you have full control over the cards via the Editor.
+
+##Quick Tips for the Editor
+Note: You should always activate the Editor with the 'Edit Content' button before using it!
+
+- You can select any of the movie list categories, and then add a movie from the movies data are in the storage(the ones in the `cards/movie/cardstack/static-model.js`) Likewise, you can dleete any movie from the particular list as well.
+
+![Adding new movies to the lists](/images/movielist-tutorial/editor_main_board_view.png)
+
+- You can click on the movies to view the movie card in `isolated` format. In that route, you can click on the pencil symbol and edit any `field` of the movies. When you finish editing a movie, hit the 'Save' button, and then to the check symbol.
+
+![Editing an already existing movie](/images/movielist-tutorial/editor_old_movie.png)
+
+- Using the `+` button at the bottom of the editor, you can create a new record. However, in order to save the new record, you need to hit the 'Save' button and wait until the 'Draft' sign turn into 'Published'. After you create a new record, you can then go back to the main page, and add that movie into a particular list.
+
+![Adding a new movie record](/images/movielist-tutorial/editor_new_movie.png)
+
+Note: It is also important to note that the Editor can only access to the data of the `fields` that are used in the templates. There are two ways to achieve this:
+
+- First way is to access to the data of the `fields` with `{{content.xxx}}` syntax.
+
+- For the second way, recall the syntax that we used in the `cards/main-board/addon/templates/isolated.hbs`:
+```html
+{{#cs-field content selectedStatue as |movies|}}
+```
+
+This is a special why to introduce `fields` of a card if that field has relationships to other cards, such as our movie lists. Without this notation, the editor wouldn't be able to edit the lists just with a statement `{{content.to-watch-movies}}`. 
+
+##Closing
+This is the end of our Interactive Movie List Tutorial. Since this is a beginners tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually. Therefore, this application is ideal for tracking long movie sequals, such as Marvel Cinematic Universe. 
+
+Cardstack has a high quality plug-in functionality, so it is possible to make this application more advance, and gather movie data from thrid-party APIs, such as IMDb. However, that process would require a more advance tutorial, which is on the way!
+
+Thanks for your time, and we hope you liked the Cardstack Framework!
