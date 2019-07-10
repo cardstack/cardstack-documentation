@@ -9,7 +9,7 @@ Instead, Cardstack developers set some minimal configuration and get instant con
 
 It is a WYSIWYG (what you see is what you get) experience where a user makes changes to the Card's content and sees immediately what the result would look like.
 
-## Enabling the Right Edge
+## Enabling the Edges
 
 To start using the right edge, first make sure that you have the following in your project's `application.hbs`:
 
@@ -21,7 +21,18 @@ To start using the right edge, first make sure that you have the following in yo
 {{/cardstack-edges}}
 ```
 
-For someone to see the editing panel, the must have a valid user session and the right grants that allow them to edit content. You can learn more about authorization, authentication, and mock users for testing in [Grants](../../data/grants/).
+For someone to see the editing panel, they must be logged in, and have a valid user session and the correct grants that allow them to edit content. While you are developing, you can add a fake superuser login by adding the following to your `application.hbs`, just inside of the `squishable-container`:
+
+```handlebars
+  {{#mock-login as |login|}}
+    <Cta @handleClick={{action login}} @label='Edit Content'/>
+  {{/mock-login}}
+```
+
+### Learn more
+
+- Read about authorization, authentication, and mock users for testing in [Grants](../../data/grants/)
+- Explore the customization options and features of [`squishable-container`](https://github.com/cardstack/squishable-container)
 
 ## Built-in field editors
 
@@ -56,7 +67,7 @@ For example, this dropdown menu lets someone assign a `category` grouping to a p
 
 ## Passing options to a field editor
 
-Field editors can take options using the `editorOptions` property in a Card's schema for a specific field:
+Field editors can take options using the `editorOptions` property in a Card's schema for a specific field. In this example, a property named `style` with the value `switch` will get passed to the `field-editors/boolean-editor` component.
 
 ```js
 factory.addResource('fields', 'is-admin-user').withAttributes({
@@ -82,7 +93,7 @@ This will generate three files:
 
 - a Template at `card-name/addon/templates/field-editors/my-editor-name.hbs` which handles display
 - a JavaScript file at `card-name/addon/components/field-editors/my-editor-name.js`, where you can add interaction and logic
-- a second JavaScript file at `card-name/addon/components/field-editors/my-editor-name.js` with some boilerplate that reexports the component, which you will not need to edit.
+- a second JavaScript file at `card-name/app/components/field-editors/my-editor-name.js` with some boilerplate that reexports the component, which you will not need to edit.
 
 In your Card's schema, specify which field should use your custom editor:
 

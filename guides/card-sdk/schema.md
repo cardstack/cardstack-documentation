@@ -219,7 +219,7 @@ You can also create your own custom field editor components. To use them, you wo
 
 Learn more in the [Field Editors Guide](../../deep-dives/field-editors/).
 
-#### `defaultIncludes` Isolated and Embedded
+#### Isolated and Embedded
 
 Cards can be displayed in one of two modes, `isolated` and `embedded`.
 Depending on where a Card is viewed from, different data may be fetched and displayed.
