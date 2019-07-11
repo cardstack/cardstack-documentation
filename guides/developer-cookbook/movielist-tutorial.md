@@ -10,6 +10,8 @@ In order to record each movie, we will need to create a card called 'movie'. Go 
 
 `cd project-template`
 
+`cd cardboard`
+
 `ember generate card movie`
 
 Remember that, you will need to make an addition to the `devDependencies` of the main app's `package.json`. The main app is in a directory that shares a name with your project, such as `my-project-name/my-project-name/package.json`. Go ahead, and paste the following to the `devDependencies`:
@@ -75,11 +77,11 @@ In order to view a card, we first need to design its template view. For now, we 
 ```html 
 <div class="movie-isolated">
   <h1 data-test-movie-isolated-title>Title: {{content.title}}</h1>
-  <h1 data-test-movie-isolated-title>Year: {{content.year}}</h1>
-  <h1 data-test-movie-isolated-title>Genre: {{content.genre}}</h1>
-  <h1 data-test-movie-isolated-title>Short Summary: {{content.summary}}</h1>
-  <h1 data-test-movie-isolated-title>Currently Playing: {{#if content.playing}} Yes {{else}} No {{/if}}</h1>
-  <h1 data-test-movie-isolated-title>Notes: {{content.notes}}</h1>
+  <h1 data-test-movie-isolated-year>Year: {{content.year}}</h1>
+  <h1 data-test-movie-isolated-genre>Genre: {{content.genre}}</h1>
+  <h1 data-test-movie-isolated-short-summary>Short Summary: {{content.summary}}</h1>
+  <h1 data-test-movie-isolated-playing>Currently Playing: {{#if content.playing}} Yes {{else}} No {{/if}}</h1>
+  <h1 data-test-movie-isolated-notes>Notes: {{content.notes}}</h1>
 </div>
 ```
 Now that we have a schema and a template view for this movie card, we can create an instance of it. Paste the below code to the bottom of the `cards/movie/cardstack/static-model.js`
@@ -210,6 +212,8 @@ factory.addResource('content-types', 'main-boards')
     .withRelated('related-types', [{ type: 'content-types', id: 'movies' }]),
   ]);
 
+let models = factory.getModels();
+module.exports = function() { return models; };
 ```
 ## The Main-Board Fields Explained
 
@@ -223,7 +227,7 @@ Third, let's take a look at the `withAttributes` portion of the schema. Remember
 
 ## Viewing the Main-Board Card
 
-Now that we set up our schema for the main-board card, we can go ahead and create our first main-board instance. Copy the below code to the bottom of the `cards/main-board/cardstack/static-model.js` file.
+Now that we set up our schema for the main-board card, we can go ahead and create our first main-board instance. Copy the below code to the bottom of the `cards/main-board/cardstack/static-model.js` file, but above the last two lines.
 
 ```js
 factory.addResource('main-boards', 'main').withAttributes({
@@ -384,11 +388,11 @@ Our application is visually working right now, yet it is not interactive. An imp
 ```html
 {{#mock-login as |login|}} <button {{action login}}>Edit Content</button>{{/mock-login}}
 ```
-just before the `<br><br>`. Now, if you run the app again, and click on the `Edit Content` button you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component. The {{#mock-login}} helper is a built-in helper for easily enabling the Editor. if you don't want everyone to be able to edit your application, you can setup an authoritation system as well. Please visit the [Cardboard](https://github.com/cardstack/cardboard) for more detail about that process.
+just before the `<br><br>`. Now, if you run the app again, and click on the `Edit Content` button you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component. The {{#mock-login}} helper is a built-in helper for easily enabling the Editor. If you don't want everyone to be able to edit your application, you can setup an authoritation system as well. Please visit the [Cardboard](https://github.com/cardstack/cardboard) for more detail about that process.
 
 ## Grants to Edit Content
 
-Now that we have access to the Editor, we need to set some grants on the card schemas to edit content. Go to the `cards/movie/cardstack/static-model.js` and past the code at the bottom 
+Now that we have access to the Editor, we need to set some grants on the card schemas to edit content. Go to the `cards/movie/cardstack/static-model.js` and past the code at the bottom, again above the last two lines. 
 
 ```js
 factory.addResource('grants', 'movie-world-read')
@@ -413,7 +417,7 @@ factory.addResource('grants', 'movie-writers-update')
     'may-write-fields': true
   });
 ```
-Likewise, go to the `cards/main-board/cardstack/static-model.js` and past the code at the bottom 
+Likewise, go to the `cards/main-board/cardstack/static-model.js` and past the code at the bottom, above the last two lines.
 
 ```js
   factory.addResource('grants', 'main-board-world-read')
