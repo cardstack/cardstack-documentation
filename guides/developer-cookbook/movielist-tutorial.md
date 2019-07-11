@@ -2,7 +2,7 @@ Until this point, we have covered the essential concepts and features of a Cards
 
 Movies are irreplaceable parts of the 21st century social life. People are continuously watching new movies, recieving numerous movie recommendations to watch, and even cuts a couple movies in the middle. Considering all this data, wouldn't it be very useful to have a tool that can record all the movies that you watched, currently watching, or noted to watch. With Cardstack framework, you can easily build this practical dailylife tool.
 
-First, go ahead and clone this GitHub repo, which is an empty [Cardstack Project Template] (https://github.com/cardstack/project-template).
+First, go ahead and clone this GitHub repo, which is an empty [Cardstack Project Template](https://github.com/cardstack/project-template).
 
 ## Creating the Movie Card
 
@@ -68,7 +68,7 @@ factory.addResource('content-types', 'movies')
   ]);
 ```
 
-##Viewing the Movie Card
+## Viewing the Movie Card
 
 In order to view a card, we first need to design its template view. For now, we can just work on the `isolated` view of our movie card. Follow the path `cards/movie/addon/templates/isolated.hbs` and replace the existing code with the following code 
 
@@ -161,7 +161,7 @@ factory.addResource('movies', 2).withAttributes({
 ```
 
 
-##Creating the Main Board
+## Creating the Main Board
 
 For our application, we will also need a main board card that we will display and categorize the movie cards. So, let's go ahead and create the main-board card. Repeate the steps from only the 'Creating the Movie Card' section with replacing 'movie' with 'main-board'.
 
@@ -221,7 +221,7 @@ Second, all three of the `watched-movies`, `currently-watching-movies`, and `to-
 
 Third, let's take a look at the `withAttributes` portion of the schema. Remember that `defaultIncludes` attribute sets which fields to be included at the start of the application. In our case, we want all of our fields to be included. Moreover, remember that `filedsets` attribute helps us to set which fields to be displayed in a particular format. In our case, we won't be using the `embedded` view of the main-board card, and want to include all fields in the `isolated` view.
 
-##Viewing the Main-Board Card
+## Viewing the Main-Board Card
 
 Now that we set up our schema for the main-board card, we can go ahead and create our first main-board instance. Copy the below code to the bottom of the `cards/main-board/cardstack/static-model.js` file.
 
@@ -330,6 +330,7 @@ Notice that we didn't include all the `fields` in the `embedded` view, since thi
 turns this template into a link that will get us to the `isolated` format of the `movie` card thanks to the Cardstack's build-in `{{cardstack-url}}` helper.
 
 Last but not least, in order to have a better looking application we are recommending to change the code inside `cards/movie/addon/styles/movie-embedded.css` with 
+
 ```css
 .movie-embedded {
   display: block;
@@ -362,7 +363,7 @@ and the code inside the `cards/main-board/addon/styles/main-board-isolated.css` 
 
 Now, you can run the application and follow the route `/main-boards/main` and you will see a fully functioning Movie Tracking application!
 
-##Routing
+## Routing
 We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardboard/cardstack/router.js` and replace the `path: '/'` section with the following code
 ```js
 {
@@ -376,16 +377,16 @@ We designed this code in a way that `main-board` card is the default view. So, y
 }
 ```
 
-##Editing the Data
+## Editing the Data
 
 Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its easy-to-use Editor for adding, editing, or deleting data from an application. Of course, it is very easy to access to this editor. Just go to the `cards/main-board/addon/templates/isolated.js` and paste 
 
 ```html
 {{#mock-login as |login|}} <button {{action login}}>Edit Content</button>{{/mock-login}}
 ```
-just before the `<br><br>`. Now, if you run the app again, and click on the `Edit Content` button you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component. The {{#mock-login}} helper is a built-in helper for easily enabling the Editor. if you don't want everyone to be able to edit your application, you can setup an authoritation system as well. Please visit the [Cardboard] (https://github.com/cardstack/cardboard) for more detail about that process.
+just before the `<br><br>`. Now, if you run the app again, and click on the `Edit Content` button you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component. The {{#mock-login}} helper is a built-in helper for easily enabling the Editor. if you don't want everyone to be able to edit your application, you can setup an authoritation system as well. Please visit the [Cardboard](https://github.com/cardstack/cardboard) for more detail about that process.
 
-##Grants to Edit Content
+## Grants to Edit Content
 
 Now that we have access to the Editor, we need to set some grants on the card schemas to edit content. Go to the `cards/movie/cardstack/static-model.js` and past the code at the bottom 
 
@@ -457,7 +458,7 @@ and then paste the following content to their `withRelated` portions
 
 Great! Now, if you restart the application, you have full control over the cards via the Editor.
 
-##Quick Tips for the Editor
+## Quick Tips for the Editor
 Note: You should always activate the Editor with the 'Edit Content' button before using it!
 
 - You can select any of the movie list categories, and then add a movie from the movies data are in the storage(the ones in the `cards/movie/cardstack/static-model.js`) Likewise, you can dleete any movie from the particular list as well.
@@ -483,7 +484,7 @@ Note: It is also important to note that the Editor can only access to the data o
 
 This is a special why to introduce `fields` of a card if that field has relationships to other cards, such as our movie lists. Without this notation, the editor wouldn't be able to edit the lists just with a statement `{{content.to-watch-movies}}`. 
 
-##Closing
+## Closing
 This is the end of our Interactive Movie List Tutorial. Since this is a beginners tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually. Therefore, this application is ideal for tracking long movie sequals, such as Marvel Cinematic Universe. 
 
 Cardstack has a high quality plug-in functionality, so it is possible to make this application more advance, and gather movie data from thrid-party APIs, such as IMDb. However, that process would require a more advance tutorial, which is on the way!
