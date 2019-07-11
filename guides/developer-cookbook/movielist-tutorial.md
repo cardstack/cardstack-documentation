@@ -10,14 +10,14 @@ In order to record each movie, we will need to create a card called 'movie'. Go 
 
 `cd project-template`
 
-`cd cardboard`
+`cd cardhost`
 
 `ember generate card movie`
 
 Remember that, you will need to make an addition to the `devDependencies` of the main app's `package.json`. The main app is in a directory that shares a name with your project, such as `my-project-name/my-project-name/package.json`. Go ahead, and paste the following to the `devDependencies`:
 
 ```js
-"cardboard-movie": "*",
+"cardhost-movie": "*",
 ```
 
 Don't forget to run `yarn install` in your Terminal after doing any change to the `devDependencies`!
@@ -83,8 +83,10 @@ In order to view a card, we first need to design its template view. For now, we 
   <h1 data-test-movie-isolated-playing>Currently Playing: {{#if content.playing}} Yes {{else}} No {{/if}}</h1>
   <h1 data-test-movie-isolated-notes>Notes: {{content.notes}}</h1>
 </div>
+<br><br><br>
+<h3><a href='/'>Click to go back to the list.</a></h3>
 ```
-Now that we have a schema and a template view for this movie card, we can create an instance of it. Paste the below code to the bottom of the `cards/movie/cardstack/static-model.js`
+Now that we have a schema and a template view for this movie card, we can create an instance of it. Paste the below code inside the `if` statement in the `cardhost/cardstack/seeds/data.js`
 
 ```js
 factory.addResource('movies', 1).withAttributes({
@@ -227,7 +229,7 @@ Third, let's take a look at the `withAttributes` portion of the schema. Remember
 
 ## Viewing the Main-Board Card
 
-Now that we set up our schema for the main-board card, we can go ahead and create our first main-board instance. Copy the below code to the bottom of the `cards/main-board/cardstack/static-model.js` file, but above the last two lines.
+Now that we set up our schema for the main-board card, we can go ahead and create our first main-board instance. Copy the below code to inside the `if` statement in the `cardhost/cardstack/seeds/data.js`.
 
 ```js
 factory.addResource('main-boards', 'main').withAttributes({
@@ -368,7 +370,7 @@ and the code inside the `cards/main-board/addon/styles/main-board-isolated.css` 
 Now, you can run the application and follow the route `/main-boards/main` and you will see a fully functioning Movie Tracking application!
 
 ## Routing
-We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardboard/cardstack/router.js` and replace the `path: '/'` section with the following code
+We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardhost/cardstack/router.js` and replace the `path: '/'` section with the following code
 ```js
 {
   path: '/',
@@ -442,7 +444,7 @@ factory.addResource('grants', 'main-board-writers-update')
     'may-write-fields': true
   });
 ```
-Last but not least, we need to set grants from the overall application schema as well. Thus, go to the `cardboard/cardstack/static-model.js`. Inside the file, find the grants
+Last but not least, we need to set grants from the overall application schema as well. Thus, go to the `cardhost/cardstack/static-model.js`. Inside the file, find the grants
 ```js
 factory.addResource('grants', 'cardstack-files-world-read')
 ```
@@ -477,16 +479,19 @@ Note: You should always activate the Editor with the 'Edit Content' button befor
 
 ![Adding a new movie record](/images/movielist-tutorial/editor_new_movie.png)
 
-Note: It is also important to note that the Editor can only access to the data of the `fields` that are used in the templates. There are two ways to achieve this:
+Note: It is also important to note that the Editor can only access to the data of the `fields` that are used in the templates. That is the reason why you can only view the `fields` related tot he movielist when you click on the related button and activate the component on the template. 
 
-- First way is to access to the data of the `fields` with `{{content.xxx}}` syntax.
+There are two ways to access the data of the `fields` from inside of a template:
+
+- First way is to access to the data of the `fields` with `{{content.xxx}}` syntax. However, this syntax renders the `field` according to its `filedType`. We recommand the usage of this syntax when the `fieldType` is a primative type, such as strings, integer, boolean, etc.
 
 - For the second way, recall the syntax that we used in the `cards/main-board/addon/templates/isolated.hbs`:
+
 ```html
 {{#cs-field content selectedStatue as |movies|}}
 ```
 
-This is a special why to introduce `fields` of a card if that field has relationships to other cards, such as our movie lists. Without this notation, the editor wouldn't be able to edit the lists just with a statement `{{content.to-watch-movies}}`. 
+This is a special why to introduce `fields` of a card if you only need its data, and do not want to render any view, such as our movie lists. We recommand the usage of this `{{#cs-field content 'fieldID' as |xxx| }}` for `fieldTypes` such as `@cardstack/core-types::has-many` or `@cardstack/core-types::belongs-to`.
 
 ## Closing
 This is the end of our Interactive Movie List Tutorial. Since this is a beginners tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually. Therefore, this application is ideal for tracking long movie sequals, such as Marvel Cinematic Universe. 
