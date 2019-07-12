@@ -1,22 +1,28 @@
 Until this point, we have covered the essential concepts and features of a Cardstack application. Now, it is time for you to try out your new skills and knowledge on an interactive tutorial. In this tutorial, we will build a Movie Tracking application using the Cardstack framework.
 
-Movies are irreplaceable parts of the 21st century social life. People are continuously watching new movies, recieving numerous movie recommendations to watch, and even cuts a couple movies in the middle. Considering all this data, wouldn't it be very useful to have a tool that can record all the movies that you watched, currently watching, or noted to watch. With Cardstack framework, you can easily build this practical dailylife tool.
+Movies are irreplaceable parts of the 21st century social life. People are continuously watching new movies and receiving recommendations from friends. Let's build a tool that can record all the movies that you have watched, are currently watching, or have noted to watch. By the time you are done with this tutorial, you will know how to create new data, display it, enable an editing mode, add interactive filters, and save the results to the back end.
+
+## Create the main project files
 
 First, go ahead and clone this GitHub repo, which is an empty [Cardstack Project Template](https://github.com/cardstack/project-template).
 
+```bash
+git clone https://github.com/cardstack/project-template.git
+
 ## Creating the Movie Card
 
-In order to record each movie, we will need to create a card called 'movie'. Go ahead, and paste these command to your Terminal,
+In order to record each movie, we will need to create a card called `movie`. Go ahead, and paste these commands to your Terminal:
 
 `cd project-template`
 
 `cd cardhost`
 
-`ember generate card movie`
+```bash
+example
 
-Remember that, you will need to make an addition to the `devDependencies` of the main app's `package.json`. The main app is in a directory that shares a name with your project, such as `my-project-name/my-project-name/package.json`. Go ahead, and paste the following to the `devDependencies`:
+Next, add your new card to the `devDependencies` of `cardhost/package.json`:
 
-```js
+```json
 "cardhost-movie": "*",
 ```
 
@@ -24,9 +30,9 @@ Don't forget to run `yarn install` in your Terminal after doing any change to th
 
 ## Adding the Movie Fields
 
-Even though we created a card that will resemble the movie data, we need to spesify which properties of a movie will this movie card have. Remember that we will define the data backing of a card in its schema, which is in its `static-model.js` file. Let's view this file by following the path `cards/movie/cardstack/static-model.js`.
+Even though we created a card that will resemble the movie data, we need to specify which properties of a movie this movie card will have. We will define the data backing of a card in its schema, which is in a `static-model.js` file. Let's view this file at `cards/movie/cardstack/static-model.js`.
 
-You should be seeing the default schema
+You should be seeing the default schema:
 
 ```js
 const JSONAPIFactory = require('@cardstack/test-support/jsonapi-factory');
@@ -43,7 +49,7 @@ let models = factory.getModels();
 module.exports = function() { return models; };
 ```
 
-Besides a title, a movie should have a year, a genre, a short summary, and a boolean value of if it is still playing or not. Go ahead, and add these fields to your movie schema, with appropriate `fieldType`.
+Besides a title, a movie should have a year, a genre, a short summary, and a boolean value for whether it is still playing or not. Go ahead and add these fields to your movie schema, with appropriate `fieldType`:
 
 ```js
 let factory = new JSONAPIFactory();
@@ -72,9 +78,9 @@ factory.addResource('content-types', 'movies')
 
 ## Viewing the Movie Card
 
-In order to view a card, we first need to design its template view. For now, we can just work on the `isolated` view of our movie card. Follow the path `cards/movie/addon/templates/isolated.hbs` and replace the existing code with the following code 
+In order to view a card, we first need to design its template view. For now, we can just work on the `isolated` view of our movie card. Follow the path `cards/movie/addon/templates/isolated.hbs` and replace the existing code with the following:
 
-```html 
+```handlebars
 <div class="movie-isolated">
   <h1 data-test-movie-isolated-title>Title: {{content.title}}</h1>
   <h1 data-test-movie-isolated-year>Year: {{content.year}}</h1>
@@ -86,7 +92,8 @@ In order to view a card, we first need to design its template view. For now, we 
 <br><br><br>
 <h3><a href='/'>Click to go back to the list.</a></h3>
 ```
-Now that we have a schema and a template view for this movie card, we can create an instance of it. Paste the below code inside the `if` statement in the `cardhost/cardstack/seeds/data.js`
+
+Now that we have a schema and a template view for this movie card, we can create an instance of it. Paste the code below inside the `if` statement in the `cardhost/cardstack/seeds/data.js`:
 
 ```js
 factory.addResource('movies', 1).withAttributes({
@@ -102,6 +109,8 @@ factory.addResource('movies', 1).withAttributes({
 If you go ahead and run the app, and use the route `/movies/1`, you can see the isolated template of your movie card.
 
 Congratulations!! You just created, structured and viewed your first Cardstack Card.
+
+## Adding more seed data
 
 Now that you know how to create an instance of a movie card, you can go ahead and store more Marvel Cinematic Universe movies to your schema. You can create your own movie cards, or just use the code below:
 
@@ -167,11 +176,11 @@ factory.addResource('movies', 2).withAttributes({
 
 ## Creating the Main Board
 
-For our application, we will also need a main board card that we will display and categorize the movie cards. So, let's go ahead and create the main-board card. Repeate the steps from only the 'Creating the Movie Card' section with replacing 'movie' with 'main-board'.
+For our application, we will also need a main board card where we will display and categorize the movie cards. So, let's go ahead and create the main-board card. Repeat the steps from 'Creating the Movie Card' section, but replace 'movie' with 'main-board'.
 
 ## Adding the Main-Board Fields
 
-For the movie card, we just added some basic features for holding data. In the main-board card, we will use the magic of the Cardstack application, and put multiple movie cards on top of the main-board card. Go to the `cards/main-board/cardstack/static-model.js` and replace the existing code with the following code
+For the movie card, we just added some basic features for holding data. In the `main-board` card, we will use the magic of the Cardstack application, and put multiple movie cards into the `main-board` card. Go to the `cards/main-board/cardstack/static-model.js` and replace the existing code with the following code:
 
 ```js
 const JSONAPIFactory = require('@cardstack/test-support/jsonapi-factory');
@@ -219,7 +228,7 @@ module.exports = function() { return models; };
 ```
 ## The Main-Board Fields Explained
 
-This Cardstack Framework feature deserves a little more attention, so we will try to understand it more. 
+This Cardstack SDK feature deserves a little more attention, so we will try to understand it more. 
 
 Let's first take a look at the `.withRelated` portion of the schema. The first difference between the movie card schema and the main-board card schema is the main-board card schema accesses the `title` field that has been created by the movie card with `{type: 'fields', id: 'title'}` notation. This is a very powerful feature, since it prevents redundant `fields` and memory usage. 
 
@@ -229,7 +238,7 @@ Third, let's take a look at the `withAttributes` portion of the schema. Remember
 
 ## Viewing the Main-Board Card
 
-Now that we set up our schema for the main-board card, we can go ahead and create our first main-board instance. Copy the below code to inside the `if` statement in the `cardhost/cardstack/seeds/data.js`.
+Now that we set up our schema for the `main-board` card, we can go ahead and create our first `main-board` instance. Copy the code below to inside the `if` statement in the `cardhost/cardstack/seeds/data.js`:
 
 ```js
 factory.addResource('main-boards', 'main').withAttributes({
@@ -250,11 +259,11 @@ factory.addResource('main-boards', 'main').withAttributes({
   ]);
 ```
 
-As you can see, since we already created the movie instances, we can relate them to appropriate fields, or in our case movie lists, with a very easy notation.
+As you can see, since we already created the movie instances, we can relate them to appropriate fields, or in our case movie lists, using this configuration.
 
-Now that we set our data backing with the schema, we can go ahead and design the frontend in `cards/main-board/addon/templates/isolated.hbs`. You can replace the existing code with the following code
+Now that we set our data backing with the schema, we can go ahead and design the frontend in `cards/main-board/addon/templates/isolated.hbs`. It will take a few steps before you will be able to see the main board rendering without errors. First, you can replace the existing code with the following code:
 
-```HTML
+```handlebars
 <div class="main-board-isolated">
   <h1 data-test-main-board-isolated-title>{{content.title}}</h1>
   <h3 data-test-main-board-isolated-message>{{content.message}}</h3>
@@ -287,7 +296,7 @@ Now that we set our data backing with the schema, we can go ahead and design the
 
 We will talk more about the syntax of this template when we start implementing the Editor for this app. However, we need to take two more steps before we view the main-board.
 
-First, obviously we used actions and local variables in this template, so you need to replace the existing code in `cards/main-board/addon/components/isolated.js` with the below code as well
+First, you might have noticed that we used actions and variables in this template, so you need to replace the existing code in `cards/main-board/addon/components/isolated.js` with the below code as well:
 
 ```js
 import Component from '@ember/component';
@@ -318,9 +327,9 @@ export default Component.extend({
 
  });
 ```
-Second, we want to put the `movie` cards on top of the `main-board` card. In this case, we need to use the `embedded` format of the `movie` card. Go ahead, and replace the code in the `cards/movie/addon/templates/embedded.js` with the following code
+Second, we want to put the `movie` cards on top of the `main-board` card. In this case, we need to use the `embedded` format of the `movie` card. Go ahead, and replace the code in the `cards/movie/addon/templates/embedded.js` with the following:
 
-```html
+```handlebars
 <div class='movie-embedded-view'>
 <a class="movie-embedded" href={{cardstack-url content}} >
   <h3 data-test-movie-isolated-title>Title: {{content.title}}</h3>
@@ -335,7 +344,7 @@ Notice that we didn't include all the `fields` in the `embedded` view, since thi
 ```
 turns this template into a link that will get us to the `isolated` format of the `movie` card thanks to the Cardstack's build-in `{{cardstack-url}}` helper.
 
-Last but not least, in order to have a better looking application we are recommending to change the code inside `cards/movie/addon/styles/movie-embedded.css` with 
+Last but not least, in order to have a better looking application, add some styles in `cards/movie/addon/styles/movie-embedded.css`: 
 
 ```css
 .movie-embedded {
@@ -350,7 +359,7 @@ Last but not least, in order to have a better looking application we are recomme
   width: 350px;
 }
 ```
-and the code inside the `cards/main-board/addon/styles/main-board-isolated.css` with
+For `cards/main-board/addon/styles/main-board-isolated.css`, add this:
 
 ```css
 .main-board-isolated {
@@ -367,10 +376,11 @@ and the code inside the `cards/main-board/addon/styles/main-board-isolated.css` 
 }
 ```
 
-Now, you can run the application and follow the route `/main-boards/main` and you will see a fully functioning Movie Tracking application!
+Now, you can run the application and follow the route `/main-boards/main` and you will see a Movie Tracking application!
 
 ## Routing
-We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardhost/cardstack/router.js` and replace the `path: '/'` section with the following code
+We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardhost/cardstack/router.js` and replace the `path: '/'` section with the following code:
+
 ```js
 {
   path: '/',
@@ -385,12 +395,14 @@ We designed this code in a way that `main-board` card is the default view. So, y
 
 ## Editing the Data
 
-Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its easy-to-use Editor for adding, editing, or deleting data from an application. Of course, it is very easy to access to this editor. Just go to the `cards/main-board/addon/templates/isolated.js` and paste 
+Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its built-in Editor for adding, editing, or deleting data from an application. To enable this editing mode, go to the `cards/main-board/addon/templates/isolated.js` and paste:
 
 ```html
 {{#mock-login as |login|}} <button {{action login}}>Edit Content</button>{{/mock-login}}
 ```
-just before the `<br><br>`. Now, if you run the app again, and click on the `Edit Content` button you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component. The {{#mock-login}} helper is a built-in helper for easily enabling the Editor. If you don't want everyone to be able to edit your application, you can setup an authoritation system as well. Please visit the [Cardboard](https://github.com/cardstack/cardboard) for more detail about that process.
+just before the `<br><br>`. Now, if you run the app again, and click on the `Edit Content` button, you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component, but you won't be able to make any edits until we have added some Grants.
+
+The {{#mock-login}} helper is a built-in helper for enabling the Editor while you are developing the app locally. To set up real authentication and authorization, please visit the [Cardboard](https://github.com/cardstack/cardboard) for more details.
 
 ## Grants to Edit Content
 
@@ -419,7 +431,7 @@ factory.addResource('grants', 'movie-writers-update')
     'may-write-fields': true
   });
 ```
-Likewise, go to the `cards/main-board/cardstack/static-model.js` and past the code at the bottom, above the last two lines.
+Likewise, go to the `cards/main-board/cardstack/static-model.js` and paste this code at the bottom, above the last two lines:
 
 ```js
   factory.addResource('grants', 'main-board-world-read')
@@ -444,7 +456,7 @@ factory.addResource('grants', 'main-board-writers-update')
     'may-write-fields': true
   });
 ```
-Last but not least, we need to set grants from the overall application schema as well. Thus, go to the `cardhost/cardstack/static-model.js`. Inside the file, find the grants
+Last but not least, we need to set grants from the overall application schema as well. Go to the `cardhost/cardstack/static-model.js`. Inside the file, find the grants:
 ```js
 factory.addResource('grants', 'cardstack-files-world-read')
 ```
@@ -462,7 +474,7 @@ and then paste the following content to their `withRelated` portions
 { type: 'content-types', id: 'main-boards' },
 ```
 
-Great! Now, if you restart the application, you have full control over the cards via the Editor.
+Great! Now, if you restart your local server, you have full control over the cards via the Editor.
 
 ## Quick Tips for the Editor
 Note: You should always activate the Editor with the 'Edit Content' button before using it!
@@ -483,7 +495,7 @@ Note: It is also important to note that the Editor can only access to the data o
 
 There are two ways to access the data of the `fields` from inside of a template:
 
-- First way is to access to the data of the `fields` with `{{content.xxx}}` syntax. However, this syntax renders the `field` according to its `filedType`. We recommand the usage of this syntax when the `fieldType` is a primative type, such as strings, integer, boolean, etc.
+- First way is to access to the data of the `fields` with `{{content.foo}}` syntax. However, this syntax renders the `field` according to its `filedType`. We recommand the usage of this syntax when the `fieldType` is a primative type, such as strings, integer, boolean, etc.
 
 - For the second way, recall the syntax that we used in the `cards/main-board/addon/templates/isolated.hbs`:
 
@@ -491,11 +503,12 @@ There are two ways to access the data of the `fields` from inside of a template:
 {{#cs-field content selectedStatue as |movies|}}
 ```
 
-This is a special why to introduce `fields` of a card if you only need its data, and do not want to render any view, such as our movie lists. We recommand the usage of this `{{#cs-field content 'fieldID' as |xxx| }}` for `fieldTypes` such as `@cardstack/core-types::has-many` or `@cardstack/core-types::belongs-to`.
+This is a special way to introduce `fields` of a card if you only need its data, and do not want to render any view, such as our movie lists. We recommend the usage of this `{{#cs-field content 'fieldID' as |foo| }}` for `fieldTypes` such as `@cardstack/core-types::has-many` or `@cardstack/core-types::belongs-to`.
 
 ## Closing
-This is the end of our Interactive Movie List Tutorial. Since this is a beginners tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually. Therefore, this application is ideal for tracking long movie sequals, such as Marvel Cinematic Universe. 
+This is the end of our Interactive Movie List Tutorial. Since this is a beginners tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually. Therefore, this application is ideal for tracking long movie series, such as the Marvel Cinematic Universe. 
 
-Cardstack has a high quality plug-in functionality, so it is possible to make this application more advance, and gather movie data from thrid-party APIs, such as IMDb. However, that process would require a more advance tutorial, which is on the way!
+Cardstack has a high quality plug-in functionality, so it is possible to make this application more advanced, and gather movie data from thrid-party APIs, such as IMDb. Stay tuned for a future advanced tutorial!
 
-Thanks for your time, and we hope you liked the Cardstack Framework!
+Thanks for your time, and we hope you liked developing with the Cardstack SDK!
+If you have any questions or feedback on this tutorial, you can reach the engineering team on [Discord](https://medium.com/cardstack/the-brand-new-official-cardstack-discord-channel-4a2ffd925cee) or open Issues and PRs on [GitHub](https://github.com/cardstack/cardstack-documentation/).
