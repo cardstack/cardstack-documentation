@@ -8,17 +8,19 @@ First, go ahead and clone this GitHub repo, which is an empty [Cardstack Project
 
 ```bash
 git clone https://github.com/cardstack/project-template.git
+```
 
 ## Creating the Movie Card
 
 In order to record each movie, we will need to create a card called `movie`. Go ahead, and paste these commands to your Terminal:
 
+```bash
 `cd project-template`
 
 `cd cardhost`
 
-```bash
-example
+`ember generate card movie`
+```
 
 Next, add your new card to the `devDependencies` of `cardhost/package.json`:
 
@@ -230,11 +232,11 @@ module.exports = function() { return models; };
 
 This Cardstack SDK feature deserves a little more attention, so we will try to understand it more. 
 
-Let's first take a look at the `.withRelated` portion of the schema. The first difference between the movie card schema and the main-board card schema is the main-board card schema accesses the `title` field that has been created by the movie card with `{type: 'fields', id: 'title'}` notation. This is a very powerful feature, since it prevents redundant `fields` and memory usage. 
+Let's first take a look at the `.withRelated` portion of the schema. Notice the `{type: 'fields', id: 'title'}` notation, which is different than our regular `factory.addResource()` notation. Since we already created a `field` with the `id` 'title' in the movie card, we can access it with this notation, and this works for every card in this application. This is a very powerful feature, since it prevents redundant `fields` and memory usage. 
 
 Second, all three of the `watched-movies`, `currently-watching-movies`, and `to-watch-movies` fields have their own `.withRelated` portions. The reason behind this is their special `fieldTypes`. Instead of a primitive data type, these fields have a `has-many` relationship with, in this case, `movies` `content-type`. In other words, each of these fields will be related to a bunch of movies, so we can use them as lists. We will see have we can display these movies after.
 
-Third, let's take a look at the `withAttributes` portion of the schema. Remember that `defaultIncludes` attribute sets which fields to be included at the start of the application. In our case, we want all of our fields to be included. Moreover, remember that `filedsets` attribute helps us to set which fields to be displayed in a particular format. In our case, we won't be using the `embedded` view of the main-board card, and want to include all fields in the `isolated` view.
+Third, let's take a look at the `withAttributes` portion of the schema. Remember that `defaultIncludes` attribute sets which fields to be included at the start of the application. In our case, we want all of our fields to be included. Moreover, remember that `fieldsets` attribute helps us to set which fields to be displayed in a particular format. In our case, we won't be using the `embedded` view of the main-board card, and want to include all fields in the `isolated` view.
 
 ## Viewing the Main-Board Card
 
@@ -327,7 +329,7 @@ export default Component.extend({
 
  });
 ```
-Second, we want to put the `movie` cards on top of the `main-board` card. In this case, we need to use the `embedded` format of the `movie` card. Go ahead, and replace the code in the `cards/movie/addon/templates/embedded.js` with the following:
+Second, we want to put the `movie` cards on top of the `main-board` card. In this case, we need to use the `embedded` format of the `movie` card. Go ahead, and replace the code in the `cards/movie/addon/templates/embedded.hbs` with the following:
 
 ```handlebars
 <div class='movie-embedded-view'>
@@ -395,7 +397,7 @@ We designed this code in a way that `main-board` card is the default view. So, y
 
 ## Editing the Data
 
-Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its built-in Editor for adding, editing, or deleting data from an application. To enable this editing mode, go to the `cards/main-board/addon/templates/isolated.js` and paste:
+Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its built-in Editor for adding, editing, or deleting data from an application. To enable this editing mode, go to the `cards/main-board/addon/templates/isolated.hbs` and paste:
 
 ```html
 {{#mock-login as |login|}} <button {{action login}}>Edit Content</button>{{/mock-login}}
