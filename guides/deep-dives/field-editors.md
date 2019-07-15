@@ -107,7 +107,7 @@ factory.addResource('fields', 'my-field-name').withAttributes({
 
 A field editor is a regular Ember Component which receives the Card's `content` and the `field` that the editor should be used for, plus any `editorOptions` from the schema. 
 
-For example, let's say that we want to make an editor that is a `textarea` instead of a regular `input`, where someone could write a longer description of a photo. Here's the template, which uses many Ember Template features:
+For example, let's say that we want to make an editor that is a `textarea` instead of a regular `input`, where someone could write a longer description of a photo. In this template below, we use some Ember features to make changes to the input data. We `get` the value of the field the user is editing and use `mut` to mark it as editable. When someone inputs a value, the `action` makes the changes to the value:
 
 ```handlebars
 <div class="field-editor--string-text-area">
