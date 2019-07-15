@@ -29,7 +29,11 @@ let models = factory.getModels();
 module.exports = function() { return models; };
 ```
 
-When a Card of the type `my-card-names` is created, it has a default property of `title`, which is a string. the `JSONAPIFactory` helps to format the Card definition into something that the Card SDK's data adapters can use.
+When a Card of the type `my-card-names` is created, its name is pluralized, and it has a default property of `title`, which is a string.
+In most cases, developers will use the plural name of the Card when creating new records.
+
+The `JSONAPIFactory` helps to format the configuration objects into something that the Card SDK's data adapters can use.
+The factory applies [JSON:API](https://jsonapi.org/) formatting so you don't have to.
 
 ## Adding `@core-types` to a schema
 
@@ -61,6 +65,8 @@ let models = factory.getModels();
 module.exports = function() { return models; };
 ```
 
+In this example, we are defining a `photo` model with `title`, `description`, `views`, and `created-at` fields.
+
 ### List of all core types
 
 There are many different core types available. 
@@ -91,6 +97,7 @@ To write your own custom `fieldType`, see the source code for [`@cardstack/core-
 
 When you are first developing a Card, it's useful to create some sample data to show in a template.
 You can use the `JSONAPIFactory` to make seed data, right in the `static-models.js` file.
+If you want to be able to edit the data using the Edges, put it in `my-project-name/cardhost/cardstack/seeds/sample-data.js` instead.
 
 For example, let's say we have a `photographer` card, and we want to pre-load some `photographers` to show in the app:
 
@@ -112,8 +119,6 @@ factory.addResource('photographer', 1).withAttributes({
 let models = factory.getModels();
 module.exports = function() { return models; };
 ```
-
-
 
 In this file, we've created a photographer record with an `id` of one, and the photographer's name is Ansel Adams. Later, we will use the `id` in order to navigate to the Card in the browser, and then display the name.
 
