@@ -29,7 +29,11 @@ let models = factory.getModels();
 module.exports = function() { return models; };
 ```
 
-When a Card of the type `my-card-names` is created, it has a default property of `title`, which is a string. the `JSONAPIFactory` helps to format the Card definition into something that the Card SDK's data adapters can use.
+When a Card of the type `my-card-names` is created, its name is pluralized, and it has a default property of `title`, which is a string.
+In most cases, developers will use the plural name of the Card when creating new records.
+
+The `JSONAPIFactory` helps to format the configuration objects into something that the Card SDK's data adapters can use.
+The factory applies [JSON:API](https://jsonapi.org/) formatting so you don't have to.
 
 ## Adding `@core-types` to a schema
 
@@ -61,6 +65,8 @@ let models = factory.getModels();
 module.exports = function() { return models; };
 ```
 
+In this example, we are defining a `photo` model with `title`, `description`, `views`, and `created-at` fields.
+
 ### List of all core types
 
 There are many different core types available. 
@@ -91,6 +97,7 @@ To write your own custom `fieldType`, see the source code for [`@cardstack/core-
 
 When you are first developing a Card, it's useful to create some sample data to show in a template.
 You can use the `JSONAPIFactory` to make seed data, right in the `static-models.js` file.
+If you want to be able to edit the data using the Edges, put it in `my-project-name/cardhost/cardstack/seeds/sample-data.js` instead.
 
 For example, let's say we have a `photographer` card, and we want to pre-load some `photographers` to show in the app:
 
@@ -112,8 +119,6 @@ factory.addResource('photographer', 1).withAttributes({
 let models = factory.getModels();
 module.exports = function() { return models; };
 ```
-
-
 
 In this file, we've created a photographer record with an `id` of one, and the photographer's name is Ansel Adams. Later, we will use the `id` in order to navigate to the Card in the browser, and then display the name.
 
@@ -209,30 +214,17 @@ Let's dig a little deeper into the example above.
 
 #### `editorComponent` and Field Editors
 
-Cardstack has some built-in content editing tools. If your Card will use them,
-you will need to specify the correct `editorComponent` that goes with a field tupe.
+Cardstack has some built-in content editing tools, almost like a WYSIWYG (what you see is what you get) editor for the content in your Cards. For example, this Card has a `title` with a type of `string`, so the right edge toolbar automatically includes a text input that someone could use to change the title of the article:
 
-For example, if your `fieldType` is `@cardstack/core-types::string`, the `field-editors/string-editor` (which is essentially just a bound `<input type="text">`) will be used. The core-types package contains several built-in field editors (`string`, `integer`, `date`, etc), but you can specify your own custom field editor by specifying `editorComponent`. This is particularly useful for relationship field types, for which there may not be a "standard" UI:
+![An editor panel on the right edge, with field inputs](/images/card-sdk/right-edge-example.jpg)
 
-```js
-factory.addResource('fields', 'author').withAttributes({
-  fieldType: '@cardstack/core-types::belongs-to',
-  editorComponent: 'field-editors/author-picker'
-})
-```
+Some of these editor tools accept options, as shown in the [example advanced schema above](./#example-advanced-schema)
 
-Additionally, you can pass options to field editors using `editorOptions`:
+You can also create your own custom field editor components. To use them, you would specify an `editorComponent` for the field in your Card's schema.
 
-```js
-factory.addResource('fields', 'is-admin-user').withAttributes({
-  fieldType: '@cardstack/core-types::boolean',
-  editorOptions: { style: 'switch' }
-})
-```
+Learn more in the [Field Editors Guide](../../deep-dives/field-editors/).
 
-You can learn more about field editors in the [`@cardstack/core-types`](https://github.com/cardstack/cardstack/tree/master/packages/core-types) source code.
-
-#### `defaultIncludes` Isolated and Embedded
+#### Isolated and Embedded
 
 Cards can be displayed in one of two modes, `isolated` and `embedded`.
 Depending on where a Card is viewed from, different data may be fetched and displayed.
