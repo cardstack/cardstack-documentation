@@ -51,9 +51,11 @@ let models = factory.getModels();
 module.exports = function() { return models; };
 ```
 
-Besides a title, a movie should have a year, a genre, a short summary, and a boolean value for whether it is still playing or not. Go ahead and add these fields to your movie schema, with appropriate `fieldType`:
+Besides a title, a movie should have a year, a genre, a short summary, and a boolean value for whether it is still playing or not. Go ahead and replace the code in the movie schema with the below code:
 
 ```js
+const JSONAPIFactory = require('@cardstack/test-support/jsonapi-factory');
+
 let factory = new JSONAPIFactory();
 factory.addResource('content-types', 'movies')
   .withRelated('fields', [
@@ -73,9 +75,13 @@ factory.addResource('content-types', 'movies')
       fieldType: '@cardstack/core-types::boolean'
     }),
     factory.addResource('fields', 'notes').withAttributes({
-      fieldType: '@cardstack/core-types::boolean'
+      fieldType: '@cardstack/core-types::string'
     }),
   ]);
+
+let models = factory.getModels();
+module.exports = function() { return models; };
+
 ```
 
 ## Viewing the Movie Card
@@ -108,13 +114,20 @@ factory.addResource('movies', 1).withAttributes({
   });
 ```
 
-If you go ahead and run the app, and use the route `/movies/1`, you can see the isolated template of your movie card.
+Now go ahead and run these commands in your terminal:
+
+```bash
+yarn install
+yarn start-prereqs
+yarn start
+```
+The app is now running in `localhost:4200`, and if you use the route `/movies/1`, you can see the isolated template of your movie card.
 
 Congratulations!! You just created, structured and viewed your first Cardstack Card.
 
 ## Adding more seed data
 
-Now that you know how to create an instance of a movie card, you can go ahead and store more Marvel Cinematic Universe movies to your schema. You can create your own movie cards, or just use the code below:
+Now that you know how to create an instance of a movie card, you can go ahead and store more Marvel Cinematic Universe movies to your schema. Inside the `cardhost/cardstack/seeds/data.js` you can create your own movie cards, or just use the code below:
 
 ```js
 factory.addResource('movies', 2).withAttributes({
@@ -381,10 +394,18 @@ For `cards/main-board/addon/styles/main-board-isolated.css`, add this:
 Now, you can run the application and follow the route `/main-boards/main` and you will see a Movie Tracking application!
 
 ## Routing
-We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardhost/cardstack/router.js` and replace the `path: '/'` section with the following code:
+We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardhost/cardstack/router.js` and replace the code with the following code:
 
 ```js
-{
+module.exports = [{
+  path: '/:type/:id',
+  query: {
+    filter: {
+      type: { exact: ':type' },
+      id: { exact: ':id' }
+    }
+  },
+},{
   path: '/',
   query: {
     filter: {
@@ -392,7 +413,7 @@ We designed this code in a way that `main-board` card is the default view. So, y
       id: { exact: 'main' }
     }
   },
-}
+}];
 ```
 
 ## Editing the Data
@@ -469,11 +490,36 @@ and
 factory.addResource('grants', 'cardstack-files-writers-create')
 ```
 
-and then paste the following content to their `withRelated` portions
+and then replace only the section with these two grants with the below code:
 
 ```js
-{ type: 'content-types', id: 'movies' },
-{ type: 'content-types', id: 'main-boards' },
+factory.addResource('grants', 'cardstack-files-world-read')
+    .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+    .withRelated('types', [
+      { type: 'content-types', id: 'cardstack-files' },
+      { type: 'content-types', id: 'cardstack-images' },
+      { type: 'content-types', id: 'movies' },
+      { type: 'content-types', id: 'main-boards' },
+    ])
+    .withAttributes({
+      'may-read-resource': true,
+      'may-read-fields': true,
+    });
+
+  factory.addResource('grants', 'cardstack-files-writers-create')
+    .withRelated('who', [{ type: 'groups', id: 'github-writers' }])
+    .withRelated('types', [
+      { type: 'content-types', id: 'cardstack-files' },
+      { type: 'content-types', id: 'cardstack-images' },
+      { type: 'content-types', id: 'movies' },
+      { type: 'content-types', id: 'main-boards' },
+    ])
+    .withAttributes({
+      'may-write-fields': true,
+      'may-create-resource': true,
+      'may-update-resource': true,
+      'may-delete-resource': true
+    });
 ```
 
 Great! Now, if you restart your local server, you have full control over the cards via the Editor.
