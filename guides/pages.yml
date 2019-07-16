@@ -122,7 +122,9 @@
     - title: "Connecting to a third-party API"
       url: "third-party-api"
     - title: "Using Ethereum as a data source"
-      url: "ethereum"   
+      url: "ethereum"
+    - title: "Interactive Movie List Tutorial"
+      url: "movielist-tutorial"   
 
 - title: "Deep dives"
   url: "deep-dives"
