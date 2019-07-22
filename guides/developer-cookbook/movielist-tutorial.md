@@ -10,6 +10,8 @@ First, go ahead and clone this GitHub repo, which is an empty [Cardstack Project
 git clone https://github.com/cardstack/project-template.git
 ```
 
+If you have any trouble along the way, check out the [`movielist` branch](https://github.com/cardstack/project-template/tree/movielist) to see the code for the completed tutorial.
+
 ## Creating the Movie Card
 
 In order to record each movie, we will need to create a card called `movie`. Go ahead, and paste these commands to your Terminal:
