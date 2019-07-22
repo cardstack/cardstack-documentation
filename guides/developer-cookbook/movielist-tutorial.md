@@ -15,11 +15,10 @@ git clone https://github.com/cardstack/project-template.git
 In order to record each movie, we will need to create a card called `movie`. Go ahead, and paste these commands to your Terminal:
 
 ```bash
-`cd project-template`
-
-`cd cardhost`
-
-`ember generate card movie`
+cd project-template
+yarn install
+cd cardhost
+ember generate card movie
 ```
 
 Next, add your new card to the `devDependencies` of `cardhost/package.json`:
