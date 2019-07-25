@@ -1,4 +1,6 @@
 Welcome to Cardstack! Follow these step-by-step instructions to start exploring the Card SDK.
+The Card SDK can be used to build complex apps that power companies and products, but 
+for this Quickstart, we'll start small.
 
 ## Installation
 
@@ -20,28 +22,30 @@ along with these Guides.
 
 Developers using Cardstack will spend most of their time working on Cards,
 which are reusable across many projects.
-The best way to learn the Card SDK is to explore an existing project.
-This project is called [Cardboard](https://github.com/cardstack/cardboard), and it's an educational content editor and viewer.
+The best way to learn the Card SDK is to build a Card within an existing project.
+You can use the [project-template](https://github.com/cardstack/project-template)
 
 ```bash
-git clone https://github.com/cardstack/cardboard.git
+git clone https://github.com/cardstack/project-template.git
 yarn install
 ```
 
 ## Create a new Card
 
 ```bash
-cd cardboard/cardboard
+cd project-template/cardhost
 ember generate card photographer
 ```
 
-In the `devDependencies` of `cardboard/package.json` (at the top level), add the Card:
+In the `devDependencies` of `cardhost/package.json`, add the Card:
 
 ```json
-"cardboard-photographer": "*",
+"cardhost-photographer": "*",
 ```
 
-At this step, pay careful attention to when a Card's name is singular or plural.
+At this step, pay careful attention to when a Card's name is singular or plural, and
+make sure you are editing the correct `package.json`, since there are multiple files
+with this name in the project.
 
 Then in the terminal, activate your new Card with:
 
@@ -51,7 +55,7 @@ yarn install
 
 ## Create Card data
 
-In `cardboard/cards/photographers/cardstack/static-model.js`, we will add some attributes to the
+In `cards/photographers/cardstack/static-model.js`, we will add some attributes to the
 `photograph` schema, and create some sample data.
 
 ```js
@@ -80,7 +84,7 @@ module.exports = function() { return models; };
 
 ## Set up the template
 
-Next, open `cardboard/cards/photographer/addon/templates/isolated.hbs`. Here, we will add some
+Next, open `cards/photographer/addon/templates/isolated.hbs`. Here, we will add some
 HTML markup to display a single `photographer` record:
 
 ```handlebars
@@ -109,7 +113,7 @@ If you need to stop the Docker containers, you can use `yarn stop-prereqs`.
 These commands will vary across applications, so check out the README
 if you are looking at different Cardstack projects.
 
-### Start the front end application
+## Start the front end application
 
 Next, let's start the front end and see Cardstack in action.
 
@@ -117,14 +121,30 @@ Next, let's start the front end and see Cardstack in action.
 yarn start-ember
 ```
 
-Visit [http://localhost:4200](http://localhost:4200) to see the main Cardboard app in action:
-
-![screenshot of the Cardboard project](/images/cardboard-initial.png)
+Visit [http://localhost:4200](http://localhost:4200) to see the main app in action:
 
 Your newly added Card can be found at [http://localhost:4200/photographers/1](http://localhost:4200/photographers/1).
 
-## Next steps
+## Preview editing mode with the Edges
 
-Now that you have the Cardboard project running locally,
-through the rest of these guides we'll use examples from this
-project and others. Keep reading to learn more!
+The Card SDK provides an editing mode for Cards, called Edges.
+To see what it looks like, add the following to `cardhost/app/templates/application.hbs`:
+
+```handlebars
+{{#mock-login as |login|}} <button {{action login}}>View editor</button>{{/mock-login}}
+```
+
+Restart your local servers with `Control-c`, `yarn start-hub`, and `yarn start-ember`.
+
+Now when you visit [http://localhost:4200/photographers/1](http://localhost:4200/photographers/1), you can click "edit content", select the arrow icon in the top right corner. You will see the Right Edge, which is automatically generated from the Card Schema!
+You won't be able to make any edits yet, because we did not set up permissions, so keep reading these Guides!
+You will learn how to allow editing with the Edges,
+save data, set up relationships, use Cards within Cards, set up different user permission levels, connect to different data sources,
+use intelligent data caching, and more!
+
+![Text boxes in a panel on the right edge](/images/quickstart.png)
+
+## Learn more
+
+To learn more about the features of the Card SDK, continue reading these Guides or try out
+[one of our tutorials](../developer-cookbook/movielist-tutorial).
