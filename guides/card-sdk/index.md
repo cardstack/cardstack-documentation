@@ -65,7 +65,7 @@ Otherwise you will get an error, `node_modules appears empty, you may need to ru
 `my-project-name/node_modules` directory, and run `ls -la`. You should see a Card listed there, as well as in the terminal output when you start the application.
 - A Card's name in `package.json` is always prefixed by the project name, and a Card must be listed correctly in the main app's `package.json` in order for it to load.
 - Note that in many Cardstack API methods, you will use the plural name of your card. For example, if you generated a card called `guest-author`, you will reference it as `guest-authors`. Checking whether something should be singular or plural is always a good first step in debugging.
-- To see the data available in the local Cardstack Hub database, you can use posgres and SQL commands. In the terminal, run `docker exec -it cardstack-pg psql -U postgres pgsearch_cardboard_development`. This will open up a postgres shell. Many columns in tables are quite wide, so try selecting only from specific columns like `id`. The `documents` table is where Card data goes, so a sample query could be `SELECT id FROM documents;`
+- To see the data available in the local Cardstack Hub database, you can use postgres and SQL commands. In the terminal, run `docker exec -it cardstack-pg psql -U postgres pgsearch_cardboard_development`. This will open up a postgres shell. Many columns in tables are quite wide, so try selecting only from specific columns like `id`. The `documents` table is where Card data goes, so a sample query could be `SELECT id FROM documents;`
 
 ## Learn more
 

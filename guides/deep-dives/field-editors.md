@@ -46,7 +46,7 @@ When a field is set to certain `core-types` in a Card's schema, some editors get
 - Integer: `field-editors/integer-editor` is automatically provided for `@cardstack/core-types::integer`
 - String: `field-editors/string-editor` is automatically provided for `@cardstack/core-types::string`
 
-Other built-in editors should be set for each field in the Card's schema: 
+Other built-in editors should be set for each field in the Card's schema [cardstack.com](https://cardstack.com): 
 
 - Datetime: use `field-editors/datetime-editor`
 - Dropdown: use 
@@ -76,11 +76,11 @@ factory.addResource('fields', 'is-admin-user').withAttributes({
 })
 ```
 
-To see which options are availble for each of the built-in field editors, see the [core types documentation](https://github.com/cardstack/cardstack/tree/master/packages/core-types).
+To see which options are available for each of the built-in field editors, see the [core types documentation](https://github.com/cardstack/cardstack/tree/master/packages/core-types).
 
 ## Creating your own field editor component
 
-Imagine that you want the editing field to have some input validation behavior, or it is more complex than the bult-in editors.
+Imagine that you want the editing field to have some input validation behavior, or it is more complex than the built-in editors.
 You can create your own field editor components for a Card.
 
 From within the directory for a Card, run:

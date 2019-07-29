@@ -4,7 +4,7 @@ Movies are irreplaceable parts of the 21st century social life. People are conti
 
 ## Create the main project files
 
-First, go ahead and clone this GitHub repo, which is an empty [Cardstack Project Template](https://github.com/cardstack/project-template).
+First, go ahead and clone this GitHub repository, which is an empty [Cardstack Project Template](https://github.com/cardstack/project-template).
 
 ```bash
 git clone https://github.com/cardstack/project-template.git
@@ -354,7 +354,7 @@ Second, we want to put the `movie` cards on top of the `main-board` card. In thi
 </a>
 </div>
 ```
-Notice that we didn't include all the `fields` in the `embedded` view, since this format is meant to be a sneek peak of a card. Also notice that the tag
+Notice that we didn't include all the `fields` in the `embedded` view, since this format is meant to be a sneak peak of a card. Also notice that the tag
 ```html
 <a class="movie-embedded" href={{cardstack-url content}} >
 ```
@@ -528,7 +528,7 @@ Great! Now, if you restart your local server, you have full control over the car
 ## Quick Tips for the Editor
 Note: You should always activate the Editor with the 'Edit Content' button before using it!
 
-- You can select any of the movie list categories, and then add a movie from the movies data are in the storage(the ones in the `cards/movie/cardstack/static-model.js`) Likewise, you can dleete any movie from the particular list as well.
+- You can select any of the movie list categories, and then add a movie from the movies data are in the storage(the ones in the `cards/movie/cardstack/static-model.js`) Likewise, you can delete any movie from the particular list as well.
 
 ![Adding new movies to the lists](/images/movielist-tutorial/editor_main_board_view.png)
 
@@ -540,11 +540,11 @@ Note: You should always activate the Editor with the 'Edit Content' button befor
 
 ![Adding a new movie record](/images/movielist-tutorial/editor_new_movie.png)
 
-Note: It is also important to note that the Editor can only access to the data of the `fields` that are used in the templates. That is the reason why you can only view the `fields` related tot he movielist when you click on the related button and activate the component on the template. 
+Note: It is also important to note that the Editor can only access to the data of the `fields` that are used in the templates. That is the reason why you can only view the `fields` related to the movie list when you click on the related button and activate the component on the template. 
 
 There are two ways to access the data of the `fields` from inside of a template:
 
-- First way is to access to the data of the `fields` with `{{content.foo}}` syntax. However, this syntax renders the `field` according to its `filedType`. We recommand the usage of this syntax when the `fieldType` is a primative type, such as strings, integer, boolean, etc.
+- First way is to access to the data of the `fields` with `{{content.foo}}` syntax. However, this syntax renders the `field` according to its `filedType`. We recommend the usage of this syntax when the `fieldType` is a primitive type, such as strings, integer, boolean, etc.
 
 - For the second way, recall the syntax that we used in the `cards/main-board/addon/templates/isolated.hbs`:
 
@@ -557,7 +557,7 @@ This is a special way to introduce `fields` of a card if you only need its data,
 ## Closing
 This is the end of our Interactive Movie List Tutorial. Since this is a beginners tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually. Therefore, this application is ideal for tracking long movie series, such as the Marvel Cinematic Universe. 
 
-Cardstack has a high quality plug-in functionality, so it is possible to make this application more advanced, and gather movie data from thrid-party APIs, such as IMDb. Stay tuned for a future advanced tutorial!
+Cardstack has a high quality plug-in functionality, so it is possible to make this application more advanced, and gather movie data from third-party APIs, such as IMDb. Stay tuned for a future advanced tutorial!
 
 Thanks for your time, and we hope you liked developing with the Cardstack SDK!
-If you have any questions or feedback on this tutorial, you can reach the engineering team on [Discord](https://medium.com/cardstack/the-brand-new-official-cardstack-discord-channel-4a2ffd925cee) or open Issues and PRs on [GitHub](https://github.com/cardstack/cardstack-documentation/).
+If you have any questions or feedback on this tutorial, you can reach the engineering team on [Discord](https://medium.com/cardstack/the-brand-new-official-cardstack-discord-channel-4a2ffd925cee) or open Issues and Pull Requests on [GitHub](https://github.com/cardstack/cardstack-documentation/).
