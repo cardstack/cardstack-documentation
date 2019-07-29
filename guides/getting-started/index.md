@@ -147,4 +147,4 @@ use intelligent data caching, and more!
 ## Learn more
 
 To learn more about the features of the Card SDK, continue reading these Guides or try out
-[one of our tutorials](../developer-cookbook/movielist-tutorial).
+[one of our tutorials](./developer-cookbook/movielist-tutorial).
