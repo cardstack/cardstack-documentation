@@ -1,4 +1,4 @@
-In Cardstack, a user's journey through a UI is reflected in the browser's url and the data that is fetched at each segment.
+In Cardstack, a user's journey through a UI is reflected in the browser's URL and the data that is fetched at each segment.
 
 For example, when someone visits `http://localhost:4200/articles/ten-reasons-love-cardstack`, it has a direct effect on which visual components are used and the information sent in a GET request.
 
@@ -61,7 +61,7 @@ The "application-card" is a top level routing Card.
 
 ### Application Cards
 
-Each Cardstack application has an "application card" that is the top level routing card for the cardstack application. Any card can serve as the application card in the cardstack application. If no application card is specified, the hub uses a default, "Getting Started", application card. Additionally, if the application card does not specify a router, the hub provides a default router (`@cardstack/routing/cardstack/default-router`) that includes a static mapping route and a vanity URL of "/" to the application card itself. 
+Each Cardstack application has an "application card" that is the top level routing card for the Cardstack application. Any card can serve as the application card in the Cardstack application. If no application card is specified, the hub uses a default, "Getting Started", application card. Additionally, if the application card does not specify a router, the hub provides a default router (`@cardstack/routing/cardstack/default-router`) that includes a static mapping route and a vanity URL of "/" to the application card itself. 
 
 #### Creating an application card
 
@@ -82,7 +82,7 @@ factory.addResource('plugin-configs', '@cardstack/hub')
   .withRelated('default-data-source', { data: { type: 'data-sources', id: 'default' } });
 ```
 
-In order to specify the name of the router to use for the application card, the cardstack developer can specify an attribute on the application card's content-type `router`. This is set to an array of routes for the card.
+In order to specify the name of the router to use for the application card, the Cardstack developer can specify an attribute on the application card's content-type `router`. This is set to an array of routes for the card.
 
 ```js
 // <cardstack HR application folder>/cardstack/static-models.js
@@ -190,7 +190,7 @@ factory.addResource('grants', 'acme-applications-grant')
 
 The router is leveraged when the client makes a request to get a `space`. A `space` is retrieved by URL. So if the client wants to enter the route `/latest-article`, it makes a request to the API: `GET https://<hub api domain>/api/spaces%2Flatest-article`. The API then uses the router above to match the path to a particular route whose query will be used to find the card to display to the user.
 
-In order to accomdate the ability to match paths to routes, on startup, the hub assembles a router map that represents all the possible routes in the system based on all the cards that have routes associated with them. The hub performs this by beginning at the application card, and recursively descending through all the possible cards that the application card routes to, and then descending through all those cards, and so on. As the hub discovers all the possible routes in the system it compiles these routes into the router map. The hub then arranges the routes in the router map such that the most specific routes are matched before the most general routes.
+In order to accommodate the ability to match paths to routes, on startup, the hub assembles a router map that represents all the possible routes in the system based on all the cards that have routes associated with them. The hub performs this by beginning at the application card, and recursively descending through all the possible cards that the application card routes to, and then descending through all those cards, and so on. As the hub discovers all the possible routes in the system it compiles these routes into the router map. The hub then arranges the routes in the router map such that the most specific routes are matched before the most general routes.
 
 ## Error Cards
 
@@ -198,7 +198,7 @@ When the router is unable to find a card for the provided path, it will return a
 
 ### Creating an Error Card
 
-Cardstack application developers can provide their own custom error cards by creating a content-type that uses an `*-errors` suffix of the routing card's content type. So if the application card's content-type is `acme-applications`, a custom error card for this application card would be the content type of `acme-applications-errors`, and you should have at least one instance of this type with the ID of `not-found` that is returned when the router cannot find a card for the path provided (this can be established in the `static-model.js` feature of your cardstack application). You can then provide a custom template for this card as an ember addon in the same way you provide for any card. You should also set a world read grant for this content type, so that errors fields are not inadvertently hidden for API clients.
+Cardstack application developers can provide their own custom error cards by creating a content-type that uses an `*-errors` suffix of the routing card's content type. So if the application card's content-type is `acme-applications`, a custom error card for this application card would be the content type of `acme-applications-errors`, and you should have at least one instance of this type with the ID of `not-found` that is returned when the router cannot find a card for the path provided (this can be established in the `static-model.js` feature of your Cardstack application). You can then provide a custom template for this card as an ember addon in the same way you provide for any card. You should also set a world read grant for this content type, so that errors fields are not inadvertently hidden for API clients.
 
 When a routing card triggers an error because a card cannot be found for the path, the error will bubble up through all the routing cards that where involved with the routing of the path. The custom error card that is closest to the router that was unable to resolve the path will be the error card that is returned from the server.
 
@@ -222,7 +222,7 @@ factory.addResource('acme-applications-errors', 'not-found');
 
 ## Canonical Paths for Cards
 
-The mechamism responsible for generating json:api documents for cards, `DocumentContext`, works such that if `attributes.route-stack`, appears on the document presented to it, DocumentContext will add `links.self` to all the resources in the json:api document that it constructs (this is the case for the `spaces` content type). The route stack is an array of all the cards (as `type/id`) that the router routed through in order to reach a particular card. The `links.self` links are the canonical paths for the resources based on the `route-stack`. The way that we derive a canonical path for a resource is to introspect each routing card in the route stack, from the highest level routing card to the deepest level routing card and identify a route whose query will result in the card whose canonical path we are resolving (in the following order):
+The mechanism responsible for generating json:api documents for cards, `DocumentContext`, works such that if `attributes.route-stack`, appears on the document presented to it, `DocumentContext` will add `links.self` to all the resources in the json:api document that it constructs (this is the case for the `spaces` content type). The route stack is an array of all the cards (as `type/id`) that the router routed through in order to reach a particular card. The `links.self` links are the canonical paths for the resources based on the `route-stack`. The way that we derive a canonical path for a resource is to introspect each routing card in the route stack, from the highest level routing card to the deepest level routing card and identify a route whose query will result in the card whose canonical path we are resolving (in the following order):
 
 1. A query that matches the specified resource specifically. This is a vanity URL to the resource, and has the highest precedence when deriving a canonical path to the resource.
 2. A query that can match the specified resource using a `:friendly_id` in the router. The `:friendly_id` is a special replacement tag in the router that is the developer's signal to the hub that the field should be considered as a identifier for the content. This is what we have previously called the "routing field". This has the second highest precedence when deriving a canonical path to the resource.
@@ -260,7 +260,7 @@ So for example, the following route, which is mounted on the `acme-applications`
   }
 }
 ```
-When matched with the path: `https://acme-corp.com/hassan/most-popular?acme-applications[since]=2018-01-01` will result in the following params object being passed to the `articles` card's component:
+When matched with the path: `https://acme-corp.com/hassan/most-popular?acme-applications[since]=2018-01-01` will result in the following `params` object being passed to the `articles` card's component:
 
 ```js
 {

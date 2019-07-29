@@ -43,7 +43,7 @@ A plugin is usually made up of four functions:
 
 ### The Hub
 
-The Cardstack Hub is a smart caching layer that uses plugins to indexe data from different sources and make it quickly available for the front end.
+The Cardstack Hub is a smart caching layer that uses plugins to index data from different sources and make it quickly available for the front end.
 Developers can activate any number of plugins provided by Cardstack or insert their own.
 For example, the Hub could pull in data from GitHub, an enterprise CMS (content management system), and its own postgres database, and use it within the same project.
 To connect to a new data source, a developer only has to write a plugin, not modify the Hub directly. The Hub does all the heavy lifting that takes the data retrieved by plugins and preprocesses it into JSON responses. The source code is part of the [Cardstack mono-repo](https://github.com/cardstack/cardstack).

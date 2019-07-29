@@ -37,7 +37,7 @@ The factory applies [JSON:API](https://jsonapi.org/) formatting so you don't hav
 
 ## Adding `@core-types` to a schema
 
-A Card often has many more different attributes, of many different data types like strings, dates, and booleans. The Card SDK has some built-in types for the most common kinds of data, known as `core-types`.
+A Card often has many more different attributes, of many different data types like string, date, and boolean. The Card SDK has some built-in types for the most common kinds of data, known as `core-types`.
 
 Here's an example Card with more attributes than just a `title`:
 

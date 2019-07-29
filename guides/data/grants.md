@@ -87,7 +87,8 @@ to the record itself, meaning you can write a grant against the `id` field in or
 
 In general, it is better to use groups rather than make lots of separate grants for each user. The biggest use for individual user grants is when you use them via field indirection, so that a resource can contain its own list of owners, etc.
 
-For example, you can have a resource like this that stores its own collaborators list and a set of unbanned users:
+For example, you can have a resource like this that stores its own collaborators list and a set of `unbanned` users:
+
 ```javascript
 {
   type: 'posts',
@@ -102,6 +103,7 @@ For example, you can have a resource like this that stores its own collaborators
   }
 }
 ```
+
 The `who` relationship in a grant when using a `field` works as an _and_ rather than an _or_. This means that if we specify a grant pointing to the `collaborators` as follows, we will give permissions to `users` `1` and `2`.
 
 ```javascript
@@ -151,7 +153,7 @@ When you try to read a resource, we first check for `may-read-resource`. If you 
 After you pass that resource-level check, we apply field level checks to limit the response. The response will only includes fields for which you have the `may-read-fields` permission.
 The "type" and "id" fields are fundamental to JSON:API, so you do not need explicit `may-read-fields` permission for them. They are implicitly allowed to be read as long as you have may-read-resource.
 If you lack `may-read-fields` permission on a relationship field, it won't be present in data.relationships in the response, and so it necessarily also cannot be present in data.includes (because the JSON:API spec requires full linkage).
-If you have `may-read-fields` permission on a relationship field, it will be present in data.relationships. In order for a related resource to also appear in `includes` (either because you asked for it via the `?include=` query parameter or because of the schema's default-includes) you must have `may-read-resource` permission on the related resource, and we will recurse into it to enforce field level `may-read-resource` permissions.
+If you have `may-read-fields` permission on a relationship field, it will be present in data.relationships. In order for a related resource to also appear in `includes` (either because you asked for it via the `?include=` query parameter or because of the schema's default-includes) you must have `may-read-resource` permission on the related resource, and we will traverse it to enforce field level `may-read-resource` permissions.
 In other words, having `may-read-fields` on a relationship field is distinct from having `may-read-resource` on the resource that the relationship points at.
 
 ### Update
@@ -182,10 +184,9 @@ factory
   });
 ```
 
-In order to apply a grant to all types we need to be explicit. This means we need a list of all the types registered on the hub. We can speficy such grant as follows:
+In order to apply a grant to all types we need to be explicit. This means we need a list of all the types registered on the hub. We can specify such grant as follows:
 
 ```javascript
-
 // Form a lit of all the registered types
 let contentTypes = cardSchemas
   .getModels()
@@ -245,7 +246,7 @@ factory
   });
 ```
 
-However, due the way fields are defined in cardstack you cannot set different permissions to two fields of the same name, even if they are in different entities. For instance, the following **will not work**:
+However, due the way fields are defined in Cardstack, you cannot set different permissions to two fields of the same name, even if they are in different entities. For instance, the following **will not work**:
 
 ```javascript
 factory

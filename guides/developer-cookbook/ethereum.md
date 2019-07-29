@@ -17,9 +17,9 @@ The Cardstack Hub exposes its underlying content via [JSON:API](http://jsonapi.o
 From the JSON:API website:
 > _“JSON API is a specification for how a client should request that resources be fetched or modified, and how a server should respond to those requests. JSON API is designed to minimize both the number of requests and the amount of data transmitted between clients and servers. This efficiency is achieved without compromising readability, flexibility, or discoverability.”_
 
-Let’s take a look at some example queries for Ethereum content made from our CARD token dashboard on [cardstack.com](cardstack.com).
+Let’s take a look at some example queries for Ethereum content made from our CARD token dashboard on [cardstack.com](https://cardstack.com).
 
-On cardstack.com, we have defined an Ethereum data-source with the content-type of `card-tokens`. Our current CARD token smart contract is deployed to the address: `0xB07ec2c28834B889b1CE527Ca0F19364cD38935c`. To get the document that represents the CARD token smart contract, a web client issues the request that specifies the content-type of the document and the ID of the document (in this case the ID is just the address of the smart contract) : `GET https://hub.cardstack.com/api/card-tokens/0xB07ec2c28834B889b1CE527Ca0F19364cD38935c`.
+On [cardstack.com](https://cardstack.com), we have defined an Ethereum data-source with the content-type of `card-tokens`. Our current CARD token smart contract is deployed to the address: `0xB07ec2c28834B889b1CE527Ca0F19364cD38935c`. To get the document that represents the CARD token smart contract, a web client issues the request that specifies the content-type of the document and the ID of the document (in this case the ID is just the address of the smart contract) : `GET https://hub.cardstack.com/api/card-tokens/0xB07ec2c28834B889b1CE527Ca0F19364cD38935c`.
 
 The response looks like this:
 
@@ -76,7 +76,7 @@ The response looks like this:
 ```
 The data structure should look similar to the concepts introduced when we discussed the schema. Within the `attributes` property of the response you will find the output of all the read-only functions of the smart contract that take no parameters. Within the `meta` property of the response is the `blockheight` field, which provides context for all the attributes.
 
-Let’s now look at a specific token holder’s balance. As with the unit test configuration in reference 5 line 17, the configuration for the CARD token smart contract used on cardstack.com also includes this configuration in the `eventContentTriggers`:
+Let’s now look at a specific token holder’s balance. As with the unit test configuration in reference 5 line 17, the configuration for the CARD token smart contract used on /cardstack.com](cardstack.com) also includes this configuration in the `eventContentTriggers`:
 
 `Transfer: [ "card-token-balance-ofs" ]`
 

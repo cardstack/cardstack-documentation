@@ -1,6 +1,6 @@
 # cardstack-documentation
 
-This respository contains work-in-progress learning guides for Cardstack.
+This respository contains learning guides for Cardstack.
 The app is deployed at [docs.cardstack.com](https://docs.cardstack.com/release/).
 
 These guides have two audiences:
@@ -29,7 +29,7 @@ You will need the following things properly installed on your computer.
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+
 
 ## Contributing
 
@@ -40,20 +40,22 @@ Please also review the Cardstack [Code of Conduct](https://github.com/cardstack/
 
 The guides themselves are written using Markdown syntax, and have a `.md` file extension. The app itself is powered by the `guidemaker` dependencies, so most changes to the way the app works should be submitted upstream.
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
 ### Running Tests
 
-* `ember test`
-* `ember test --server`
+* `npm test`
+
+This will run the linter, spellchecker, and Ember tests.
+To add new words to the spellchecker, see `.spellcheck.dic`.
+
+If you make wording changes, when you open a Pull Request,
+you will see failing Percy tests. This is normal.
+They fail when there is a visual difference.
+A maintainer will review the new screenshots and approve them
+or request changes.
 
 ### Linting
 
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
+* `npm run lint:md`
 
 ### Building
 
@@ -62,7 +64,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Deploying
 
-The contents of the `master` branch deploy automatically.
+The contents of the `master` branch deploy automatically via Travis.
 
 ## Further Reading / Useful Links
 

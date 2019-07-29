@@ -30,7 +30,7 @@ An indexer fetches data on a regular interval and indexes it into a cache for sp
 The update method is responsible for getting any new upstream content into
 the search index. Update takes these optional arguments:
 
-- `forceRefresh`: when true, we will force elasticsearch to index
+- `forceRefresh`: when true, we will force Elasticsearch to index
 the new content immediately. This is expensive if you do it
 too often. When false, we will wait for the next scheduled
 refresh to happen (the default Elasticsearch refresh_interval

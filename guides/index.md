@@ -32,6 +32,6 @@ To edit this documentation, click the pencil icon at the top right of every page
 If you would like to contribute to Cardstack itself, please see GitHub for the
 [main codebase](https://github.com/cardstack/cardstack),
 our
-[other repsitories](https://github.com/cardstack),
+[other repositories](https://github.com/cardstack),
 and the
 [Code of Conduct](https://github.com/cardstack/cardstack/blob/master/CODE_OF_CONDUCT.md).

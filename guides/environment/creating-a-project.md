@@ -6,7 +6,7 @@ but if you dig into subdirectories, you will see that each part of the project
 can have its own dependencies.
 This is because Cardstack projects follow a mono-repo structure.
 You can learn more about how and why Cardstack uses this structure in the video
-[How I learned to stop worrying and love the mono repo](https://www.youtube.com/watch?v=Q7QPqEAGu_U&list=PLE7tQUdRKcyYWLWrHgmWsvzsQBSWCLHYL&index=24&t=0s).
+[How I learned to stop worrying and love the mono-repo](https://www.youtube.com/watch?v=Q7QPqEAGu_U&list=PLE7tQUdRKcyYWLWrHgmWsvzsQBSWCLHYL&index=24&t=0s).
 
 ## File layout
 

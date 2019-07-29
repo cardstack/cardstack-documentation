@@ -10,7 +10,7 @@ We also want to add some additional npm packages. Using yarn, let’s add the fo
 
 `yarn add @cardstack/ethereum @cardstack/jsonapi @cardstack/test-support @cardstack/eslint-config eslint-plugin-node`
 
-To make life easier inside of whatever code editor you are using, we have bundled an eslint configuration that is inclusive of Ember.js’s eslint rules as well as rules for the Cardstack Hub. Edit the `.eslintrc.js` file and use the following configuration instead of the one that was created for you:
+To make life easier inside of whatever code editor you are using, we have bundled an ESLint configuration that is inclusive of Ember.js ESLint rules as well as rules for the Cardstack Hub. Edit the `.eslintrc.js` file and use the following configuration instead of the one that was created for you:
 
 ```js
 module.exports = {

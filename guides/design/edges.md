@@ -5,7 +5,7 @@ For example, drafting an email, changing a blog article title, editing your user
 
 The Four Edges are tools that provide an out-of-the-box way for developers to offer editing capabilities. Those editing tools can be user-facing or can be used to power admin consoles.
 
-Each "edge" refers to a different aspect of data flow in an an application. There are environments, networks, libraries, and configurations. Put more simply, navigation, incoming data, available tools, and editing.
+Each "edge" refers to a different aspect of data flow in an application. There are environments, networks, libraries, and configurations. Put more simply, navigation, incoming data, available tools, and editing.
 
 ![four edges diagram](/images/edges.png)
 

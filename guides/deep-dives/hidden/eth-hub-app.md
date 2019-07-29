@@ -19,7 +19,7 @@ This response will return all the token balances using a default page size of 10
 
 Also, you’ll note that the `meta` property in this response indicates how many total records exist, as well as provides a link to get the next page of token balances.
 
-The address of the token holder can be found in the `attributes.mapping-number-value property` within each `card-token-balance-ofs` resource in the response above. (Note that we use a JavaScript string type to represent this number, as Ethereum numbers can be much much larger.)
+The address of the token holder can be found in the `attributes.mapping-number-value property` within each `card-token-balance-ofs` resource in the response above. (Note that we use a JavaScript string type to represent this number, as Ethereum numbers can be much larger.)
 
 We can issue the request `http://localhost:3000/api/card-token-balance-ofs/0x88e1d504fd6551a7b7b19e1aa6881de1a9f18ca7` to look at the balance for a specific token holder, whose address is `0x88e1d504fd6551a7b7b19e1aa6881de1a9f18ca7`
 
