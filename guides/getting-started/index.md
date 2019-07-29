@@ -137,7 +137,7 @@ To see what it looks like, add the following to `cardhost/app/templates/applicat
 Restart your local servers with `Control-c`, `yarn start-hub`, and `yarn start-ember`.
 
 Now when you visit [http://localhost:4200/photographers/1](http://localhost:4200/photographers/1), you can click "edit content", select the arrow icon in the top right corner. You will see the Right Edge, which is automatically generated from the Card Schema!
-You won't be able to make any edits yet, because we did not set up permissions, so keep reading these Guides!
+You won't be able to make any edits yet, because we did not set up any grants, so keep reading these Guides!
 You will learn how to allow editing with the Edges,
 save data, set up relationships, use Cards within Cards, set up different user permission levels, connect to different data sources,
 use intelligent data caching, and more!
