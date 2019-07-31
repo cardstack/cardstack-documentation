@@ -10,7 +10,7 @@ First, go ahead and clone this GitHub repository, which is an empty [Cardstack P
 git clone https://github.com/cardstack/project-template.git
 ```
 
-If you have any trouble along the way, check out the [`movielist` branch](https://github.com/cardstack/project-template/tree/movielist) to see the code for the completed tutorial.
+If you have any trouble along the way, check out the [`movielist-complete` branch](https://github.com/cardstack/project-template/tree/movielist-complete) to see the code for the completed tutorial.
 
 ## Creating the Movie Card
 
