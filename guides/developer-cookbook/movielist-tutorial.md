@@ -260,6 +260,7 @@ Through the tutorial, there are some common `css` variables that we are using fo
     --movie-mystery: #2D4357;
     --movie-sci-fi: #014CF5;
     --movie-adventure: #C5862E;
+    --movie-other: #949494;
   }
 
 .movie-horror {
@@ -289,6 +290,9 @@ background-color: var(--movie-horror);
 .movie-adventure {
   background-color: var(--movie-adventure);
 }
+.movie-other {
+  background-color: var(--movie-other);
+
 ```
 
 Now that we have a schema and a template view for this movie card, we can create an instance of it. Paste the code below inside the `if` statement in the `cardhost/cardstack/seeds/data.js`:
@@ -355,7 +359,7 @@ factory.addResource('movies', 2).withAttributes({
   factory.addResource('movies', 6).withAttributes({
     title: 'Iron Man',
     year: 2008,
-    genre: 'Action',
+    genre: 'Other',
     summary: 'After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.',
     playing: false,
     notes: ''
