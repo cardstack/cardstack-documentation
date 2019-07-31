@@ -641,11 +641,11 @@ Second, we want to put the `movie` cards on top of the `main-board` card. In thi
   {{/if}}
   <a class="movie-embedded" href={{cardstack-url content}} >
     <h3 class="movie-embedded-title" data-test-movie-isolated-title>{{content.title}}</h3>
-    <div class="movie-embedded-view-bottom">
-      <h3 data-test-movie-isolated-title>{{content.year}}</h3>
-      <h3 data-test-movie-isolated-title>{{content.genre}}</h3>
-    </div>
   </a>
+  <div class="movie-embedded-view-bottom">
+    <h3 data-test-movie-isolated-title>{{content.year}}</h3>
+    <h3 data-test-movie-isolated-title>{{content.genre}}</h3>
+  </div>
 </div>
 ```
 and the code in the `cards/movie/addon/components/embedded.js` with the following:
@@ -680,7 +680,9 @@ Last but not least, in order to have a better looking application, add some styl
 
 ```css
 .movie-embedded {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   text-decoration: none;
   text-align: center;
   color: white;
@@ -696,15 +698,19 @@ Last but not least, in order to have a better looking application, add some styl
   margin-left: 30px;
   margin-right: 30px;
   margin-top: 10px;
-  padding-top: 20px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.movie-embedded-title {
+  align-self: center;
 }
 
 .movie-embedded-view-bottom {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  color: white;
 }
 
 .movie-embedded-view-playing-tag {
@@ -712,6 +718,7 @@ Last but not least, in order to have a better looking application, add some styl
   border: 1px black solid;
   border-radius: 25px;
   color: white;
+  align-self: flex-start;
 }
 ```
 
