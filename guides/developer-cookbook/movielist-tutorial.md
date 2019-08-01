@@ -292,7 +292,7 @@ background-color: var(--movie-horror);
 }
 .movie-other {
   background-color: var(--movie-other);
-
+}
 ```
 
 Now that we have a schema and a template view for this movie card, we can create an instance of it. Paste the code below inside the `if` statement in the `cardhost/cardstack/seeds/data.js`:
@@ -315,8 +315,10 @@ yarn install
 yarn start-prereqs
 yarn start
 ```
-The app is now running in `localhost:4200`, and if you use the route `/movies/1`, you can see the isolated template of your movie card.
-
+The app is now running in `localhost:4200`, and you should be seeing our welcome message on the main page.
+![Welcome Message](/images/movielist-tutorial/welcome-message.png)
+If you use the route `/movies/1`, you can see the isolated template of your movie card.
+![Movie Isolated View](/images/movielist-tutorial/movie-isolated-view.png)
 Congratulations!! You just created, structured and viewed your first Cardstack Card.
 
 ## Adding more seed data
@@ -451,7 +453,7 @@ Now that we set up our schema for the `main-board` card, we can go ahead and cre
 
 ```js
 factory.addResource('main-boards', 'main').withAttributes({
-    title: 'Welcome to your personalized Movie Tracker',
+    title: 'Personal Movie Tracker',
     message: 'Please choose which category to view'
   })
   .withRelated('watched-movies', [
@@ -474,7 +476,6 @@ Now that we set our data backing with the schema, we can go ahead and design the
 
 ```handlebars
 <div class="main-board-isolated">
-{{#mock-login as |login|}} <button class='btn-edit' {{action login}}>Edit Content</button>{{/mock-login}}
   <h1 class="main-board-isolated-title" data-test-main-board-isolated-title>{{content.title}}</h1>
     <div class='btn-group'>
       <button class='btn btn1' {{action showSelectedMovies 'watchedMovies'}}>Watched Movies</button>
@@ -727,6 +728,7 @@ Last but not least, in order to have a better looking application, add some styl
 ```
 
 Now, you can run the application and follow the route `/main-boards/main` and you will see a Movie Tracking application!
+![Movie Tracking Application](/images/movielist-tutorial/movie-tracking-application.png)
 
 ## Routing
 We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardhost/cardstack/router.js` and replace the code with the following code:
@@ -750,15 +752,16 @@ module.exports = [{
   },
 }];
 ```
-
+Now, you can run the application, you will see the Movie Tracking application on the main page!
+![Setting the Main Route](/images/movielist-tutorial/setting_main_route.png)
 ## Editing the Data
 
 Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its built-in Editor for adding, editing, or deleting data from an application. To enable this editing mode, go to the `cards/main-board/addon/templates/isolated.hbs` and paste:
 
-```html
+```handlebars
 {{#mock-login as |login|}} <button {{action login}}>Edit Content</button>{{/mock-login}}
 ```
-just before the `<br><br>`. Now, if you run the app again, and click on the `Edit Content` button, you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component, but you won't be able to make any edits until we have added some Grants.
+right after the `<div class="main-board-isolated">`. Now, if you run the app again, and click on the `Edit Content` button, you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component, but you won't be able to make any edits until we have added some Grants.
 
 The {{#mock-login}} helper is a built-in helper for enabling the Editor while you are developing the app locally. To set up real authentication and authorization, please visit the [Cardboard](https://github.com/cardstack/cardboard) for more details.
 
