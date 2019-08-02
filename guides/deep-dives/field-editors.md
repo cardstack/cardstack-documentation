@@ -107,22 +107,41 @@ factory.addResource('fields', 'my-field-name').withAttributes({
 
 A field editor is a regular Ember Component which receives the Card's `content` and the `field` that the editor should be used for, plus any `editorOptions` from the schema. 
 
-For example, let's say that we want to make an editor that is a `textarea` instead of a regular `input`, where someone could write a longer description of a photo. In this template below, we use some Ember features to make changes to the input data. We `get` the value of the field the user is editing and use `mut` to mark it as editable. When someone inputs a value, the `action` makes the changes to the value:
+For example, let's say that we want to make an editor that is an `input` but transforms every word to upper case. In this template below, we use some Ember features to make changes to the input data. We will bind the `value` of the `input` to our field by using the `get` helper.
 
 ```handlebars
-<div class="field-editor--string-text-area">
-    <textarea
-        oninput={{action (mut (get content field)) value="target.value"}}
-    >
-    {{get content field}}
-    </textarea>
-    <div>
-        {{wordCount}}
-    </div>
+<div class="field-editor-upper-case">
+  <input
+    type="text"
+    value={{get content field}}
+    oninput={{action "upper_case" value="target.value"}}
+  >
 </div>
 ```
 
-In the JavaScript file, you could add Ember actions and Computed Properties. For example, you could write a `wordCount` Computed Property that provides instant feedback to a user.
+Since field editors are Ember Components, we define the `upper_case` function in its respective `component` file
+
+```js
+import Component from '@ember/component';
+import layout from 'template-file';
+
+export default Component.extend({
+    layout,
+    actions: {
+        upper_case(value) {
+            let content = this.get('content');
+            let field = this.get('field');
+            if (!value) {
+                content.set(field, null);
+            }
+            else {
+                this.set(field, value.toUpperCase());
+            }
+        }
+    }
+});
+```
+Note that `template-file` in the above code should be replaced by the path of the respective `template` file.
 
 ## Learn more
 
