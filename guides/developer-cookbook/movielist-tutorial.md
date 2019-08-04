@@ -1,6 +1,6 @@
-Until this point, we have covered the essential concepts and features of a Cardstack application. Now, it is time for you to try out your new skills and knowledge on an interactive tutorial. In this tutorial, we will build a Movie Tracking application using the Cardstack framework.
+Until this point, we have covered the essential concepts and features of a Cardstack application. Now, it is time for you to try out your new skills and knowledge on an interactive tutorial. In this tutorial, we will build a Movie Tracking application using the Card SDK.
 
-Movies are irreplaceable parts of the 21st century social life. People are continuously watching new movies and receiving recommendations from friends. Let's build a tool that can record all the movies that you have watched, are currently watching, or have noted to watch. By the time you are done with this tutorial, you will know how to create new data, display it, enable an editing mode, add interactive filters, and save the results to the back end.
+Movies are irreplaceable parts of the 21st century social life. People are continuously watching new movies and receiving recommendations from friends. Let's build a tool that can record all the movies that you have watched, are currently watching, or have noted to watch. By the time you are done with this tutorial, you will know how to create new data, display it, enable an editing mode, add interactive filters, and save the results using git.
 
 ## Create the main project files
 
@@ -115,7 +115,7 @@ factory.addResource('movies', 1).withAttributes({
   });
 ```
 
-Now go ahead and run these commands in your terminal:
+Now, first make sure Docker is running, and then go ahead and run these commands in your terminal:
 
 ```bash
 yarn install
@@ -123,12 +123,13 @@ yarn start-prereqs
 yarn start
 ```
 The app is now running in `localhost:4200`, and if you use the route `/movies/1`, you can see the isolated template of your movie card.
+`start-prereqs` launches some Docker containers that handle the back end of your application, so make sure to run this command again anytime you stop Docker or restart your computer.
 
 Congratulations!! You just created, structured and viewed your first Cardstack Card.
 
 ## Adding more seed data
 
-Now that you know how to create an instance of a movie card, you can go ahead and store more Marvel Cinematic Universe movies to your schema. Inside the `cardhost/cardstack/seeds/data.js` you can create your own movie cards, or just use the code below:
+Now that you know how to create an instance of a movie card, you can go ahead and store more Marvel Cinematic Universe movies to your schema. Inside the `cardhost/cardstack/seeds/data.js` you can create your own movie cards, or just use the code below.
 
 ```js
 factory.addResource('movies', 2).withAttributes({
@@ -188,7 +189,6 @@ factory.addResource('movies', 2).withAttributes({
     notes: ''
   });
 ```
-
 
 ## Creating the Main Board
 
@@ -419,12 +419,13 @@ module.exports = [{
 
 ## Editing the Data
 
-Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its built-in Editor for adding, editing, or deleting data from an application. To enable this editing mode, go to the `cards/main-board/addon/templates/isolated.hbs` and paste:
+Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its built-in Editor for adding, editing, or deleting data from an application. To enable this editing mode, go to the `cardhost/app/templates/application.hbs` and paste this at the very top:
 
 ```html
 {{#mock-login as |login|}} <button {{action login}}>Edit Content</button>{{/mock-login}}
 ```
-just before the `<br><br>`. Now, if you run the app again, and click on the `Edit Content` button, you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component, but you won't be able to make any edits until we have added some Grants.
+
+Now, if you run the app again, and click on the `Edit Content` button, you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component, but you won't be able to make any edits until we have added some Grants.
 
 The {{#mock-login}} helper is a built-in helper for enabling the Editor while you are developing the app locally. To set up real authentication and authorization, please visit the [Cardboard](https://github.com/cardstack/cardboard) for more details.
 
@@ -526,9 +527,10 @@ factory.addResource('grants', 'cardstack-files-world-read')
 Great! Now, if you restart your local server, you have full control over the cards via the Editor.
 
 ## Quick Tips for the Editor
+
 Note: You should always activate the Editor with the 'Edit Content' button before using it!
 
-- You can select any of the movie list categories, and then add a movie from the movies data are in the storage(the ones in the `cards/movie/cardstack/static-model.js`) Likewise, you can delete any movie from the particular list as well.
+- You can select any of the movie list categories, and then add a movie from the movies data are in the storage (the ones in the `cards/movie/cardstack/static-model.js`) Likewise, you can delete any movie from the particular list as well.
 
 ![Adding new movies to the lists](/images/movielist-tutorial/editor_main_board_view.png)
 
@@ -537,6 +539,7 @@ Note: You should always activate the Editor with the 'Edit Content' button befor
 ![Editing an already existing movie](/images/movielist-tutorial/editor_old_movie.png)
 
 - Using the `+` button at the bottom of the editor, you can create a new record. However, in order to save the new record, you need to hit the 'Save' button and wait until the 'Draft' sign turn into 'Published'. After you create a new record, you can then go back to the main page, and add that movie into a particular list.
+Any data added this way goes into the `@cardstack/ephemeral` data source, and will disappear when you restart your computer or the Docker containers.
 
 ![Adding a new movie record](/images/movielist-tutorial/editor_new_movie.png)
 
@@ -554,10 +557,51 @@ There are two ways to access the data of the `fields` from inside of a template:
 
 This is a special way to introduce `fields` of a card if you only need its data, and do not want to render any view, such as our movie lists. We recommend the usage of this `{{#cs-field content 'fieldID' as |foo| }}` for `fieldTypes` such as `@cardstack/core-types::has-many` or `@cardstack/core-types::belongs-to`.
 
-## Closing
-This is the end of our Interactive Movie List Tutorial. Since this is a beginners tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually. Therefore, this application is ideal for tracking long movie series, such as the Marvel Cinematic Universe. 
+## Saving data to git
 
-Cardstack has a high quality plug-in functionality, so it is possible to make this application more advanced, and gather movie data from third-party APIs, such as IMDb. Stay tuned for a future advanced tutorial!
+So far in this tutorial, we have been saving data to the "ephemeral" data source, but now it is time to save the data long-term! Ephemeral means temporary, and it disappears when the Docker containers are restarted, but the [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/master/packages/git) plugin can save the Card data to a git repository on your hard drive, or even a remote repository like on GitHub.
+
+With these commands below, we will create a new git repository to hold the data, and get it set up to work with our movielist app. Be sure to run these outside of your `project-template` directory.
+
+``` bash
+cd .. # to get out of the project directory
+mkdir project-data
+cd project-data
+git init
+touch README.md
+git add README.md
+git commit -m "initial commit"
+```
+
+Use the command `pwd` to see the full path to your new git repository.
+You will need it for the next step.
+
+Now, in `project-template/cardhost/data-sources/default.js`, change the `'@cardstack/ephemeral` default data source to `@cardstack/git`. Be sure to fill in the `repo` with the path you got from `pwd`.
+
+```javascript
+{
+    type: 'data-sources',
+    id: 'default',
+    attributes: {
+      'source-type': '@cardstack/git',
+      params: {
+        repo: '/your/path/goes/here/project-data'
+      }
+    },
+  }
+```
+
+When you restart your app, the seed data will be missing! This is how it should be, since the seed data was part of the ephemeral data source. To add new data, click on the "Edit content" button, choose the arrow to open the Right Edge, and click the plus button to make a new Movie Card.
+
+After you hit save, you should see that your `project-data` repository has a new commit. You can even look at the files created to see your Card represented as JSON. Now if you restart your computer, your data is still there, and it is versioned!
+
+If you would like to save your data to GitHub, so others can use it when they run your app or when you deploy it to a server, check out the [git as a default data source](../../data/git/) guide.
+
+## Closing
+
+This is the end of our Interactive Movie List Tutorial. Since this is a beginner tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually.
+
+Cardstack has a high quality plugin functionality, so it is possible to make this application more advanced, and gather movie data from third-party APIs, such as IMDb. Stay tuned for a future advanced tutorial!
 
 Thanks for your time, and we hope you liked developing with the Cardstack SDK!
 If you have any questions or feedback on this tutorial, you can reach the engineering team on [Discord](https://medium.com/cardstack/the-brand-new-official-cardstack-discord-channel-4a2ffd925cee) or open Issues and Pull Requests on [GitHub](https://github.com/cardstack/cardstack-documentation/).
