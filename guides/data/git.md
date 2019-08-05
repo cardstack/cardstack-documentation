@@ -1,28 +1,26 @@
-One of the most powerful ways to store a Card's data is [git](https://git-scm.com/).
-
-Using the [git plugin](https://github.com/cardstack/cardstack/tree/master/packages/git) for the Card SDK, you can store your card's data as JSON in a local or remote git repository.
+With the [git plugin](https://github.com/cardstack/cardstack/tree/master/packages/git) for the Card SDK, you can store your card's data as JSON in a local or remote git repository.
 You get an instant, versioned data persistence layer that supports create, read, update, and delete.
 
-In this guide, we will show how to set git to be the default data source, but if you prefer, you could configure any Card in your project to use a different data source.
+In this guide, we will show how to save Card data to git by default.
 
 ## Installing and configuring
 
-Install `@cardstack/git` in the `cardhost` of your project:
+Install [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/master/packages/git) in the `cardhost` of your project:
 
 ```sh
 cd cardhost
 yarn add --dev @cardstack/git
 ```
 
-See the [git plugin README](https://github.com/cardstack/cardstack/tree/master/packages/git) for full configuration instructions, or read on to learn how to set up your git repository, step by step.
-
 ## Using a local repository by default
 
-While you are first developing a Card, it can be useful to keep the data in a local git repository. In this example, we will set up a local repository from scratch, make it the default data source, and save some Card data.
+While you are first developing a Card, it can be useful to keep the data in a local git repository, on your own computer.
+In this example, we will set up a local repository from scratch, make it the default data source, and save some Card data.
 
-First, create a new directory on your hard drive, outside of your project directory:
+First, create a new directory, outside of your project directory:
 
 ```bash
+cd ..
 mkdir project-data
 ```
 
@@ -33,7 +31,7 @@ cd project-data
 git init
 ```
 
-In order for data to be saved to a branch, it has to exist first.
+In order for data to be saved to a branch, the branch has to exist first.
 Create a file such as `README.md` and commit it to the `master` branch.
 The first commit is what establishes that `master` exists.
 
@@ -51,7 +49,7 @@ pwd
 # prints /the/path/to/your/project-data/
 ```
 
-In `cardhost/data-sources/default.js`, set your default data source to git:
+In `cardhost/data-sources/default.js` for your project, set your default data source to git:
 
 ```javascript
 {
@@ -66,7 +64,7 @@ In `cardhost/data-sources/default.js`, set your default data source to git:
   }
 ```
 
-Now if you start up your Card, you will be using the local git repository to store data! If you use the Edges to save data, and you run `git status` in your local repository, you will see its changes. You can also look at the files inside your data repository if you are curious to see what a Card's final data structure looks like, represented as JSON.
+Now if you start up your Card, you will be using the local git repository to store data! If you use the Edges to save data, and you run `git status` in your local repository, you will see its changes. You can also look at the files inside your data repository if you are curious to see what the Card's JSON.
 
 ### Troubleshooting local repositories
 
@@ -113,8 +111,8 @@ Always use an environmental variable to provide your key. You can do this from t
 GIT_PRIVATE_KEY="/path/to/your/private/key/id_rsa"
 ```
 
-Now if you start up your project, it should be using your repository on GitHub!
-If you watch the console for your server, you will see it pull the repository and start indexing. When you save a Card, you will see a POST request go out, and you can view the record on the GitHub repository.
+Now if you start up your project, make some changes, and save them, it should be using your repository on GitHub!
+If you watch the console for your server, you will see it pull the repository and start indexing. When you save a Card, you will see a POST request go out, and you can view the record on GitHub.
 
 ### Troubleshooting remote repositories
 
