@@ -561,7 +561,7 @@ This is a special way to introduce `fields` of a card if you only need its data,
 
 So far in this tutorial, we have been saving data to the "ephemeral" data source, but now it is time to save the data long-term! Ephemeral means temporary, and it disappears when the Docker containers are restarted, but the [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/master/packages/git) plugin can save the Card data to a git repository on your hard drive, or even a remote repository like on GitHub.
 
-With these commands below, we will create a new git repository to hold the data, and get it set up to work with our movielist app. Be sure to run these outside of your `project-template` directory.
+With these commands below, we will create a new git repository to hold the data, and get it set up to work with our movie app. Be sure to run these outside of your `project-template` directory.
 
 ``` bash
 cd .. # to get out of the project directory

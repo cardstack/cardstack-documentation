@@ -1,7 +1,7 @@
 One of the most powerful ways to store a Card's data is [git](https://git-scm.com/).
 
-Using the [git plugin](https://github.com/cardstack/cardstack/tree/master/packages/git) for the Card SDK, you can store your card's data as JSON in a local or remote git respository.
-You get an instant, versioned data persistance layer that supports create, read, update, and delete.
+Using the [git plugin](https://github.com/cardstack/cardstack/tree/master/packages/git) for the Card SDK, you can store your card's data as JSON in a local or remote git repository.
+You get an instant, versioned data persistence layer that supports create, read, update, and delete.
 
 In this guide, we will show how to set git to be the default data source, but if you prefer, you could configure any Card in your project to use a different data source.
 
@@ -14,9 +14,9 @@ cd cardhost
 yarn add --dev @cardstack/git
 ```
 
-See the [git plugin README](https://github.com/cardstack/cardstack/tree/master/packages/git) for full configuration instructions, or read on to learn how to set up your git respository, step by step.
+See the [git plugin README](https://github.com/cardstack/cardstack/tree/master/packages/git) for full configuration instructions, or read on to learn how to set up your git repository, step by step.
 
-## Using a local respository by default
+## Using a local repository by default
 
 While you are first developing a Card, it can be useful to keep the data in a local git repository. In this example, we will set up a local repository from scratch, make it the default data source, and save some Card data.
 
@@ -66,9 +66,9 @@ In `cardhost/data-sources/default.js`, set your default data source to git:
   }
 ```
 
-Now if you start up your Card, you will be using the local git respoitory to store data! If you use the Edges to save data, and you run `git status` in your local respository, you will see its changes. You can also look at the files inside your data repository if you are curious to see what a Card's final data structure looks like, represented as JSON.
+Now if you start up your Card, you will be using the local git repository to store data! If you use the Edges to save data, and you run `git status` in your local repository, you will see its changes. You can also look at the files inside your data repository if you are curious to see what a Card's final data structure looks like, represented as JSON.
 
-### Troubleshooting local respositories
+### Troubleshooting local repositories
 
 - *Any problem* - did you restart your server after making changes to the data sources?
 - *Can't start the app* - If you have trouble starting up your project after adding the git data source, double check that the path is correct and that you have at least one commit on the branch that git should target.

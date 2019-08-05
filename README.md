@@ -1,6 +1,6 @@
 # cardstack-documentation
 
-This respository contains learning guides for Cardstack.
+This repository contains learning guides for Cardstack.
 The app is deployed at [docs.cardstack.com](https://docs.cardstack.com/release/).
 
 These guides have two audiences:
