@@ -10,7 +10,7 @@ First, go ahead and clone this GitHub repository, which is an empty [Cardstack P
 git clone https://github.com/cardstack/project-template.git
 ```
 
-If you have any trouble along the way, check out the [`movielist` branch](https://github.com/cardstack/project-template/tree/movielist) to see the code for the completed tutorial.
+If you have any trouble along the way, check out the [`movielist-complete` branch](https://github.com/cardstack/project-template/tree/movielist-complete) to see the code for the completed tutorial.
 
 ## Creating the Movie Card
 
@@ -91,15 +91,208 @@ In order to view a card, we first need to design its template view. For now, we 
 
 ```handlebars
 <div class="movie-isolated">
-  <h1 data-test-movie-isolated-title>Title: {{content.title}}</h1>
-  <h1 data-test-movie-isolated-year>Year: {{content.year}}</h1>
-  <h1 data-test-movie-isolated-genre>Genre: {{content.genre}}</h1>
-  <h1 data-test-movie-isolated-short-summary>Short Summary: {{content.summary}}</h1>
-  <h1 data-test-movie-isolated-playing>Currently Playing: {{#if content.playing}} Yes {{else}} No {{/if}}</h1>
-  <h1 data-test-movie-isolated-notes>Notes: {{content.notes}}</h1>
+  <h3 class="movie-isolated-view-prev-page"><a href='/'> <span>&#8592;</span> Back to List</a></h3>
+  <div class="movie-isolated-view-content">
+    <div class="movie-isolated-general-info">
+      <div class="movie-{{genre}} movie-isolated-view-title-area">
+        {{#if nowPlaying}}  
+          <div class="movie-isolated-view-playing-tag">Now Playing</div>
+        {{/if}}
+        <h1 data-test-movie-isolated-title>{{content.title}}</h1>
+      </div>
+      <div class="movie-isolated-view-info">
+        <div class="movie-isolated-view-sub-info">
+          <div class="movie-isolated-view-year">
+            <p data-test-movie-isolated-year-title><b>Released</b></p>
+            <p data-test-movie-isolated-year>{{content.year}}</p>
+          </div>
+          <div class="movie-isolated-view-year">
+            <p data-test-movie-isolated-genre-title><b>Genre</b></p>
+            <p data-test-movie-isolated-genre>{{content.genre}}</p>
+          </div>
+        </div>
+        <hr>
+        <div class="movie-isolated-view-synopsis">
+          <p data-test-movie-isolated-short-summary><b>Synopsis</b></p>
+          <p data-test-movie-isolated-short-summary>{{content.summary}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="movie-isolated-notes">
+      <p data-test-movie-isolated-notes><b>Notes</b></p>
+      {{#if content.notes}}
+        <p data-test-movie-isolated-notes>{{content.notes}}</p>
+      {{else}}
+        <p data-test-movie-isolated-notes>Start taking notes!</p>
+      {{/if}}
+    </div>
+  </div>
 </div>
-<br><br><br>
-<h3><a href='/'>Click to go back to the list.</a></h3>
+```
+Notice the tag 
+```html
+<div class="movie-{{genre}} movie-isolated-view-title-area">
+```
+is using a variable to set up the `class` name. In order to use this variable and others, go ahead and replace the code in `cards/movie/addon/components/isolated.js` with the following code:
+```js
+import Component from '@ember/component';
+import layout from '../templates/isolated';
+import { computed } from '@ember/object';
+
+export default Component.extend({ 
+    layout,
+    genre: computed('content.genre', function() {
+        if(this.content.genre === undefined) {
+            return '';
+        }
+        else if(this.content.genre === 'Sci-Fi'){
+            return "sci-fi";
+        }
+        return this.content.genre.charAt(0).toLowerCase() + this.content.genre.slice(1);
+    }),
+    nowPlaying: computed('content.playing', function() {
+        return this.content.playing ? this.content.playing : false;
+    })
+ });
+```
+Also, replace the existing code inside `cards/movie/addon/styles/movie-isolated.css` with the following code for better view:
+```css
+.movie-isolated {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-isolated-view-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.movie-isolated-view-title-area {
+  border: 1px black solid;
+  border-radius: 25px 25px 0px 0px;
+  height: 200px;
+  color: white;
+  text-align: center;
+}
+
+.movie-isolated-view-info {
+  border: 1px black solid;
+  border-radius: 0px 0px 25px 25px;
+  color: black;
+  text-align: center;
+  background-color: white;
+}
+
+.movie-isolated-view-prev-page {
+  color: white;
+  text-align: center;
+  align-self: flex-start;
+}
+
+a:link {
+  text-decoration: white;
+}
+
+a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+.movie-isolated-view-sub-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-size: 20px;
+  font-weight: light;
+}
+
+hr {
+  width: 70%;
+}
+
+.movie-isolated-view-playing-tag {
+  background-color: black;
+  border: 1px black solid;
+  border-radius: 25px;
+  color: white;
+  width: 15%;
+}
+
+.movie-isolated-view-synopsis {
+  text-align: center;
+  padding: 15px;
+}
+
+.movie-isolated-general-info {
+  width: 70%;
+  align-self: flex-start;
+}
+
+.movie-isolated-notes {
+  border: 1px black solid;
+  border-radius: 25px;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding: 50px;
+  padding-top: 10px;
+  height: 20%;
+  width: 30%;
+  background-color: #fff4db;
+  align-self: flex-end;
+}
+```
+
+Through the tutorial, there are some common `css` variables that we are using for different formats of the movie cards, such as setting the background-color of a card according to its genre. In order to set them, replace the code in `cards/movie/addon/styles/addon.css` with the following code:
+
+```css
+@import "movie-embedded";
+@import "movie-isolated";
+:root{
+    --movie-horror: #EB3223;
+    --movie-action: #EF752F;
+    --movie-comedy: #71A234;
+    --movie-drama: #611CC4;
+    --movie-fantasy: #7C9C93;
+    --movie-romance: #ED5F9A;
+    --movie-mystery: #2D4357;
+    --movie-sci-fi: #014CF5;
+    --movie-adventure: #C5862E;
+    --movie-other: #949494;
+  }
+
+.movie-horror {
+background-color: var(--movie-horror);
+}
+.movie-action {
+  background-color: var(--movie-action);
+}
+.movie-comedy {
+  background-color: var(--movie-comedy);
+}
+.movie-drama {
+  background-color: var(--movie-drama);
+} 
+.movie-fantasy {
+  background-color: var(--movie-fantasy);
+} 
+.movie-romance {
+  background-color: var(--movie-romance);
+}
+.movie-mystery {
+  background-color: var(--movie-mystery);
+}
+.movie-sci-fi {
+  background-color: var(--movie-sci-fi);
+}
+.movie-adventure {
+  background-color: var(--movie-adventure);
+}
+.movie-other {
+  background-color: var(--movie-other);
+}
 ```
 
 Now that we have a schema and a template view for this movie card, we can create an instance of it. Paste the code below inside the `if` statement in the `cardhost/cardstack/seeds/data.js`:
@@ -108,7 +301,7 @@ Now that we have a schema and a template view for this movie card, we can create
 factory.addResource('movies', 1).withAttributes({
     title: 'Avengers Endgame',
     year: 2019,
-    genre: 'adventure',
+    genre: 'Adventure',
     summary: 'After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos actions and restore balance to the universe.',
     playing: true,
     notes: ''
@@ -122,8 +315,10 @@ yarn install
 yarn start-prereqs
 yarn start
 ```
-The app is now running in `localhost:4200`, and if you use the route `/movies/1`, you can see the isolated template of your movie card.
-
+The app is now running in `localhost:4200`, and you should be seeing our welcome message on the main page.
+![Welcome Message](/images/movielist-tutorial/welcome-message.png)
+If you use the route `/movies/1`, you can see the isolated template of your movie card.
+![Movie Isolated View](/images/movielist-tutorial/movie-isolated-view.png)
 Congratulations!! You just created, structured and viewed your first Cardstack Card.
 
 ## Adding more seed data
@@ -134,7 +329,7 @@ Now that you know how to create an instance of a movie card, you can go ahead an
 factory.addResource('movies', 2).withAttributes({
     title: 'Spiderman: Far From Home',
     year: 2019,
-    genre: 'adventure',
+    genre: 'Sci-Fi',
     summary: 'Following the events of Avengers: Endgame, Spider-Man must step up to take on new threats in a world that has changed forever.',
     playing: false,
     notes: ''
@@ -142,7 +337,7 @@ factory.addResource('movies', 2).withAttributes({
   factory.addResource('movies', 3).withAttributes({
     title: 'Thor Ragnarok',
     year: 2017,
-    genre: 'comedy',
+    genre: 'Comedy',
     summary: 'Thor (Chris Hemsworth) is imprisoned on the planet Sakaar, and must race against time to return to Asgard and stop Ragnarök, the destruction of his world, at the hands of the powerful and ruthless villain Hela (Cate Blanchett).',
     playing: false,
     notes: ''
@@ -150,7 +345,7 @@ factory.addResource('movies', 2).withAttributes({
   factory.addResource('movies', 4).withAttributes({
     title: 'Doctor Strange',
     year: 2016,
-    genre: 'science-fiction',
+    genre: 'Fantasy',
     summary: 'While on a journey of physical and spiritual healing, a brilliant neurosurgeon is drawn into the world of the mystic arts.',
     playing: false,
     notes: ''
@@ -158,7 +353,7 @@ factory.addResource('movies', 2).withAttributes({
   factory.addResource('movies', 5).withAttributes({
     title: 'Black Widow',
     year: 2020,
-    genre: 'horror',
+    genre: 'Horror',
     summary: 'Not announced',
     playing: false,
     notes: ''
@@ -166,7 +361,7 @@ factory.addResource('movies', 2).withAttributes({
   factory.addResource('movies', 6).withAttributes({
     title: 'Iron Man',
     year: 2008,
-    genre: 'adventure',
+    genre: 'Other',
     summary: 'After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.',
     playing: false,
     notes: ''
@@ -174,7 +369,7 @@ factory.addResource('movies', 2).withAttributes({
   factory.addResource('movies', 7).withAttributes({
     title: 'Captain America Civil War',
     year: 2016,
-    genre: 'action',
+    genre: 'Action',
     summary: 'Political involvement in the Avengers affairs causes a rift between Captain America and Iron Man.',
     playing: false,
     notes: ''
@@ -182,7 +377,7 @@ factory.addResource('movies', 2).withAttributes({
   factory.addResource('movies', 8).withAttributes({
     title: 'Guardians of the Galaxy Vol. 3',
     year: 2020,
-    genre: 'comedy',
+    genre: 'Comedy',
     summary: 'Not announced',
     playing: false,
     notes: ''
@@ -258,7 +453,7 @@ Now that we set up our schema for the `main-board` card, we can go ahead and cre
 
 ```js
 factory.addResource('main-boards', 'main').withAttributes({
-    title: 'Welcome to your personalized Movie Tracker',
+    title: 'Personal Movie Tracker',
     message: 'Please choose which category to view'
   })
   .withRelated('watched-movies', [
@@ -281,33 +476,122 @@ Now that we set our data backing with the schema, we can go ahead and design the
 
 ```handlebars
 <div class="main-board-isolated">
-  <h1 data-test-main-board-isolated-title>{{content.title}}</h1>
-  <h3 data-test-main-board-isolated-message>{{content.message}}</h3>
-  <br><br>
-  <div class='container list-types-buttons'>
+  <h1 class="main-board-isolated-title" data-test-main-board-isolated-title>{{content.title}}</h1>
     <div class='btn-group'>
-      <button {{action showSelectedMovies 'watchedMovies'}}>Watched Movies</button>
-      <button {{action showSelectedMovies 'currentlyWatchingMovies'}}>Currently Watching Movies</button>
-      <button {{action showSelectedMovies 'toWatchMovies'}}>To Watch Movies</button>
+      <button class='btn btn1' {{action showSelectedMovies 'watchedMovies'}}>Watched Movies</button>
+      <button class='btn btn2' {{action showSelectedMovies 'currentlyWatchingMovies'}}>Currently Watching Movies</button>
+      <button class='btn btn3' {{action showSelectedMovies 'toWatchMovies'}}>To Watch Movies</button>
     </div>
-  </div>
-  <div class="movie-list">
-    {{#if showBoard}}
-      {{#if (eq movieAmount 1)}}
-        <h3 data-test-main-board-isolated-title>There is 1 movie on this list.</h3>
-      {{else}}
-        <h3 data-test-main-board-isolated-title>There are {{movieAmount}} movies on this list.</h3>
-      {{/if}}
-      <ol>
+  {{#if showBoard}}
+    <h2 class='main-board-isolated-subtitle'>{{subTitle}}</h2>
+    {{#if (eq movieAmount 1)}}
+      <p class="main-board-isolated-movie-count" data-test-main-board-isolated-title>There is 1 movie on this list.</p>
+    {{else}}
+      <p  class="main-board-isolated-movie-count" data-test-main-board-isolated-title>There are {{movieAmount}} movies on this list.</p>
+    {{/if}}
+    <hr>
+    <div class="movie-list">
         {{#cs-field content selectedStatue as |movies|}}
           {{#each movies as |movie|}}
-            <li>{{cardstack-content content=movie format='embedded'}}</li>
+            {{cardstack-content content=movie format='embedded'}}
           {{/each}}
         {{/cs-field}}
-      </ol>
-    {{/if}}
-  </div>
+    </div>
+  {{/if}}
 </div>
+```
+Also, replace the existing code inside `cards/movie/addon/styles/movie-isolated.css` with the following code for better view:
+```css
+.main-board-isolated {
+  width: 60%;
+  margin: auto;
+  margin-top: 5%;
+  text-align: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-board-isolated-title{
+  align-self: flex-start;
+  margin-bottom: 40px;
+}
+
+.main-board-isolated-subtitle{
+  align-self: flex-start;
+  margin-bottom: 0;
+}
+
+.movie-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.btn-group {
+  display: flex;
+}
+
+.btn-group .btn {
+  background-color: white;
+  border: 1px solid grey;
+  color: white;
+  padding: 12px 28px;
+  color: #1b64f1;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.btn-group .btn:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+.btn-group .btn:hover {
+  background-color: #3c3a3a;
+  color: white;
+}
+
+.btn-group .btn1 {
+  border-radius: 5px 0px 0px 5px;
+  width: 30%;
+}
+.btn-group .btn2 {
+  width: 40%;
+}
+.btn-group .btn3 {
+  border-radius: 0px 5px 5px 0px;
+  width: 30%;
+}
+
+.btn-edit {
+  align-self: flex-end;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 25px;
+  background: inherit;
+}
+
+.main-board-isolated-movie-count {
+  font-weight: light;
+  align-self: flex-start;
+  margin-bottom: 20px;
+}
+
+hr{
+  align-self: center;
+}
+
+body {
+  background-color: #5b5a6e;
+  justify-content: center;
+  align-content: center;
+}
 ```
 
 We will talk more about the syntax of this template when we start implementing the Editor for this app. However, we need to take two more steps before we view the main-board.
@@ -319,7 +603,7 @@ import Component from '@ember/component';
 import layout from '../templates/isolated';
 import { computed } from '@ember/object';
 
-export default Component.extend({ 
+export default Component.extend({
     layout,
     init() {
         this._super(...arguments);
@@ -331,6 +615,7 @@ export default Component.extend({
     },
     showBoard: false,
     selectedStatue: "",
+    subTitle: "",
 
     movieAmount: computed('selectedStatue', function() {
         return this.get('statues')[this.get('selectedStatue')].length;
@@ -339,6 +624,15 @@ export default Component.extend({
     showSelectedMovies: function(statue) {
         this.set('showBoard', true);
         this.set('selectedStatue', statue);
+        if(statue === 'watchedMovies'){
+            this.set('subTitle', 'Watched Movies'); 
+        }
+        else if(statue === 'currentlyWatchingMovies'){
+            this.set('subTitle', 'Currently Watching Movies'); 
+        }
+        else if(statue === 'toWatchMovies'){
+            this.set('subTitle', 'To Watch Movies'); 
+        }
     }
 
  });
@@ -346,13 +640,40 @@ export default Component.extend({
 Second, we want to put the `movie` cards on top of the `main-board` card. In this case, we need to use the `embedded` format of the `movie` card. Go ahead, and replace the code in the `cards/movie/addon/templates/embedded.hbs` with the following:
 
 ```handlebars
-<div class='movie-embedded-view'>
-<a class="movie-embedded" href={{cardstack-url content}} >
-  <h3 data-test-movie-isolated-title>Title: {{content.title}}</h3>
-  <h3 data-test-movie-isolated-title>Year: {{content.year}}</h3>
-  <h3 data-test-movie-isolated-title>Genre: {{content.genre}}</h3>
-</a>
+<div class='movie-embedded-view movie-{{genre}}'>
+  {{#if nowPlaying}}  
+    <div class="movie-embedded-view-playing-tag">Now Playing</div>
+  {{/if}}
+  <a class="movie-embedded" href={{cardstack-url content}} >
+    <h3 class="movie-embedded-title" data-test-movie-isolated-title>{{content.title}}</h3>
+  </a>
+  <div class="movie-embedded-view-bottom">
+    <h3 data-test-movie-isolated-title>{{content.year}}</h3>
+    <h3 data-test-movie-isolated-title>{{content.genre}}</h3>
+  </div>
 </div>
+```
+and the code in the `cards/movie/addon/components/embedded.js` with the following:
+```js
+import Component from '@ember/component';
+import layout from '../templates/embedded';
+import { computed } from '@ember/object';
+
+export default Component.extend({ 
+    layout,
+    genre: computed('content.genre', function() {
+        if(this.content.genre === undefined) {
+            return '';
+        }
+        else if(this.content.genre === 'Sci-Fi'){
+            return "sci-fi";
+        }
+        return this.content.genre.charAt(0).toLowerCase() + this.content.genre.slice(1);
+    }),
+    nowPlaying: computed('content.playing', function() {
+        return this.content.playing ? this.content.playing : false;
+    })
+ });
 ```
 Notice that we didn't include all the `fields` in the `embedded` view, since this format is meant to be a sneak peak of a card. Also notice that the tag
 ```html
@@ -364,35 +685,50 @@ Last but not least, in order to have a better looking application, add some styl
 
 ```css
 .movie-embedded {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   text-decoration: none;
   text-align: center;
-  color: black;
+  color: white;
 }
 .movie-embedded-view {
-  border: 1px black dashed;
-  border-radius: 25px;
-  width: 350px;
-}
-```
-For `cards/main-board/addon/styles/main-board-isolated.css`, add this:
-
-```css
-.main-board-isolated {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  border: 1px blue dashed;
-}
-
-.movie-list {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-content: space-between;
+  border: 1px black solid;
+  border-radius: 25px;
+  width: 25%;
+  height: 175px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.movie-embedded-title {
+  align-self: center;
+}
+
+.movie-embedded-view-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
+}
+
+.movie-embedded-view-playing-tag {
+  background-color: black;
+  border: 1px black solid;
+  border-radius: 25px;
+  color: white;
+  align-self: flex-start;
 }
 ```
 
 Now, you can run the application and follow the route `/main-boards/main` and you will see a Movie Tracking application!
+![Movie Tracking Application](/images/movielist-tutorial/movie-tracking-application.png)
 
 ## Routing
 We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardhost/cardstack/router.js` and replace the code with the following code:
@@ -416,15 +752,16 @@ module.exports = [{
   },
 }];
 ```
-
+Now, you can run the application, you will see the Movie Tracking application on the main page!
+![Setting the Main Route](/images/movielist-tutorial/setting_main_route.png)
 ## Editing the Data
 
 Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its built-in Editor for adding, editing, or deleting data from an application. To enable this editing mode, go to the `cards/main-board/addon/templates/isolated.hbs` and paste:
 
-```html
+```handlebars
 {{#mock-login as |login|}} <button {{action login}}>Edit Content</button>{{/mock-login}}
 ```
-just before the `<br><br>`. Now, if you run the app again, and click on the `Edit Content` button, you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component, but you won't be able to make any edits until we have added some Grants.
+right after the `<div class="main-board-isolated">`. Now, if you run the app again, and click on the `Edit Content` button, you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component, but you won't be able to make any edits until we have added some Grants.
 
 The {{#mock-login}} helper is a built-in helper for enabling the Editor while you are developing the app locally. To set up real authentication and authorization, please visit the [Cardboard](https://github.com/cardstack/cardboard) for more details.
 
@@ -532,11 +869,11 @@ Note: You should always activate the Editor with the 'Edit Content' button befor
 
 ![Adding new movies to the lists](/images/movielist-tutorial/editor_main_board_view.png)
 
-- You can click on the movies to view the movie card in `isolated` format. In that route, you can click on the pencil symbol and edit any `field` of the movies. When you finish editing a movie, hit the 'Save' button, and then to the check symbol.
+- You can click on the movies to view the movie card in `isolated` format. You can click on any `field` of the movies to edit. Cardstack Editor's reactive programming feature will show you the changes instantly on screen. When you finish editing a movie, hit the 'Save' button.
 
 ![Editing an already existing movie](/images/movielist-tutorial/editor_old_movie.png)
 
-- Using the `+` button at the bottom of the editor, you can create a new record. However, in order to save the new record, you need to hit the 'Save' button and wait until the 'Draft' sign turn into 'Published'. After you create a new record, you can then go back to the main page, and add that movie into a particular list.
+- Using the `+` button at the bottom of the editor, you can create a new record. However, in order to save the new record, you need to hit the 'Save' button. After you create a new record, you can then go back to the main page, and add that movie into a particular list.
 
 ![Adding a new movie record](/images/movielist-tutorial/editor_new_movie.png)
 
