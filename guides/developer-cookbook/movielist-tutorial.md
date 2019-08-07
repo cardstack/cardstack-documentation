@@ -500,7 +500,7 @@ Now that we set our data backing with the schema, we can go ahead and design the
   {{/if}}
 </div>
 ```
-Also, replace the existing code inside `cards/movie/addon/styles/movie-isolated.css` with the following code for better view:
+Also, replace the existing code inside `cards/main-board/addon/styles/main-board-isolated.css` with the following code for better view:
 ```css
 .main-board-isolated {
   width: 60%;
