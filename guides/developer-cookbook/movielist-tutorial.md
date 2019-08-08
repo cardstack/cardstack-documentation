@@ -916,7 +916,7 @@ git commit -m "initial commit"
 Use the command `pwd` to see the full path to your new git repository.
 You will need it for the next step.
 
-Now, in `project-template/cardhost/data-sources/default.js`, change the `'@cardstack/ephemeral` default data source to `@cardstack/git`. Be sure to fill in the `repo` with the path you got from `pwd`.
+Now, in `project-template/cardhost/cardstack/data-sources/default.js`, change the `'@cardstack/ephemeral` default data source to `@cardstack/git`. Be sure to fill in the `repo` with the path you got from `pwd`.
 
 ```javascript
 {

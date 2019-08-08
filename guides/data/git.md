@@ -9,7 +9,7 @@ Install [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/master/pa
 
 ```sh
 cd cardhost
-yarn add --dev @cardstack/git
+yarn install --dev @cardstack/git
 ```
 
 ## Using a local repository by default
@@ -49,7 +49,9 @@ pwd
 # prints /the/path/to/your/project-data/
 ```
 
-In `cardhost/data-sources/default.js` for your project, set your default data source to git:
+In `cardhost/cardstack/data-sources/default.js` for your project, set your default data source to git.
+This configuration should replace any existing defaults,
+such as `@cardstack/ephemeral`.
 
 ```javascript
 {
@@ -85,7 +87,7 @@ Make sure to choose "private" if you don't want to expose your data with the wor
 
 After you have created the repository, copy the `ssh` URL, such as `git@github.com:my-username/project-data.git`.
 
-Now in `cardhost/data-sources/default.js`, configure your project to use the remote repository. Make sure to replace `your-username` with your GitHub username or organization name:
+Now in `cardhost/cardstack/data-sources/default.js`, configure your project to use the remote repository. Make sure to replace `your-username` with your GitHub username or organization name:
 
 ```javascript
 {
@@ -103,12 +105,12 @@ Now in `cardhost/data-sources/default.js`, configure your project to use the rem
   }
 ```
 
-*Never ever commit the file containing your private key.* If someone has your private key, they could delete anything on your GitHub, deploy malicious code, and other bad things.
+*Never ever commit a file containing your private key.* If someone has your private key, they could delete anything on your GitHub, deploy malicious code, and other bad things.
 
 Always use an environmental variable to provide your key. You can do this from the command line:
 
 ```bash
-GIT_PRIVATE_KEY="/path/to/your/private/key/id_rsa"
+GIT_PRIVATE_KEY="your private key here"
 ```
 
 Now if you start up your project, make some changes, and save them, it should be using your repository on GitHub!
