@@ -93,7 +93,7 @@ This will generate three files:
 
 - a Template at `card-name/addon/templates/field-editors/my-editor-name.hbs` which handles display
 - a JavaScript file at `card-name/addon/components/field-editors/my-editor-name.js`, where you can add interaction and logic
-- a second JavaScript file at `card-name/app/components/field-editors/my-editor-name.js` with some boilerplate that reexports the component, which you will not need to edit.
+- a second JavaScript file at `card-name/app/components/field-editors/my-editor-name.js` with some boilerplate that reexports the component, which you will not need to edit, unless you decide to change the name of your editor.
 
 In your Card's schema, specify which field should use your custom editor:
 
@@ -110,7 +110,7 @@ A field editor is a regular Ember Component which receives the Card's `content` 
 For example, let's say that we want to make an editor that is an `input` but transforms every word to upper case. In this template below, we use some Ember features to make changes to the input data. We will bind the `value` of the `input` to our field by using the `get` helper.
 
 ```handlebars
-<div class="field-editor-upper-case">
+<div class="field-editor-my-editor-name">
   <input
     type="text"
     value={{get content field}}
@@ -119,29 +119,22 @@ For example, let's say that we want to make an editor that is an `input` but tra
 </div>
 ```
 
-Since field editors are Ember Components, we define the `upper_case` function in its respective `component` file
+Since field editors are Ember Components, we define the `upper_case` function in its respective `component` file. Note that `my-editor-name` in the above code should be replaced by the path of the respective `template` file, and it should be changed to a relative path:
 
 ```js
 import Component from '@ember/component';
-import layout from 'template-file';
-
+import layout from '../../templates/components/field-editors/my-editor-name';
 export default Component.extend({
     layout,
     actions: {
         upper_case(value) {
             let content = this.get('content');
             let field = this.get('field');
-            if (!value) {
-                content.set(field, null);
-            }
-            else {
-                this.set(field, value.toUpperCase());
-            }
+            content.set(field, value.toUpperCase());
         }
     }
 });
 ```
-Note that `template-file` in the above code should be replaced by the path of the respective `template` file.
 
 ## Learn more
 
