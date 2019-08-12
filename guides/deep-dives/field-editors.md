@@ -89,11 +89,12 @@ From within the directory for a Card, run:
 ember generate component field-editors/my-editor-name.
 ```
 
-This will generate three files:
+This will generate four files:
 
-- a Template at `card-name/addon/templates/field-editors/my-editor-name.hbs` which handles display
+- a Template at `card-name/addon/templates/components/field-editors/my-editor-name.hbs` which handles display
 - a JavaScript file at `card-name/addon/components/field-editors/my-editor-name.js`, where you can add interaction and logic
-- a second JavaScript file at `card-name/app/components/field-editors/my-editor-name.js` with some boilerplate that reexports the component, which you will not need to edit, unless you decide to change the name of your editor.
+- a second JavaScript file at `card-name/app/components/field-editors/my-editor-name.js` with some boilerplate that reexports the component, which you will not need to edit unless you decide to change the name of your editor.
+- A test that you can choose to fill in or delete
 
 In your Card's schema, specify which field should use your custom editor:
 
