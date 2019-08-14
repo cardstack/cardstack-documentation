@@ -145,7 +145,7 @@ export default Component.extend({
         if(this.content.genre === undefined) {
             return '';
         }
-        else if(this.content.genre === 'Sci-Fi'){
+        else if(this.content.genre === 'Sci-Fi') {
             return "sci-fi";
         }
         return this.content.genre.charAt(0).toLowerCase() + this.content.genre.slice(1);
@@ -624,13 +624,13 @@ export default Component.extend({
     showSelectedMovies: function(statue) {
         this.set('showBoard', true);
         this.set('selectedStatue', statue);
-        if(statue === 'watchedMovies'){
+        if (statue === 'watchedMovies') {
             this.set('subTitle', 'Watched Movies'); 
         }
-        else if(statue === 'currentlyWatchingMovies'){
+        else if (statue === 'currentlyWatchingMovies') {
             this.set('subTitle', 'Currently Watching Movies'); 
         }
-        else if(statue === 'toWatchMovies'){
+        else if (statue === 'toWatchMovies') {
             this.set('subTitle', 'To Watch Movies'); 
         }
     }
@@ -653,32 +653,37 @@ Second, we want to put the `movie` cards on top of the `main-board` card. In thi
   </div>
 </div>
 ```
+
 and the code in the `cards/movie/addon/components/embedded.js` with the following:
+
 ```js
 import Component from '@ember/component';
 import layout from '../templates/embedded';
 import { computed } from '@ember/object';
 
 export default Component.extend({ 
-    layout,
-    genre: computed('content.genre', function() {
-        if(this.content.genre === undefined) {
-            return '';
-        }
-        else if(this.content.genre === 'Sci-Fi'){
-            return "sci-fi";
-        }
-        return this.content.genre.charAt(0).toLowerCase() + this.content.genre.slice(1);
-    }),
-    nowPlaying: computed('content.playing', function() {
-        return this.content.playing ? this.content.playing : false;
-    })
- });
+  layout,
+  genre: computed('content.genre', function() {
+    if(this.content.genre === undefined) {
+      return '';
+    }
+    else if(this.content.genre === 'Sci-Fi'){
+      return "sci-fi";
+    }
+    return this.content.genre.charAt(0).toLowerCase() + this.content.genre.slice(1);
+  }),
+  nowPlaying: computed('content.playing', function() {
+      return this.content.playing ? this.content.playing : false;
+  })
+});
 ```
+
 Notice that we didn't include all the `fields` in the `embedded` view, since this format is meant to be a sneak peak of a card. Also notice that the tag
+
 ```html
 <a class="movie-embedded" href={{cardstack-url content}} >
 ```
+
 turns this template into a link that will get us to the `isolated` format of the `movie` card thanks to the Cardstack's build-in `{{cardstack-url}}` helper.
 
 Last but not least, in order to have a better looking application, add some styles in `cards/movie/addon/styles/movie-embedded.css`: 
@@ -731,6 +736,7 @@ Now, you can run the application and follow the route `/main-boards/main` and yo
 ![Movie Tracking Application](/images/movielist-tutorial/movie-tracking-application.png)
 
 ## Routing
+
 We designed this code in a way that `main-board` card is the default view. So, you can go to the `cardhost/cardstack/router.js` and replace the code with the following code:
 
 ```js
@@ -752,18 +758,25 @@ module.exports = [{
   },
 }];
 ```
+
 Now, you can run the application, you will see the Movie Tracking application on the main page!
+
 ![Setting the Main Route](/images/movielist-tutorial/setting_main_route.png)
+
 ## Editing the Data
 
-Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its built-in Editor for adding, editing, or deleting data from an application. To enable this editing mode, go to the `cards/main-board/addon/templates/isolated.hbs` and paste:
+Our application is visually working right now, yet it is not interactive. An important aspect of the Cardstack Framework is its built-in Editor for adding, editing, or deleting data from an application. To enable this editing mode, go to the `cards/main-board/addon/templates/isolated.hbs` and paste this at the very top:
 
 ```handlebars
-{{#mock-login as |login|}} <button {{action login}}>Edit Content</button>{{/mock-login}}
+{{#mock-login as |login|}}
+  <button {{action login}}>
+    Edit Content
+  </button>
+{{/mock-login}}
 ```
 right after the `<div class="main-board-isolated">`. Now, if you run the app again, and click on the `Edit Content` button, you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component, but you won't be able to make any edits until we have added some Grants.
 
-The {{#mock-login}} helper is a built-in helper for enabling the Editor while you are developing the app locally. To set up real authentication and authorization, please visit the [Cardboard](https://github.com/cardstack/cardboard) for more details.
+The `{{#mock-login}}` helper is a built-in helper for enabling the Editor while you are developing the app locally. To set up real authentication and authorization, please visit the [Cardboard](https://github.com/cardstack/cardboard) for more examples.
 
 ## Grants to Edit Content
 
@@ -792,6 +805,7 @@ factory.addResource('grants', 'movie-writers-update')
     'may-write-fields': true
   });
 ```
+
 Likewise, go to the `cards/main-board/cardstack/static-model.js` and paste this code at the bottom, above the last two lines:
 
 ```js
@@ -817,25 +831,13 @@ factory.addResource('grants', 'main-board-writers-update')
     'may-write-fields': true
   });
 ```
-Last but not least, we need to set grants from the overall application schema as well. Go to the `cardhost/cardstack/static-model.js`. Inside the file, find the grants:
-```js
-factory.addResource('grants', 'cardstack-files-world-read')
-```
 
-and 
-
-```js
-factory.addResource('grants', 'cardstack-files-writers-create')
-```
-
-and then replace only the section with these two grants with the below code:
+Last but not least, we need to set grants from the overall application schema as well. Go to the `cardhost/cardstack/static-model.js`. Inside the file, add these grants:
 
 ```js
 factory.addResource('grants', 'cardstack-files-world-read')
     .withRelated('who', [{ type: 'groups', id: 'everyone' }])
     .withRelated('types', [
-      { type: 'content-types', id: 'cardstack-files' },
-      { type: 'content-types', id: 'cardstack-images' },
       { type: 'content-types', id: 'movies' },
       { type: 'content-types', id: 'main-boards' },
     ])
@@ -847,8 +849,6 @@ factory.addResource('grants', 'cardstack-files-world-read')
   factory.addResource('grants', 'cardstack-files-writers-create')
     .withRelated('who', [{ type: 'groups', id: 'github-writers' }])
     .withRelated('types', [
-      { type: 'content-types', id: 'cardstack-files' },
-      { type: 'content-types', id: 'cardstack-images' },
       { type: 'content-types', id: 'movies' },
       { type: 'content-types', id: 'main-boards' },
     ])
@@ -891,7 +891,50 @@ There are two ways to access the data of the `fields` from inside of a template:
 
 This is a special way to introduce `fields` of a card if you only need its data, and do not want to render any view, such as our movie lists. We recommend the usage of this `{{#cs-field content 'fieldID' as |foo| }}` for `fieldTypes` such as `@cardstack/core-types::has-many` or `@cardstack/core-types::belongs-to`.
 
+## Saving data to git
+
+So far in this tutorial, we have been saving data to the "ephemeral" data source, but now it is time to save the data long-term! Ephemeral means temporary, and it disappears when the Docker containers are restarted, but the [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/master/packages/git) plugin can save the Card data to a git repository on your hard drive, or even a remote repository like on GitHub.
+
+This section is not included in the [`movielist-complete`](https://github.com/cardstack/project-template/tree/movielist-complete) example, since most of the work happens outside of the movie list project, but if you have any issues, visit the [Cardstack Discord Chat](https://medium.com/cardstack/the-brand-new-official-cardstack-discord-channel-4a2ffd925cee) for help!
+
+With these commands below, we will create a new git repository to hold the data, and get it set up to work with our movie app. Be sure to run these outside of your `project-template` directory.
+
+``` bash
+cd .. # to get out of the project directory
+mkdir project-data
+cd project-data
+git init
+touch README.md
+git add README.md
+git commit -m "initial commit"
+```
+
+Use the command `pwd` to see the full path to your new git repository.
+You will need it for the next step.
+
+Now, in `project-template/cardhost/cardstack/data-sources/default.js`, change the `'@cardstack/ephemeral` default data source to `@cardstack/git`. Be sure to fill in the `repo` with the path you got from `pwd`.
+
+```javascript
+{
+    type: 'data-sources',
+    id: 'default',
+    attributes: {
+      'source-type': '@cardstack/git',
+      params: {
+        repo: '/your/path/goes/here/project-data'
+      }
+    },
+  }
+```
+
+When you restart your app, the seed data will be missing! This is how it should be, since the seed data was part of the ephemeral data source. To add new data, click on the "Edit content" button, choose the arrow to open the Right Edge, and click the plus button to make a new Movie Card.
+
+After you hit save, you should see that your `project-data` repository has a new commit. You can even look at the files created to see your Card represented as JSON. Now if you restart your computer, your data is still there, and it is versioned!
+
+If you would like to save your data to GitHub, so others can use it when they run your app or when you deploy it to a server, check out the [git as a default data source](../../data/git/) guide.
+
 ## Closing
+
 This is the end of our Interactive Movie List Tutorial. Since this is a beginners tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually. Therefore, this application is ideal for tracking long movie series, such as the Marvel Cinematic Universe. 
 
 Cardstack has a high quality plug-in functionality, so it is possible to make this application more advanced, and gather movie data from third-party APIs, such as IMDb. Stay tuned for a future advanced tutorial!
