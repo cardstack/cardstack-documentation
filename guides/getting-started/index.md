@@ -131,7 +131,11 @@ The Card SDK provides an editing mode for Cards, called Edges.
 To see what it looks like, add the following to `cardhost/app/templates/application.hbs`:
 
 ```handlebars
-{{#mock-login as |login|}} <button {{action login}}>View editor</button>{{/mock-login}}
+{{#mock-login as |login|}}
+  <button {{action login}}>
+    View editor
+  </button>
+{{/mock-login}}
 ```
 
 Restart your local servers with `Control-c`, `yarn start-hub`, and `yarn start-ember`.
