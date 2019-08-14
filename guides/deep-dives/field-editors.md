@@ -89,11 +89,12 @@ From within the directory for a Card, run:
 ember generate component field-editors/my-editor-name.
 ```
 
-This will generate three files:
+This will generate four files:
 
-- a Template at `card-name/addon/templates/field-editors/my-editor-name.hbs` which handles display
+- a Template at `card-name/addon/templates/components/field-editors/my-editor-name.hbs` which handles display
 - a JavaScript file at `card-name/addon/components/field-editors/my-editor-name.js`, where you can add interaction and logic
-- a second JavaScript file at `card-name/app/components/field-editors/my-editor-name.js` with some boilerplate that reexports the component, which you will not need to edit.
+- a second JavaScript file at `card-name/app/components/field-editors/my-editor-name.js` with some boilerplate that reexports the component, which you will not need to edit unless you decide to change the name of your editor.
+- A test that you can choose to fill in or delete
 
 In your Card's schema, specify which field should use your custom editor:
 
@@ -107,22 +108,34 @@ factory.addResource('fields', 'my-field-name').withAttributes({
 
 A field editor is a regular Ember Component which receives the Card's `content` and the `field` that the editor should be used for, plus any `editorOptions` from the schema. 
 
-For example, let's say that we want to make an editor that is a `textarea` instead of a regular `input`, where someone could write a longer description of a photo. In this template below, we use some Ember features to make changes to the input data. We `get` the value of the field the user is editing and use `mut` to mark it as editable. When someone inputs a value, the `action` makes the changes to the value:
+For example, let's say that we want to make an editor that is an `input` but transforms every word to upper case. In this template below, we use some Ember features to make changes to the input data. We will bind the `value` of the `input` to our field by using the `get` helper.
 
 ```handlebars
-<div class="field-editor--string-text-area">
-    <textarea
-        oninput={{action (mut (get content field)) value="target.value"}}
-    >
-    {{get content field}}
-    </textarea>
-    <div>
-        {{wordCount}}
-    </div>
+<div class="field-editor-my-editor-name">
+  <input
+    type="text"
+    value={{get content field}}
+    oninput={{action "upper_case" value="target.value"}}
+  >
 </div>
 ```
 
-In the JavaScript file, you could add Ember actions and Computed Properties. For example, you could write a `wordCount` Computed Property that provides instant feedback to a user.
+Since field editors are Ember Components, we define the `upper_case` function in its respective `component` file. Note that `my-editor-name` in the above code should be replaced by the path of the respective `template` file, and it should be changed to a relative path:
+
+```js
+import Component from '@ember/component';
+import layout from '../../templates/components/field-editors/my-editor-name';
+export default Component.extend({
+    layout,
+    actions: {
+        upper_case(value) {
+            let content = this.get('content');
+            let field = this.get('field');
+            content.set(field, value.toUpperCase());
+        }
+    }
+});
+```
 
 ## Learn more
 

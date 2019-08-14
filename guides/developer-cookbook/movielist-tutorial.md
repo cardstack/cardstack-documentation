@@ -1,6 +1,6 @@
-Until this point, we have covered the essential concepts and features of a Cardstack application. Now, it is time for you to try out your new skills and knowledge on an interactive tutorial. In this tutorial, we will build a Movie Tracking application using the Card SDK.
+Until this point, we have covered the essential concepts and features of a Cardstack application. Now, it is time for you to try out your new skills and knowledge on an interactive tutorial. In this tutorial, we will build a Movie Tracking application using the Cardstack framework.
 
-Movies are irreplaceable parts of the 21st century social life. People are continuously watching new movies and receiving recommendations from friends. Let's build a tool that can record all the movies that you have watched, are currently watching, or have noted to watch. By the time you are done with this tutorial, you will know how to create new data, display it, enable an editing mode, add interactive filters, and save the results using git.
+Movies are irreplaceable parts of the 21st century social life. People are continuously watching new movies and receiving recommendations from friends. Let's build a tool that can record all the movies that you have watched, are currently watching, or have noted to watch. By the time you are done with this tutorial, you will know how to create new data, display it, enable an editing mode, add interactive filters, and save the results to the back end.
 
 ## Create the main project files
 
@@ -308,27 +308,22 @@ factory.addResource('movies', 1).withAttributes({
   });
 ```
 
-Now, first make sure Docker is running, and then go ahead and run these commands in your terminal:
+Now go ahead and run these commands in your terminal:
 
 ```bash
 yarn install
 yarn start-prereqs
 yarn start
 ```
-The app is now running in `localhost:4200`, with a welcome message on the main page.
-
+The app is now running in `localhost:4200`, and you should be seeing our welcome message on the main page.
 ![Welcome Message](/images/movielist-tutorial/welcome-message.png)
-
 If you use the route `/movies/1`, you can see the isolated template of your movie card.
-
 ![Movie Isolated View](/images/movielist-tutorial/movie-isolated-view.png)
-
-`start-prereqs` launches some Docker containers that handle the back end of your application, so make sure to run this command again anytime you stop Docker or restart your computer.
 Congratulations!! You just created, structured and viewed your first Cardstack Card.
 
 ## Adding more seed data
 
-Now that you know how to create an instance of a movie card, you can go ahead and store more Marvel Cinematic Universe movies to your schema. Inside the `cardhost/cardstack/seeds/data.js` you can create your own movie cards, or just use the code below.
+Now that you know how to create an instance of a movie card, you can go ahead and store more Marvel Cinematic Universe movies to your schema. Inside the `cardhost/cardstack/seeds/data.js` you can create your own movie cards, or just use the code below:
 
 ```js
 factory.addResource('movies', 2).withAttributes({
@@ -388,6 +383,7 @@ factory.addResource('movies', 2).withAttributes({
     notes: ''
   });
 ```
+
 
 ## Creating the Main Board
 
@@ -504,7 +500,7 @@ Now that we set our data backing with the schema, we can go ahead and design the
   {{/if}}
 </div>
 ```
-Also, replace the existing code inside `cards/movie/addon/styles/movie-isolated.css` with the following code for better view:
+Also, replace the existing code inside `cards/main-board/addon/styles/main-board-isolated.css` with the following code for better view:
 ```css
 .main-board-isolated {
   width: 60%;
@@ -778,8 +774,7 @@ Our application is visually working right now, yet it is not interactive. An imp
   </button>
 {{/mock-login}}
 ```
-
-Now, if you run the app again, and click on the `Edit Content` button, you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component, but you won't be able to make any edits until we have added some Grants.
+right after the `<div class="main-board-isolated">`. Now, if you run the app again, and click on the `Edit Content` button, you will see a purple button appear on the right hand corner. If you click on that, you can display the Editor component, but you won't be able to make any edits until we have added some Grants.
 
 The `{{#mock-login}}` helper is a built-in helper for enabling the Editor while you are developing the app locally. To set up real authentication and authorization, please visit the [Cardboard](https://github.com/cardstack/cardboard) for more examples.
 
@@ -868,10 +863,9 @@ factory.addResource('grants', 'cardstack-files-world-read')
 Great! Now, if you restart your local server, you have full control over the cards via the Editor.
 
 ## Quick Tips for the Editor
-
 Note: You should always activate the Editor with the 'Edit Content' button before using it!
 
-- You can select any of the movie list categories, and then add a movie from the movies data are in the storage (the ones in the `cards/movie/cardstack/static-model.js`) Likewise, you can delete any movie from the particular list as well.
+- You can select any of the movie list categories, and then add a movie from the movies data are in the storage(the ones in the `cards/movie/cardstack/static-model.js`) Likewise, you can delete any movie from the particular list as well.
 
 ![Adding new movies to the lists](/images/movielist-tutorial/editor_main_board_view.png)
 
@@ -941,9 +935,9 @@ If you would like to save your data to GitHub, so others can use it when they ru
 
 ## Closing
 
-This is the end of our Interactive Movie List Tutorial. Since this is a beginner tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually.
+This is the end of our Interactive Movie List Tutorial. Since this is a beginners tutorial, we designed our application in a way that the users can create their own movie records and get familiar with the `schema` and creating card instances manually. Therefore, this application is ideal for tracking long movie series, such as the Marvel Cinematic Universe. 
 
-Cardstack has a high quality plugin functionality, so it is possible to make this application more advanced, and gather movie data from third-party APIs, such as IMDb. Stay tuned for a future advanced tutorial!
+Cardstack has a high quality plug-in functionality, so it is possible to make this application more advanced, and gather movie data from third-party APIs, such as IMDb. Stay tuned for a future advanced tutorial!
 
 Thanks for your time, and we hope you liked developing with the Cardstack SDK!
 If you have any questions or feedback on this tutorial, you can reach the engineering team on [Discord](https://medium.com/cardstack/the-brand-new-official-cardstack-discord-channel-4a2ffd925cee) or open Issues and Pull Requests on [GitHub](https://github.com/cardstack/cardstack-documentation/).
