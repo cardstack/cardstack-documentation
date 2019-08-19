@@ -41,3 +41,7 @@ You will also need a free account on [GitHub](https://github.com).
 ## Trying it out
 
 - screenshots
+
+## Creating an admin dashboard
+
+- a Card that looks like the board, but is only visible to admins

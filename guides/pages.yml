@@ -115,7 +115,7 @@
   pages:
     - title: "Overview"
       url: "index"
-    - title: "Building a dashboard"
+    - title: "Creating an admin dashboard"
       url: "dashboard"
     - title: "Forms"
       url: "forms"
