@@ -2,6 +2,10 @@ Until this point, we have covered the essential concepts and features of a Cards
 
 Movies are irreplaceable parts of the 21st century social life. People are continuously watching new movies and receiving recommendations from friends. Let's build a tool that can record all the movies that you have watched, are currently watching, or have noted to watch. By the time you are done with this tutorial, you will know how to create new data, display it, enable an editing mode, add interactive filters, and save the results to the back end.
 
+## Prerequisites
+
+Before getting started, see the [quick start guide](../../getting-started/#installation) to set up your development environment.
+
 ## Create the main project files
 
 First, go ahead and clone this GitHub repository, which is an empty [Cardstack Project Template](https://github.com/cardstack/project-template).
