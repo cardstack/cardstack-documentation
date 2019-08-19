@@ -12,8 +12,9 @@ First, you need the following installed on your Mac, Linux, or Windows computer:
 - [Docker](https://www.docker.com/get-started) - a free container manager
 - [Ember CLI](https://cli.emberjs.com/release/)
 - Linux and Mac systems should also install [Watchman](https://facebook.github.io/watchman/)
-- If you are developing in a Windows environment, use [Bash](https://docs.microsoft.com/en-us/windows/wsl/install-win10) if you would like to be able to follow this tutorial's commands exactly as written, and [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools).
+- If you are developing in a Windows environment, use [Git Bash](https://gitforwindows.org/) or [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools). For the best learning experience and build performance, we recommend using Mac or Linux. 
 - It is optional, but recommended, to install the [Ember Inspector](https://guides.emberjs.com/release/ember-inspector/) for debugging your front end work.
+- You will need a code editor of your choice installed. Some examples of user-friendly, free code editors are [VSCode](https://code.visualstudio.com/) and [Atom](https://atom.io/).
 
 Developers should be familiar with JavaScript, HTML, and git in order to follow
 along with these Guides.
