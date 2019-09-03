@@ -864,7 +864,8 @@ factory.addResource('grants', 'cardstack-files-world-read')
     });
 ```
 
-Great! Now, if you restart your local server, you have full control over the cards via the Editor. You can create new movie Cards, edit them, and save them. By default, they will be saved to a postgres database running locally on your computer.
+Great! Now, if you restart your local server, you have full control over the cards via the Editor. You can create new movie Cards, edit them, and save them. By default, they will be saved to a temporary postgres database running locally on your computer, known as the "ephemeral" data source. 
+The ephemeral data source is used for testing only, so any Cards you save to it will disappear any time restart your local server.
 
 In the next section, you will learn how to use the Editor from within the browser.
 
