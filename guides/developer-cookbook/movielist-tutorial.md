@@ -864,10 +864,13 @@ factory.addResource('grants', 'cardstack-files-world-read')
     });
 ```
 
-Great! Now, if you restart your local server, you have full control over the cards via the Editor.
+Great! Now, if you restart your local server, you have full control over the cards via the Editor. You can create new movie Cards, edit them, and save them. By default, they will be saved to a postgres database running locally on your computer.
+
+In the next section, you will learn how to use the Editor from within the browser.
 
 ## Quick Tips for the Editor
-Note: You should always activate the Editor with the 'Edit Content' button before using it!
+
+- You should always activate the Editor with the 'Edit Content' button before using it! Visit `locahost:4200` in your browser and look for the button.
 
 - You can select any of the movie list categories, and then add a movie from the movies data are in the storage(the ones in the `cards/movie/cardstack/static-model.js`) Likewise, you can delete any movie from the particular list as well.
 
