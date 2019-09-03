@@ -19,8 +19,6 @@ First, you need the following installed on your Mac, Linux, or Windows computer:
 Developers should be familiar with JavaScript, HTML, and git in order to follow
 along with these Guides.
 
-If you have installed those modules already and haven't used them for a while, don't forget to do an update for each module. Trying the following commands can potentially save you from build errors: `npm update` and `yarn_upgrade`.
-
 ## Download an existing project
 
 Developers using Cardstack will spend most of their time working on Cards,
@@ -32,6 +30,8 @@ You can use the [project-template](https://github.com/cardstack/project-template
 git clone https://github.com/cardstack/project-template.git
 yarn install
 ```
+
+_If you are having problems with the `yarn install`, the following commands may help: `npm update` and `yarn upgrade`._
 
 ## Create a new Card
 
@@ -154,4 +154,4 @@ use intelligent data caching, and more!
 ## Learn more
 
 To learn more about the features of the Card SDK, continue reading these Guides or try out
-[one of our tutorials](https://docs.cardstack.com/release/developer-cookbook/movielist-tutorial/).
+[one of our tutorials](../developer-cookbook/movielist-tutorial).
