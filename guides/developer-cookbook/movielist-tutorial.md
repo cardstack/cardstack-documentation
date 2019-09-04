@@ -146,13 +146,11 @@ import { computed } from '@ember/object';
 export default Component.extend({ 
     layout,
     genre: computed('content.genre', function() {
-        if(this.content.genre === undefined) {
-            return '';
-        }
-        else if(this.content.genre === 'Sci-Fi') {
-            return "sci-fi";
-        }
-        return this.content.genre.charAt(0).toLowerCase() + this.content.genre.slice(1);
+      if (!this.content.genre) {
+        return 'other';
+      } else {
+        return this.content.genre.toLowerCase()
+      }
     }),
     nowPlaying: computed('content.playing', function() {
         return this.content.playing ? this.content.playing : false;
@@ -668,13 +666,11 @@ import { computed } from '@ember/object';
 export default Component.extend({ 
   layout,
   genre: computed('content.genre', function() {
-    if(this.content.genre === undefined) {
-      return '';
+    if (!this.content.genre) {
+      return 'other';
+    } else {
+      return this.content.genre.toLowerCase()
     }
-    else if(this.content.genre === 'Sci-Fi'){
-      return "sci-fi";
-    }
-    return this.content.genre.charAt(0).toLowerCase() + this.content.genre.slice(1);
   }),
   nowPlaying: computed('content.playing', function() {
       return this.content.playing ? this.content.playing : false;
@@ -864,12 +860,17 @@ factory.addResource('grants', 'cardstack-files-world-read')
     });
 ```
 
-Great! Now, if you restart your local server, you have full control over the cards via the Editor.
+Great! Now, if you restart your local server, you have full control over the cards via the Editor. You can create new movie Cards, edit them, and save them. By default, they will be saved to a temporary postgres database running locally on your computer, known as the "ephemeral" data source. 
+The ephemeral data source is used for testing only, so any Cards you save to it will disappear any time restart your local server.
+
+In the next section, you will learn how to use the Editor from within the browser.
 
 ## Quick Tips for the Editor
-Note: You should always activate the Editor with the 'Edit Content' button before using it!
 
-- You can select any of the movie list categories, and then add a movie from the movies data are in the storage(the ones in the `cards/movie/cardstack/static-model.js`) Likewise, you can delete any movie from the particular list as well.
+- You should always activate the Editor with the 'Edit Content' button before using it! Visit `locahost:4200` in your browser and look for the button.
+
+- You can select any of the movie list categories, and then add a movie listed in `cards/movie/cardstack/static-model.js`. When you search for them, type in the whole title to see results.
+Likewise, you can delete any movie from the particular list as well.
 
 ![Adding new movies to the lists](/images/movielist-tutorial/editor_main_board_view.png)
 
@@ -895,7 +896,7 @@ There are two ways to access the data of the `fields` from inside of a template:
 
 This is a special way to introduce `fields` of a card if you only need its data, and do not want to render any view, such as our movie lists. We recommend the usage of this `{{#cs-field content 'fieldID' as |foo| }}` for `fieldTypes` such as `@cardstack/core-types::has-many` or `@cardstack/core-types::belongs-to`.
 
-## Saving data to git
+## Bonus section - saving data to git
 
 So far in this tutorial, we have been saving data to the "ephemeral" data source, but now it is time to save the data long-term! Ephemeral means temporary, and it disappears when the Docker containers are restarted, but the [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/master/packages/git) plugin can save the Card data to a git repository on your hard drive, or even a remote repository like on GitHub.
 
@@ -931,9 +932,37 @@ Now, in `project-template/cardhost/cardstack/data-sources/default.js`, change th
   }
 ```
 
-When you restart your app, the seed data will be missing! This is how it should be, since the seed data was part of the ephemeral data source. To add new data, click on the "Edit content" button, choose the arrow to open the Right Edge, and click the plus button to make a new Movie Card.
+Next, restart your app and visit `http://localhost:4200/main-boards/new` to create a board and movies. When you restart your app, the seed data will be missing! This is how it should be, since the seed data was part of the ephemeral data source, not git.
+
+To add new data, click on the "Edit content" button, choose the arrow to open the Right Edge, and click the plus button to make new boards and movies.
 
 After you hit save, you should see that your `project-data` repository has a new commit. You can even look at the files created to see your Card represented as JSON. Now if you restart your computer, your data is still there, and it is versioned!
+
+Once you have created a board, you can copy its id from the URL, and add it to the router. The id is a long series of letters and numbers, like `09ee1af6653a50a24ba054660e8b64f8b1ff9797`. Edit `cardhost/cardstack/router.js` so that the index route, `/`, points to your new board's id and not the missing `main` id seed data:
+
+```javascript
+module.exports = [{
+  path: '/:type/:id',
+  query: {
+    filter: {
+      type: { exact: ':type' },
+      id: { exact: ':id' }
+    }
+  },
+},{
+  path: '/',
+  query: {
+    filter: {
+      type: { exact: 'main-boards' },
+      id: { exact: 'ID GOES HERE' }
+    }
+  },
+}];
+```
+
+After restarting your server, you will be able to visit `http://localhost:4200/` and see your board that was saved to git. This will also restore functionality to the "Back to list" link.
+
+### Learn more
 
 If you would like to save your data to GitHub, so others can use it when they run your app or when you deploy it to a server, check out the [git as a default data source](../../data/git/) guide.
 

@@ -28,8 +28,11 @@ You can use the [project-template](https://github.com/cardstack/project-template
 
 ```bash
 git clone https://github.com/cardstack/project-template.git
+cd project-template
 yarn install
 ```
+
+_If you are having problems with the `yarn install` that results in a `make failed` message, the following commands may help: `npm update` and `yarn upgrade`._
 
 ## Create a new Card
 
@@ -56,7 +59,7 @@ yarn install
 
 ## Create Card data
 
-In `cards/photographers/cardstack/static-model.js`, we will add some attributes to the
+In `cards/photographer/cardstack/static-model.js`, we will add some attributes to the
 `photograph` schema, and create some sample data.
 
 ```js
@@ -152,4 +155,4 @@ use intelligent data caching, and more!
 ## Learn more
 
 To learn more about the features of the Card SDK, continue reading these Guides or try out
-[one of our tutorials](./developer-cookbook/movielist-tutorial).
+[one of our tutorials](../developer-cookbook/movielist-tutorial/).
