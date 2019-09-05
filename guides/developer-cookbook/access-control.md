@@ -1,195 +1,228 @@
-_This page is a work-in-progress! To help with content, click on the pencil icon in the top right corner._
+How do you restrict who can see a Card's data?
+In this tutorial, you will learn how to use groups, grants, and authentication to limit the read, write, edit, and deletion of Cards and their fields.
 
-Let's build an admin dashboard for editing Cards!
-By the end, you will have content that you and your collaborators can edit online.
-We'll use the [`@cardstack/github-auth`](https://github.com/cardstack/cardstack/tree/master/packages/github-auth) plugin for authentication, and configure grants and roles for the Card.
+Let's imagine we are building an app for a photography contest.
+We want to allow certain users, our "reviewers," to log in and edit a secret "comment" field on the photos.
+The general public should be able to see the photos, but not the comment.
 
-In this example, we'll imagine that we are adding scores to entries in a photography contest. All visitors to the site should be able to see the scores, but only admins should be able to create and view comments.
+Over the course of this tutorial, we will create the following:
 
-## Background knowledge
+- log out button
+- `photo` Card
+- Grants and permissions
 
-Before you get started, you should read through [Grants](../../grants/), and you should have created a Card that can be edited locally using the Right Edge and `mock-auth`.
-You will also need a free account on [GitHub](https://github.com).
+## Prerequisites
+
+Before you get started, you should read through [Grants](../../grants/), and you should have done some of the other tutorials like [the quick start](../../getting-started/) and [Movie List](../movielist-tutorial/)
+
+You will also need a free account on [GitHub](https://github.com) in order to complete the Bonus section.
 
 ## Create the project files
 
-The best way to try this tutorial is to start from a copy of the [`project-template`](https://github.com/cardstack/project-template)
+The best way to try this tutorial is to start from a copy of the [`project-template`](https://github.com/cardstack/project-template):
 
-## Install `github-auth`
+```sh
+git clone https://github.com/cardstack/project-template.git
+cd project-template
+yarn install
+```
 
-If you started this tutorial using the [`project-template`](https://github.com/cardstack/project-template), you already have the `@cardstack/github-auth` and `@cardstack/git` plugins installed, and you can skip this step.
+## Install dependencies
 
-If needed, you can install these packages in the `cardhost`.
+If you started this tutorial using the [`project-template`](https://github.com/cardstack/project-template), you can skip this step.
+
+`cardhost` requires the following packages to be installed in its `package.json`:
+
+- `@cardstack/github-auth`
+- `@cardstack/git`
+- `@cardstack/mock-auth`
+- `@cardstack/authentication`
+
 Make sure to replace the `<x.y.z>` in the example below with the version of Cardstack you are using.
 With few exceptions, a Cardstack project's dependencies should all have matching versions.
+You can install dependencies like this:
 
 ```sh
 cd cardhost
-yarn install @cardstack/github-auth@<x.y.z> --exact
+yarn install @cardstack/package-name@<x.y.z> --exact
 ```
 
 You can find the source code for these packages on [GitHub](https://github.com/cardstack/cardstack/tree/master/packages).
 
-## Create some Cards
+## Create the photo Card
 
-Now that setup is doen, we will create three Cards, `photo`, `scorecard` and `dashboard`:
+Now that setup is done, we will create a photo Card:
 
 ```sh
 cd cardhost
 ember generate card photo
-ember generate card scorecard
-ember generate card dashboard
 ```
 
 Add an entry for each card into the `package.json` of `cardhost`, as `devDependencies`:
 
 ```json
-"cardhost-dashboard": "*",
-"cardhost-photo": "*",
-"cardhost-scorecard": "*",
+"cardhost-photo": "*"
 ```
 
-Then, run `yarn install` to link them together.
+Then, run `yarn install` to link the photo Card.
 
-## Set up fields and relationships
+## Create fields for the photo card
 
-Next, give each Card some fields and relationships.
-
-A dashboard should show both ratings and photos. Each photo should have some scorecards.
-Each scorecard belongs to one photo.
-We can represent these relationships using the `has-many` and `belongs-to` types in the Card SDK.
-
-Let's start with the dashboard:
+In `cards/photo/cardstack/static-model.js`, we will add some fields to the card,
+`photo-title`, `image-url`, `alt-text`, and `comment`:
 
 ```javascript
-// cards/dashboard/cardstack/static-model.js
-
 const JSONAPIFactory = require('@cardstack/test-support/jsonapi-factory');
 
 let factory = new JSONAPIFactory();
-factory.addResource('content-types', 'dashboards')
-  .withAttributes({
-    defaultIncludes: ['scorecards', 'photos'],
-    fieldsets: {
-      isolated: [
-        {field: 'photos', format: 'embedded'},
-        {field: 'scorecards', format: 'embedded'}
-      ]
-    }
-  })
-  .withRelated('fields', [
-    factory.addResource('fields', 'heading').withAttributes({
-      fieldType: '@cardstack/core-types::string'
-    }),
 
-    factory.addResource('fields', 'photos').withAttributes({
-      fieldType: '@cardstack/core-types::has-many',
-      editorComponent: 'field-editors/dropdown-search-multi-select-editor',
-    })
-    .withRelated('related-types', [{ type: 'content-types', id: 'photos' }]),
-
-    factory.addResource('fields', 'scorecards').withAttributes({
-      fieldType: '@cardstack/core-types::has-many',
-      editorComponent: 'field-editors/dropdown-search-multi-select-editor',
-    })
-    .withRelated('related-types', [{ type: 'content-types', id: 'scorecards' }]),
-  ]);
-
-let models = factory.getModels();
-module.exports = function() { return models; };
-```
-
-Next is the photo:
-
-```javascript
-// cards/photo/cardstack/static-model.js
-
-const JSONAPIFactory = require('@cardstack/test-support/jsonapi-factory');
-
-let factory = new JSONAPIFactory();
 factory.addResource('content-types', 'photos')
-  .withAttributes({
-    defaultIncludes: ['scorecards'],
-    fieldsets: {
-      isolated: [
-        {field: 'scorecards', format: 'embedded'}
-      ]
-    }
-  })
   .withRelated('fields', [
-    factory.addResource('fields', 'title').withAttributes({
+    factory.addResource('fields', 'photo-title').withAttributes({
       fieldType: '@cardstack/core-types::string'
     }),
-
-    factory.addResource('fields', 'description').withAttributes({
+    factory.addResource('fields', 'photographer').withAttributes({
       fieldType: '@cardstack/core-types::string'
     }),
-
-    factory.addResource('fields', 'url').withAttributes({
+    factory.addResource('fields', 'image-url').withAttributes({
       fieldType: '@cardstack/core-types::string'
     }),
-
-    factory.addResource('fields', 'scorecards').withAttributes({
-      fieldType: '@cardstack/core-types::has-many',
-      editorComponent: 'field-editors/dropdown-search-multi-select-editor',
-    })
-    .withRelated('related-types', [{ type: 'content-types', id: 'scorecards' }]),
-  ]);
-
-let models = factory.getModels();
-module.exports = function() { return models; };
-```
-
-And lastly, the scorecard:
-
-```javascript
-// cards/scorecard/cardstack/static-model.js
-
-const JSONAPIFactory = require('@cardstack/test-support/jsonapi-factory');
-
-let factory = new JSONAPIFactory();
-factory.addResource('content-types', 'scorecards')
-  .withAttributes({
-    defaultIncludes: ['photos'],
-    fieldsets: {
-      isolated: [
-        {field: 'photos', format: 'embedded'}
-      ]
-    }
-  })
-  .withRelated('fields', [
-    factory.addResource('fields', 'score').withAttributes({
-      fieldType: '@cardstack/core-types::number'
+    factory.addResource('fields', 'alt-text').withAttributes({
+      fieldType: '@cardstack/core-types::string'
     }),
-
     factory.addResource('fields', 'comment').withAttributes({
       fieldType: '@cardstack/core-types::string'
-    }),
-
-    factory.addResource('fields', 'photo').withAttributes({
-      fieldType: '@cardstack/core-types::belongs-to',
-      editorComponent: 'field-editors/dropdown-search-multi-select-editor',
     })
-    .withRelated('related-types', [{ type: 'content-types', id: 'photos' }]),
   ]);
 
 let models = factory.getModels();
 module.exports = function() { return models; };
 ```
 
-## Check for mistakes
+To make testing easier, let's also create some seed data.
+In `cardhost/cardstack/seeds/data.js`, create at least one photo card:
 
-At this point, you should try running your project to check for any mistakes setting up the Cards and their schema.
-Make sure you have Docker running. You will not see anything in the browser yet except the Welcome message, because we did not set up templates, grants, or login.
+```javascript
+  factory.addResource('photos', 1).withAttributes({
+    'photo-title': 'Dashboard heading',
+    'photographer': 'John Lee',
+    'image-url': './images/moraine-lake-john-lee.jpg',
+    'alt-text': 'a serene lake in the summer surrounded by trees and mountains',
+    'comment': 'This should be a frontrunner'
+  });
+```
 
-However, starting up the project will help you narrow in on any typos or steps you may have missed.
+In this example, we've downloaded a free photo by [John Lee](https://unsplash.com/photos/oMneOBYhJxY) on [Unsplash](https://unsplash.com/), named it `moraine-lake-john-lee.jpg`, and placed it in `cardhost/public/images`
+For a challenge, you could use the
+[`@cardstack/image`](https://github.com/cardstack/cardstack/tree/master/packages/image) and
+[`@cardstack/s3`](https://github.com/cardstack/cardstack/tree/master/packages/s3) plugins instead of 
+placing the photo directly in `public`.
+However for this tutorial, we will keep it as simple as possible.
+
+## Create a photo template
+
+In the photo's isolated template, `cards/photo/addon/templates/isolated.hbs`, let's add some markup and use the fields from the Card's schema:
+
+```handlebars
+<div class="photo-isolated">
+  <h1 data-test-photo-isolated-title>{{content.photoTitle}}</h1>
+  {{#cs-field content "imageUrl" as |image|}}
+    <img class="img-photo" src={{image}} alt={{content.altText}}>
+  {{/cs-field}}
+  <p>Photographer: {{content.photographer}}</p>
+  <p>{{content.comment}}</p>
+</div>
+```
+
+`{{cs-field}}` is needed here because we are using two card properties on the same HTML element.
+Note that a dasherized field like `alt-text` becomes `altText` in camelcase, whenever we use it in a template.
+
+You might also be wondering what "alt text" is in the first place.
+Every image on the web should have an `alt`, which stands for [alternative text](https://webaim.org/techniques/alttext/).
+This text is critical for accessibility.
+For example, if someone uses a screen reader to browse your app, the software will announce the `alt` for an image.
+
+We should also add some styling so that the image isn't too large. In `cards/photo/addon/styles/photo-isolated.css`, add the following below the existing styles:
+
+```css
+.photo-isolated img {
+  width: 100%;
+}
+```
+
+## Try it out
+
+If you have not done so already, now is a good time to make sure everything is working so far.
+Make sure you have Docker running, and in the console, run:
 
 ```sh
 yarn start-prereqs
 yarn start
 ```
 
-Once you can see that your servers start up successfully, you can shut them down with `Control-C` and move on to the next step.
+If you visit `http://localhost:4200/photos/1`, you should be able to see your seed data in use:
+
+![](/images/access-control-tutorial/isolated-template.png)
+
+As you make changes to the schema of a Card, you will need to restart the server many times.
+Here is a tip to cut down on rebuild times.
+You can do `yarn start-hub` in one window of your console,
+wait for it to finish starting, then `yarn start-ember` in another window.
+After that, you can restart just the `hub`.
+
+## Add log in and Log out buttons
+
+Next, we will add buttons to log in and log out.
+If you have done other Card SDK tutorials to enable the right edge, the next steps should be familiar.
+
+In `cardhost/app/templates/application.hbs`, use the `LoginButton` component, which was included in the project template:
+
+```handlebars
+{{#cardstack-edges}}
+  {{#squishable-container}}
+    <LoginButton />
+    {{outlet}}
+  {{/squishable-container}}
+{{/cardstack-edges}}
+```
+
+We will make one change to the login button component template. Let's add a "log out" option.
+Replace the contents of `cardhost/app/templates/components/login-button.hbs` with the following:
+
+```handlebars
+{{#if (is-component "cardstack-session")}}
+  {{#cardstack-session as |session|}}
+    {{#if useGithubAuth}}
+      {{#github-login as |login|}}
+        {{yield session login}}
+      {{/github-login}}
+    {{else if session.isAuthenticated}}
+      <button
+        class="btn-edit"
+        id="logout-button"
+        onclick={{action session.logout}}
+      >
+        Log out
+      </button>
+    {{else}}
+      {{#mock-login as |login|}}
+        <button class='btn-edit' {{action login}}>
+          Edit Content
+        </button>
+      {{/mock-login}}
+    {{/if}}
+  {{/cardstack-session}}
+{{/if}}
+```
+
+What this says is, if we are using GitHub for authentication, use the GitHub Login component.
+We will get to that later in the tutorial.
+For now, it will check to see if the user is already authenticated, and show the "Log out" button if they are.
+Clicking "log out" will use the `session.logout` action that is part of the build-in Card SDK.
+Unauthenticated users will see the `mock-login` button instead.
+Mock login is used for local development only, and we will do most of our work and testing with this "fake" user and authentication.
+
+## 
 
 ## Adding read permissions
 

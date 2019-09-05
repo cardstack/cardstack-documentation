@@ -115,8 +115,8 @@
   pages:
     - title: "Overview"
       url: "index"
-    - title: "Creating an admin dashboard"
-      url: "dashboard"
+    - title: "Access control"
+      url: "access-control"
     - title: "Forms"
       url: "forms"
     - title: "Connecting to a third-party API"
