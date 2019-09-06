@@ -1,5 +1,8 @@
 How do you restrict who can see a Card's data?
-In this tutorial, you will learn how to use groups, grants, and authentication to limit the read, write, edit, and deletion of Cards and their fields.
+In this tutorial, you will learn how to Card SDK features like groups, grants, and permissions.
+You can control read, write, edit, and deletion of Cards and their fields, without writing server-side validation checks and endpoints yourself.
+
+## What you will learn
 
 Let's imagine we are building an app for a photography contest.
 We want to allow certain users, our "reviewers," to log in and edit a secret "comment" field on the photos.
@@ -7,15 +10,14 @@ The general public should be able to see the photos, but not the comment.
 
 Over the course of this tutorial, we will create the following:
 
-- log out button
-- `photo` Card
-- Grants and permissions
+- log in and log out buttons
+- a `photo` Card that has some secret data
+- Grants, groups, and permissions for anonymous and logged-in users
 
 ## Prerequisites
 
-Before you get started, you should read through [Grants](../../grants/), and you should have done some of the other tutorials like [the quick start](../../getting-started/) and [Movie List](../movielist-tutorial/)
-
-You will also need a free account on [GitHub](https://github.com) in order to complete the Bonus section.
+Before you get started, you should read through [Grants](../../grants/), and you should have done some of the other tutorials like [the quick start](../../getting-started/) and [Movie List](../movielist-tutorial/).
+If you have already made a Card that you want to add permissions to, you can skip to [Add log in and log out buttons](./#Add-log-in-and-log-out-buttons)
 
 ## Create the project files
 
@@ -170,24 +172,42 @@ You can do `yarn start-hub` in one window of your console,
 wait for it to finish starting, then `yarn start-ember` in another window.
 After that, you can restart just the `hub`.
 
-## Add log in and Log out buttons
+## Add log in and log out buttons
 
-Next, we will add buttons to log in and log out.
+Now that we have added permissions for viewing, creating, and editing Cards, we need to create a way to log in.
+The Card SDK comes with some built-in components that you can use!
+We have two goals - at first, while we are working, we want to be able to edit anything locally using a fake user.
+Then, later on, we want to require real login.
 If you have done other Card SDK tutorials to enable the right edge, the next steps should be familiar.
 
-In `cardhost/app/templates/application.hbs`, use the `LoginButton` component, which was included in the project template:
+First, let's create a component that will hold our login buttons:
 
-```handlebars
-{{#cardstack-edges}}
-  {{#squishable-container}}
-    <LoginButton />
-    {{outlet}}
-  {{/squishable-container}}
-{{/cardstack-edges}}
+```sh
+cd cardhost
+ember generate component login-button
 ```
 
-We will make one change to the login button component template. Let's add a "log out" option.
-Replace the contents of `cardhost/app/templates/components/login-button.hbs` with the following:
+In the newly generated `login-button.js`, replace the code with this:
+
+```javascript
+import Component from '@ember/component';
+import { computed, get } from '@ember/object';
+
+export default Component.extend({
+  tagName: '',
+  useGithubAuth: computed(function() {
+    let githubAuthEnv;
+    try {
+      githubAuthEnv = window.require('@cardstack/github-auth/environment');
+    } catch (e) {
+      return false;
+    }
+    return Boolean(get(githubAuthEnv, 'clientId'));
+  })
+});
+```
+
+Copy and paste this code into the newly created `login-button.hbs`:
 
 ```handlebars
 {{#if (is-component "cardstack-session")}}
@@ -216,117 +236,225 @@ Replace the contents of `cardhost/app/templates/components/login-button.hbs` wit
 ```
 
 What this says is, if we are using GitHub for authentication, use the GitHub Login component.
-We will get to that later in the tutorial.
-For now, it will check to see if the user is already authenticated, and show the "Log out" button if they are.
+We will get to that later in the tutorial, when we add real login.
+Otherwise, it will check to see if the user is already authenticated, and show the "Log out" button if they are.
 Clicking "log out" will use the `session.logout` action that is part of the build-in Card SDK.
 Unauthenticated users will see the `mock-login` button instead.
-Mock login is used for local development only, and we will do most of our work and testing with this "fake" user and authentication.
+Mock login is used for local development only, and we will do most of our work and testing with this "fake" user and authentication. Both mock login and session are built-in features of the Card SDK.
 
-## 
-
-## Adding read permissions
-
-- everyone group
-- screenshot
-
-## Adding write permissions
-
-- admins group
-
-## Creating login buttons
-
-Now that we have added permissions for viewing, creating, and editing Cards, we need to create a way to log in.
-The Card SDK comes with some built-in components that you can use!
-We have two goals - at first, while we are working, we want to be able to edit anything locally.
-Then, later on, we want to require login.
-If someone is able to edit a GitHub repository that holds the data, they will be able to log in and make changes.
-
-First, let's create a component that will hold our login buttons.
-
-```sh
-cd cardhost
-ember generate component login-button
-```
-
-Copy and paste this code into the newly created `login-button.hbs`.
-`mock-login` will provide us with a temporary superuser who can change anything.
-`github-login` and `cardstack-session` give us a way to _actually_ log in.
-
-```handlebars
-{{#if (is-component "cardstack-session")}}
-  {{#cardstack-session as |session|}}
-    {{#if useGithubAuth}}
-      {{#github-login as |login|}}
-        {{yield session login}}
-      {{/github-login}}
-    {{else}}
-      {{#mock-login as |login|}}
-        {{yield session login}}
-      {{/mock-login}}
-    {{/if}}
-  {{/cardstack-session}}
-{{/if}}
-```
-
-In `login-button.js`, replace the generated code with this:
-
-```javascript
-import Component from '@ember/component';
-import { computed, get } from '@ember/object';
-
-export default Component.extend({
-  tagName: '',
-  useGithubAuth: computed(function() {
-    let githubAuthEnv;
-    try {
-      githubAuthEnv = window.require('@cardstack/github-auth/environment');
-    } catch (e) {
-      // dont assume github datasource is present
-      return false;
-    }
-    return Boolean(get(githubAuthEnv, 'clientId'));
-  })
-});
-```
-
-Next, add the login button to `cardhost/app-templates`:
+In `cardhost/app/templates/application.hbs`, use the `login-button` component:
 
 ```handlebars
 {{#cardstack-edges}}
   {{#squishable-container}}
-    <LoginButton  />
+    {{login-button}}
     {{outlet}}
   {{/squishable-container}}
 {{/cardstack-edges}}
 ```
 
-## Create templates
+## Understanding grants
 
-For each Card, add some of the fields from `static-model.js` to its `isolated.hbs` and `embedded.hbs`,
-such as `score` and `comment` for the scorecard.
-Once you have added some field, you should be able to create Cards and edit them using the Right Edge.
-At this point, we are still relying on the `mock-login` superuser, but in the next steps, we will
-use login from `github-auth`.
+Now we are at the point where we can talk about users, groups, and grants.
 
-Before moving on to the next step, try making at least one of each type of Card using the Right Edge.
+From a user experience perspective, we want anonymous users to be able to view all of the fields of a photo Card, except for `comment`. We want certain users, the commenters, to be able to log in, view the `comment`, and edit it.
 
-If you are not sure what to do, we recommend that you check out some of our other tutorials to get up to speed.
-Alternately, you can view the finished tutorial code here to get some ideas!
+From a technical perspective, that means we need a group for anonymous users and a group for our users who are allowed to add a comment.
+Then for each of those groups, we need to state specifically which Cards and their fields they can access, a.k.a the grants.
+Then, for each Card or field on a Caed, we need to say what kind of operations are available: create, read, update, and destroy.
 
-<!-- TODO add a link to the source code! -->
+Some of this functionality is already provided in the project template. Have a look at `cardhost/cardstack/static-model.js`. There is a lot of code dedicated to setup, but you can focus on the `customGrantsAndGroups` function, which should look something like this:
 
-## Connect the plugin to GitHub
+```javascript
+const customGrantsAndGroups = function(factory, cardSchemas) {
 
-- authorizing users
-- local env management
-- deployed env management
-- safe key handling
-- screenshots
+  // With this grant, anonymous users can see all Cards in the project.
+  // Remove this line when you want to do card-by-card permissions instead.
+  everyoneCanReadAllCards(factory, cardSchemas);
 
-## Trying it out
+  // Your own groups and grants go here. Here are basics to get you started.
+  // You can reference them in any Card in your project.
 
-- screenshots
+  factory.addResource("groups", "github-readers").withAttributes({
+    "search-query": {
+      filter: {
+        type: { exact: "github-users" },
+        permissions: { exact: "cardstack/project-template-data:read" }
+      }
+    }
+  });
 
-## Creating an admin dashboard
+  factory.addResource("groups", "github-writers").withAttributes({
+    "search-query": {
+      filter: {
+        type: { exact: "github-users" },
+        permissions: { exact: "cardstack/project-template-data:write" }
+      }
+    }
+  });
 
-- a Card that looks like the board, but is only visible to admins
+  factory.addResource("grants")
+    .withRelated("who", [{ type: "groups", id: "github-readers" }])
+    .withAttributes({
+      mayLogin: true
+    });
+
+  factory.addResource("grants")
+    .withRelated("who", [{ type: "fields", id: "id" }])
+    .withRelated("types", [{ type: "content-types", id: "github-users" }])
+    .withAttributes({
+      "may-read-resource": true,
+      "may-read-fields": true
+    });
+};
+```
+
+Let's go through what we see here:
+- There is a function that makes all Cards readable by the `everyone` group. `everyone` is a special group that is built into the Card SDK. All users belong to this group, even anonymous users.
+- Two groups are created, `github-readers` and `github-writers`
+- Two grants are created with some permissions attached to them
+
+This file is a good place to put `groups` and `grants` that will be used in multiple Cards,
+you can add grants and groups in an individual Card's `static-model.js` too.
+
+It's important to know that grants are additive. If we say in one place that `everyone` can see all cards, and elsewhere that admins can see a special card called "secrets," the `everyone` rule is still in effect and anonymous users will be able to see the secrets!
+Likewise, if we have a rule that everyone can see the `photo` Card, and then later we write another grant saying that the `title` is visible to everyone, all the other fields will still be visible too.
+
+## Writing our own grants
+
+Since we already have these default grants and groups, what do we still need to do? Well, we don't want our whole Card to be readable by `everyone`, so we'll have to remove `everyoneCanReadAllCards`. If we do that, then we need to explicitly state which Cards and fields should be visible to everyone.  We also need to make it so that our commenters can see and edit the comment field for a photo.
+
+We'll do this in stages so that it's easier to see how different grants affect what is visible.
+Before you make any changes, restart your server, make sure everything so far is working, and commit your work.
+At this point, you should able to view a photo Card and log in/out, but you should not yet be able to edit or create a photo Card.
+
+First, let's take away the grants that let everyone see everything. Comment out or remove this line:
+
+```javascript
+// everyoneCanReadAllCards(factory, cardSchemas);
+```
+
+Now if you restart your server and visit `http://localhost:4200/photos/1`, you should not be able to view any content.
+
+Let's write our own grant to allow everyone to view the photo Card. In `cards/photo/cardstack/static-model.js`, add the following below where we created the fields:
+
+```javascript
+  factory.addResource('grants', 'photo-world-read')
+    .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+    .withRelated('types', [
+      { type: 'content-types', id: 'photos' }
+    ])
+    .withAttributes({
+      'may-read-resource': true,
+      'may-read-fields': true,
+    });
+```
+
+Now, restart the server. You should be able to see `http://localhost:4200/photos/1` again. In this grant we are saying that everyone can read the whole photo Card.
+
+Next let's hide that comment field from anonymous users. Whenever you add some permissions for a Card, you have the choice to apply them to the whole Card or to specific fields. Replace the grant above with some field-specific control:
+
+```javascript
+  factory.addResource('grants', 'photo-resource-read')
+    .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+    .withRelated('types', [
+      {type: 'content-types', id: 'photos'},
+    ])
+    .withAttributes({
+      'may-read-resource': true,
+    });
+  
+  factory.addResource('grants', 'photo-field-read')
+    .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+    .withRelated('fields', [
+      {type: 'fields', id: 'photo-title'},
+      {type: 'fields', id: 'photographer'},
+      {type: 'fields', id: 'image-url'},
+      {type: 'fields', id: 'alt-text'}
+    ])
+    .withAttributes({
+      'may-read-fields': true,
+    });
+```
+
+Here, we are saying that everyone has _some_ kind of read permissions related to type `photos`.
+Then, below we describe which fields on the Card are viewable. Now, if you restart your server, you should be able to see the photo Card, but the "This is a frontrunner" comment should be missing.
+
+Next, we will add editing permissions for our logged-in users. Add this below the read permissions:
+
+```javascript
+  factory.addResource('grants', 'commenter-resource-update')
+    .withRelated('who', [{ type: 'groups', id: 'github-writers' }])
+    .withRelated('types', [
+      {type: 'content-types', id: 'photos'},
+    ])
+    .withAttributes({
+      'may-update-resource': true,
+    });
+  
+  factory.addResource('grants', 'commenter-field-update')
+    .withRelated('who', [{ type: 'groups', id: 'github-writers' }])
+    .withRelated('fields', [
+      {type: 'fields', id: 'comment'} 
+    ])
+    .withAttributes({
+      'may-read-fields': true,
+      'may-write-fields': true
+    });
+```
+
+Here, we are saying that our commenters have _some_ kind of read permissions related to type `photos`, and then that they can both read and edit the `comment` field. We don't have to add any read permissions for the other fields, since  our commenter users automatically belong to the `everyone` group and receive those permissions too.
+
+A commenter in this case is a user that belongs to the `github-writers` group.
+We could name this grant something different than `commenter-field-update` if we wanted. It's just a label.
+The real power of a grant is in making an association between a group of users and the permissions they have for the Card and its fields.
+
+Now if you restart the server, you should be able to log in, open the Right Edge, and edit only the `comment` field.
+
+### Alternative grants
+
+It's helpful to see some variations on grants and try them out in order to understand how they work.
+If we wanted the commenters to be more like admins who are able to view, create, edit, and delete the whole Card and all its field, we could have used something like this instead:
+
+```javascript
+factory.addResource('grants', 'photo-admin-update')
+  .withRelated('who', [{ type: 'groups', id: 'github-writers' }])
+  .withRelated('types', [
+    { type: 'content-types', id: 'photos' }
+  ])
+  .withAttributes({
+    'may-create-resource': true,
+    'may-update-resource': true,
+    'may-delete-resource': true,
+    'may-write-fields': true
+  });
+```
+
+Give it a try!
+
+## Tips for debugging grants
+
+Having trouble? Here's where to look.
+
+- Is a field missing from the Right Edge that you should be able to edit? Make sure you are using that field in the template or it won't show up in the Right Edge.
+- Look at the `static-model.js` of cardhost and each Card to check for overlapping grants.
+If a grant in one file allows reading a certain Card type, no other grants can undo that.
+- Make sure to restart your server when you make changes
+- Clear your browser's cache. The login system utilizes cookies and local storage, and possibly something got left behind
+
+## Bonus - extending the photo contest
+
+With a fine-grained permissions system provided by the Card SDK, you can write grants and groups to suit almost any use case.
+After this tutorial, there are many directions you could take!
+For example:
+- turn `comment` into its own Card type, and build a dashboard that shows all the comments by using Card relationships
+- use the
+[`@cardstack/github-auth`](https://github.com/cardstack/cardstack/tree/master/packages/github-auth)
+package to add real login permissions.
+- create many different groups with different tiers of editing ability
+- write grants that only allow the creator to edit the record
+
+## Learn more
+
+You can read the [Grants guide](../../grants/) to learn about grants configuration in-depth.
+Also check out the open source [Cardboard](https://github.com/cardstack/cardboard) project for examples of `@cardstack/github-auth` and more custom grants in action.
