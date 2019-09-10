@@ -3,11 +3,14 @@ Ansel
 authenticator
 authenticators
 blockchain
+camelCase
 Cardstack
 cardstack.com
 CMS
 codegen
 codegens
+commenter
+commenters
 composable
 CQRS
 discoverability
@@ -56,6 +59,7 @@ Terraform
 Tse
 tokenize
 tokenized
+Unsplash
 viewport
 viewports
 wei

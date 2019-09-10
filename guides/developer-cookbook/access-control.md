@@ -137,7 +137,7 @@ In the photo's isolated template, `cards/photo/addon/templates/isolated.hbs`, le
 ```
 
 `{{cs-field}}` is needed here because we are using two card properties on the same HTML element.
-Note that a dasherized field like `alt-text` becomes `altText` in camelcase, whenever we use it in a template.
+Note that a dasherized field like `alt-text` becomes `altText` in camelCase, whenever we use it in a template.
 
 You might also be wondering what "alt text" is in the first place.
 Every image on the web should have an `alt`, which stands for [alternative text](https://webaim.org/techniques/alttext/).
@@ -261,7 +261,7 @@ From a user experience perspective, we want anonymous users to be able to view a
 
 From a technical perspective, that means we need a group for anonymous users and a group for our users who are allowed to add a comment.
 Then for each of those groups, we need to state specifically which Cards and their fields they can access, a.k.a the grants.
-Then, for each Card or field on a Caed, we need to say what kind of operations are available: create, read, update, and destroy.
+Then, for each Card or field on a Card, we need to say what kind of operations are available: create, read, update, and destroy.
 
 Some of this functionality is already provided in the project template. Have a look at `cardhost/cardstack/static-model.js`. There is a lot of code dedicated to setup, but you can focus on the `customGrantsAndGroups` function, which should look something like this:
 
@@ -378,7 +378,7 @@ Next let's hide that comment field from anonymous users. Whenever you add some p
 ```
 
 Here, we are saying that everyone has _some_ kind of read permissions related to type `photos`.
-Then, below we describe which fields on the Card are viewable. Now, if you restart your server, you should be able to see the photo Card, but the "This is a frontrunner" comment should be missing.
+Then, below we describe which fields on the Card are viewable. Now, if you restart your server, you should be able to see the photo Card, but the `"This should be a frontrunner"` comment should be missing.
 
 Next, we will add editing permissions for our logged-in users. Add this below the read permissions:
 
@@ -437,7 +437,7 @@ Give it a try!
 Having trouble? Here's where to look.
 
 - Is a field missing from the Right Edge that you should be able to edit? Make sure you are using that field in the template or it won't show up in the Right Edge.
-- Look at the `static-model.js` of cardhost and each Card to check for overlapping grants.
+- Look at the `static-model.js` for `cardhost` and each Card to check for overlapping grants.
 If a grant in one file allows reading a certain Card type, no other grants can undo that.
 - Make sure to restart your server when you make changes
 - Clear your browser's cache. The login system utilizes cookies and local storage, and possibly something got left behind
