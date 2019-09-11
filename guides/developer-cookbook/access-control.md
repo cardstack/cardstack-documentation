@@ -174,7 +174,7 @@ After that, you can restart just the `hub`.
 
 ## Add log in and log out buttons
 
-Now that we have added permissions for viewing, creating, and editing Cards, we need to create a way to log in.
+Before we create permissions for viewing, creating, and editing Cards, we need to provide a way for someone to log in.
 The Card SDK comes with some built-in components that you can use!
 We have two goals - at first, while we are working, we want to be able to edit anything locally using a fake user.
 Then, later on, we want to require real login.
