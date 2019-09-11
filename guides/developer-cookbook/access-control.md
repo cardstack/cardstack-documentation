@@ -253,6 +253,8 @@ In `cardhost/app/templates/application.hbs`, use the `login-button` component:
 {{/cardstack-edges}}
 ```
 
+Now, you should be able to click the button to log in, but you will not be able to edit anything without the right grants, so let's do that next!
+
 ## Understanding grants
 
 Now we are at the point where we can talk about users, groups, and grants.
