@@ -108,7 +108,7 @@ In `cardhost/cardstack/seeds/data.js`, create at least one photo card:
   factory.addResource('photos', 1).withAttributes({
     'photo-title': 'Dashboard heading',
     'photographer': 'John Lee',
-    'image-url': './images/moraine-lake-john-lee.jpg',
+    'image-url': '/images/moraine-lake-john-lee.jpg',
     'alt-text': 'a serene lake in the summer surrounded by trees and mountains',
     'comment': 'This should be a frontrunner'
   });
