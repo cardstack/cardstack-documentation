@@ -1,18 +1,18 @@
 How do you restrict who can see a Card's data?
-In this tutorial, you will learn how to Card SDK features like groups, grants, and permissions.
+In this tutorial, you will learn how to use Card SDK features like groups, grants, and permissions.
 You can control read, write, edit, and deletion of Cards and their fields, without writing server-side validation checks and endpoints yourself.
 
 ## What you will learn
 
 Let's imagine we are building an app for a photography contest.
-We want to allow certain users, our "commenters," to log in and edit a secret "comment" field on the photos, which would be used for the final judging.
-However, these commenters should not be able to make any other changes.
-If someone is not logged in, they should be able to see the photos, but not the comment.
+We want to allow anonymous users to view a photo, but not some secret comments.
+We want to allow "commenters" to log in and edit the secret "comment" field on each photos.
+However, these commenters should not be able to make any other changes, like changing a photo's title.
 
 Over the course of this tutorial, we will create the following:
 
 - log in and log out buttons
-- a `photo` Card that has some secret data
+- a `photo` Card that has some secret comments data
 - Grants, groups, and permissions for anonymous and logged-in users
 
 The Card SDK supports very fine-grained permissions and roles, but we will keep the learning examples as simple as we can, while still showing a real-world scenario.
@@ -20,11 +20,11 @@ The Card SDK supports very fine-grained permissions and roles, but we will keep 
 ## Prerequisites
 
 Before you get started, you should read through [Grants](../../data/grants/), and you should have done some of the other tutorials like [the quick start](../../getting-started/) and [Movie List](../movielist-tutorial/).
-If you have already made a Card that you want to add permissions to, you can skip to [Add log in and log out buttons](./#Add-log-in-and-log-out-buttons)
+If you have already made a Card that you want to add permissions to, you can skip to the section "Add log in and log out buttons."
 
 ## Create the project files
 
-The best way to try this tutorial is to start from a copy of the [`project-template`](https://github.com/cardstack/project-template):
+The best way to try this tutorial is to start with a copy of the [`project-template`](https://github.com/cardstack/project-template):
 
 ```sh
 git clone https://github.com/cardstack/project-template.git
@@ -63,18 +63,19 @@ cd cardhost
 ember generate card photo
 ```
 
-Add an entry for each card into the `package.json` of `cardhost`, as `devDependencies`:
+Add an entry for the photo card into the `package.json` of `cardhost`, as `devDependencies`:
 
 ```json
-"cardhost-photo": "*"
+"cardhost-photo": "*",
 ```
 
 Then, run `yarn install` to link the photo Card.
 
 ## Create fields for the photo card
 
-In `cards/photo/cardstack/static-model.js`, we will add some fields to the card,
-`photo-title`, `image-url`, `alt-text`, and `comment`:
+The page for each photo should be able to display data like a `photo-title`, `image-url`, `alt-text`, and `comment`
+
+In `cards/photo/cardstack/static-model.js`, we will add some fields to the Card:
 
 ```javascript
 const JSONAPIFactory = require('@cardstack/test-support/jsonapi-factory');
@@ -104,8 +105,10 @@ let models = factory.getModels();
 module.exports = function() { return models; };
 ```
 
+### Seed data
+
 To make testing easier, let's also create some seed data.
-In `cardhost/cardstack/seeds/data.js`, create at least one photo card:
+In `cardhost/cardstack/seeds/data.js`, create at least one photo Card:
 
 ```javascript
   factory.addResource('photos', 1).withAttributes({
@@ -117,7 +120,7 @@ In `cardhost/cardstack/seeds/data.js`, create at least one photo card:
   });
 ```
 
-In this example, we've downloaded a free photo by [John Lee](https://unsplash.com/photos/oMneOBYhJxY) on [Unsplash](https://unsplash.com/), named it `moraine-lake-john-lee.jpg`, and placed it in `cardhost/public/images`
+In this example, we've downloaded a free photo by [John Lee](https://unsplash.com/photos/oMneOBYhJxY) on [Unsplash](https://unsplash.com/), named it `moraine-lake-john-lee.jpg`, and placed it in `cardhost/public/images`.
 For a challenge, you could use the
 [`@cardstack/image`](https://github.com/cardstack/cardstack/tree/master/packages/image) and
 [`@cardstack/s3`](https://github.com/cardstack/cardstack/tree/master/packages/s3) plugins instead of 
@@ -126,7 +129,7 @@ However for this tutorial, we will keep it as simple as possible.
 
 ## Create a photo template
 
-In the photo's isolated template, `cards/photo/addon/templates/isolated.hbs`, let's add some markup and use the fields from the Card's schema:
+In the photo's isolated template, `cards/photo/addon/templates/isolated.hbs`, let's add some markup and use the fields that we defined in `static-model.js` earlier:
 
 ```handlebars
 <div class="photo-isolated">
@@ -140,14 +143,15 @@ In the photo's isolated template, `cards/photo/addon/templates/isolated.hbs`, le
 ```
 
 `{{cs-field}}` is needed here because we are using two card properties on the same HTML element.
-Note that a dasherized field like `alt-text` becomes `altText` in camelCase, whenever we use it in a template.
+Note that a dasherized field like `photo-title` becomes `photoTitle` in camelCase whenever we use it in a template.
 
-You might also be wondering what "alt text" is in the first place.
+You might also be wondering what `altText` is in our example Card.
 Every image on the web should have an `alt`, which stands for [alternative text](https://webaim.org/techniques/alttext/).
-This text is critical for accessibility.
 For example, if someone uses a screen reader to browse your app, the software will announce the `alt` for an image.
+This text is critical for accessibility.
 
-We should also add some styling so that the image isn't too large. In `cards/photo/addon/styles/photo-isolated.css`, add the following below the existing styles:
+We should also add some styling so that the image isn't too large.
+In `cards/photo/addon/styles/photo-isolated.css`, add the following below the existing styles:
 
 ```css
 .photo-isolated img {
@@ -158,7 +162,7 @@ We should also add some styling so that the image isn't too large. In `cards/pho
 ## Try it out
 
 If you have not done so already, now is a good time to make sure everything is working so far.
-Make sure you have Docker running, and in the console, run:
+Start up Docker, and in the console, run:
 
 ```sh
 yarn start-prereqs
@@ -173,14 +177,12 @@ As you make changes to the schema of a Card, you will need to restart the server
 Here is a tip to cut down on rebuild times.
 You can do `yarn start-hub` in one window of your console,
 wait for it to finish starting, then `yarn start-ember` in another window.
-After that, you can restart just the `hub`.
+After that, you can restart just the `hub` side of things.
 
 ## Add log in and log out buttons
 
 Before we create permissions for viewing, creating, and editing Cards, we need to provide a way for someone to log in.
 The Card SDK comes with some built-in components that you can use!
-We have two goals - at first, while we are working, we want to be able to edit anything locally using a fake user.
-Then, later on, we want to require real login.
 If you have done other Card SDK tutorials to enable the right edge, the next steps should be familiar.
 
 First, let's create a component that will hold our login buttons:
@@ -239,11 +241,12 @@ Copy and paste this code into the newly created `login-button.hbs`:
 ```
 
 What this says is, if we are using GitHub for authentication, use the GitHub Login component.
-We will get to that later in the tutorial, when we add real login.
+We will get to that in later tutorials, when we add real login.
 Otherwise, it will check to see if the user is already authenticated, and show the "Log out" button if they are.
-Clicking "log out" will use the `session.logout` action that is part of the build-in Card SDK.
+Clicking "log out" will use the `session.logout` action that is built into the Card SDK.
 Unauthenticated users will see the `mock-login` button instead.
-Mock login is used for local development only, and we will do most of our work and testing with this "fake" user and authentication. Both mock login and session are built-in features of the Card SDK.
+Mock login is used for local development only, and we will do most of our work and testing with this "fake" user and authentication.
+Mock login is also a feature of the Card SDK.
 
 In `cardhost/app/templates/application.hbs`, use the `login-button` component:
 
@@ -256,19 +259,21 @@ In `cardhost/app/templates/application.hbs`, use the `login-button` component:
 {{/cardstack-edges}}
 ```
 
-Now, you should be able to click the button to log in, but you will not be able to edit anything without the right grants, so let's do that next!
+Now, you should be able to click the button to log in, but you will not be able to edit anything without the correct grants, so let's do that next!
 
 ## Understanding grants
 
 Now we are at the point where we can talk about users, groups, and grants.
 
-From a user experience perspective, we want anonymous users to be able to view all of the fields of a photo Card, except for `comment`. We want certain users, the commenters, to be able to log in, view the `comment`, and edit it.
+From a user experience perspective, we want anonymous users to be able to view all of the fields of a photo Card, except for the secret `comment`.
+We want certain users, the commenters, to be able to log in, view the `comment`, and edit it.
 
 From a technical perspective, that means we need a group for anonymous users and a group for our users who are allowed to add a comment.
 Then for each of those groups, we need to state specifically which Cards and their fields they can access, a.k.a the grants.
 Then, for each Card or field on a Card, we need to say what kind of operations are available: create, read, update, and destroy.
 
-Some of this functionality is already provided in the project template. Have a look at `cardhost/cardstack/static-model.js`. There is a lot of code dedicated to setup, but you can focus on the `customGrantsAndGroups` function, which should look something like this:
+Some of this functionality is already provided in the project template.
+Have a look at `cardhost/cardstack/static-model.js`. There is a lot of code dedicated to setup, but you can focus on the `customGrantsAndGroups` function, which should look something like this:
 
 ```javascript
 const customGrantsAndGroups = function(factory, cardSchemas) {
@@ -315,25 +320,32 @@ const customGrantsAndGroups = function(factory, cardSchemas) {
 ```
 
 Let's go through what we see here:
-- There is a function that makes all Cards readable by the `everyone` group. `everyone` is a special group that is built into the Card SDK. All users belong to this group, even anonymous users.
+
+- There is a function that makes all Cards readable by the `everyone` group.
+`everyone` is a special group that is built into the Card SDK.
+All users belong to this group, even anonymous users.
 - Two groups are created, `github-readers` and `github-writers`
 - Two grants are created with some permissions attached to them
 
-This file is a good place to put `groups` and `grants` that will be used in multiple Cards,
-you can add grants and groups in an individual Card's `static-model.js` too.
+This file is a good place to put `groups` and `grants` that will be used in multiple Cards.
+You can add grants and groups in an individual Card's `static-model.js` too.
 
-It's important to know that grants are additive. If we say in one place that `everyone` can see all cards, and elsewhere that admins can see a special card called "secrets," the `everyone` rule is still in effect and anonymous users will be able to see the secrets!
-Likewise, if we have a rule that everyone can see the `photo` Card, and then later we write another grant saying that the `title` is visible to everyone, all the other fields will still be visible too.
+It's important to know that grants are additive. If we say in one place that `everyone` can see all cards, and elsewhere that admins can see a special card called `private-dashboard`, the `everyone` rule is still in effect and anonymous users will be able to see the private data!
+Likewise, if we have a rule that everyone can see the `photo` Card, and then later we write another grant saying that only the `photo-title` field is visible to everyone, all the other fields are still visible too.
 
 ## Writing our own grants
 
-Since we already have these default grants and groups, what do we still need to do? Well, we don't want our whole Card to be readable by `everyone`, so we'll have to remove `everyoneCanReadAllCards`. If we do that, then we need to explicitly state which Cards and fields should be visible to everyone.  We also need to make it so that our commenters can see and edit the comment field for a photo.
+Since we already have these default grants and groups, what do we still need to do?
+Well, we don't want our whole Card to be readable by `everyone`, so we'll have to remove `everyoneCanReadAllCards`.
+If we do that, then we need to explicitly state which Cards and fields should be visible to everyone.
+We also need to make it so that our commenters can see and edit the comment field for a photo.
 
 We'll do this in stages so that it's easier to see how different grants affect what is visible.
 Before you make any changes, restart your server, make sure everything so far is working, and commit your work.
 At this point, you should able to view a photo Card and log in/out, but you should not yet be able to edit or create a photo Card.
 
-First, let's take away the grants that let everyone see everything. Comment out or remove this line:
+First, let's take away the grants that let everyone see everything. Comment out or remove this line in
+`cardhost/cardstack/static-model.js`:
 
 ```javascript
 // everyoneCanReadAllCards(factory, cardSchemas);
@@ -355,9 +367,12 @@ factory.addResource('grants', 'photo-world-read')
   });
 ```
 
-Now, restart the server. You should be able to see `http://localhost:4200/photos/1` again. In this grant we are saying that everyone can read the whole photo Card.
+Now, restart the server.
+You should be able to see `http://localhost:4200/photos/1` again.
+In this grant we are saying that everyone can read the whole photo Card.
 
-Next let's hide that comment field from anonymous users. Whenever you add some permissions for a Card, you have the choice to apply them to the whole Card or to specific fields. Replace the grant above with some field-specific control:
+Next let's hide that comment field from anonymous users.
+Whenever you add some permissions for a Card, you have the choice to apply them to the whole Card or to specific fields. Replace the grant above with some field-specific control:
 
 ```javascript
 factory.addResource('grants', 'photo-resource-read')
@@ -383,7 +398,8 @@ factory.addResource('grants', 'photo-field-read')
 ```
 
 Here, we are saying that everyone has _some_ kind of read permissions related to type `photos`.
-Then, below we describe which fields on the Card are viewable. Now, if you restart your server, you should be able to see the photo Card, but the `"This should be a frontrunner"` comment should be missing.
+Then, below we describe which fields on the Card are viewable, and we leave out `comment`.
+Now, if you restart your server, you should be able to see the photo Card, but the `"This should be a frontrunner"` comment should be missing.
 
 Next, we will add editing permissions for our logged-in users. Add this below the read permissions for the `photo`, in `cards/photo/cardstack/static-model.js`:
 
@@ -408,22 +424,26 @@ factory.addResource('grants', 'commenter-field-update')
   });
 ```
 
-Here, we are saying that our commenters have _some_ kind of read permissions related to type `photos`, and then that they can both read and edit the `comment` field. We don't have to add any read permissions for the other fields, since  our commenter users automatically belong to the `everyone` group and receive those permissions too.
+Here, we are saying that our commenters have _some_ kind of read permissions related to type `photos`, and then that they can both read and edit the `comment` field.
+We don't have to add any read permissions for the other fields, since every user automatically belongs to the `everyone` group and receives those permissions too.
 
-A commenter in this case is a user that belongs to the `github-writers` group.
 We could name this grant something different than `commenter-field-update` if we wanted. It's just a label.
 The real power of a grant is in making an association between a group of users and the permissions they have for the Card and its fields.
+A commenter in this case is a user that belongs to the `github-writers` group, which was already defined in the `static-model.js` for the `cardhost`.
+If you take a close look at the `static-model.js` for the `cardhost`, you will also see where we create the Mock User and assign them to the group.
 
 ### Success!
 
-We have achieved our goal! If you restart the server, you should be able to log in, open the Right Edge, and edit only the `comment` field:
+If you restart the server, you should be able to visit `http://localhost:4200/photos/1`, log in, open the Right Edge, and edit _only_ the `comment` field. You should not be able to create new Cards.
 
 ![screenshot showing the right edge and changes to the comment](/images/access-control-tutorial/finished.png)
+
+If you log out and refresh, the comment should be hidden.
 
 ### Alternative grants
 
 It's helpful to see some variations on grants and try them out in order to understand how they work.
-If we wanted the commenters to be more like admins who are able to view, create, edit, and delete the whole Card and all its field, we could have used something like this instead:
+For example, we wanted to have admins who are able to view, create, edit, and delete the whole Card, we could have used something like this instead:
 
 ```javascript
 factory.addResource('grants', 'photo-admin-update')
@@ -439,7 +459,7 @@ factory.addResource('grants', 'photo-admin-update')
   });
 ```
 
-This allows for a logged-in user to do any operation on the `photo` card.
+This allows for a logged-in user to do any operation on the `photo` card, for any field.
 Restart your server and give it a try!
 
 ## Tips for debugging grants
@@ -450,7 +470,8 @@ Having trouble? Here's where to look.
 - Look at the `static-model.js` for `cardhost` and each Card to check for overlapping grants.
 If a grant in one file allows reading a certain Card type, no other grants can undo that.
 - Make sure to restart your server when you make changes
-- Clear your browser's cache. The login system utilizes cookies and local storage, and possibly something got left behind
+- Clear your browser's cache. The login system utilizes cookies and local storage, and possibly something got left behind.
+- Watch for leaky permissions! If Cards are connected through a relationship, some permissions can be shared.
 
 ## Bonus - extending the photo contest
 
