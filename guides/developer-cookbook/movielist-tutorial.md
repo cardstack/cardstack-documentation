@@ -832,7 +832,7 @@ factory.addResource('grants', 'main-board-writers-update')
   });
 ```
 
-Last but not least, we need to set grants from the overall application schema as well. Go to the `cardhost/cardstack/static-model.js`. Inside the file, add these grants:
+Last but not least, we need to set grants from the overall application schema as well. Go to the `cardhost/cardstack/static-model.js`. Inside the `customGrantsAndGroups` function, add these grants:
 
 ```js
 factory.addResource('grants', 'cardstack-files-world-read')
