@@ -5,14 +5,17 @@ You can control read, write, edit, and deletion of Cards and their fields, witho
 ## What you will learn
 
 Let's imagine we are building an app for a photography contest.
-We want to allow certain users, our "reviewers," to log in and edit a secret "comment" field on the photos.
-The general public should be able to see the photos, but not the comment.
+We want to allow certain users, our "commenters," to log in and edit a secret "comment" field on the photos, which would be used for the final judging.
+However, these commenters should not be able to make any other changes.
+If someone is not logged in, they should be able to see the photos, but not the comment.
 
 Over the course of this tutorial, we will create the following:
 
 - log in and log out buttons
 - a `photo` Card that has some secret data
 - Grants, groups, and permissions for anonymous and logged-in users
+
+The Card SDK supports very fine-grained permissions and roles, but we will keep the learning examples as simple as we can, while still showing a real-world scenario.
 
 ## Prerequisites
 
@@ -164,7 +167,7 @@ yarn start
 
 If you visit `http://localhost:4200/photos/1`, you should be able to see your seed data in use:
 
-![](/images/access-control-tutorial/isolated-template.png)
+
 
 As you make changes to the schema of a Card, you will need to restart the server many times.
 Here is a tip to cut down on rebuild times.
@@ -341,15 +344,15 @@ Now if you restart your server and visit `http://localhost:4200/photos/1`, you s
 Let's write our own grant to allow everyone to view the photo Card. In `cards/photo/cardstack/static-model.js`, add the following below where we created the fields:
 
 ```javascript
-  factory.addResource('grants', 'photo-world-read')
-    .withRelated('who', [{ type: 'groups', id: 'everyone' }])
-    .withRelated('types', [
-      { type: 'content-types', id: 'photos' }
-    ])
-    .withAttributes({
-      'may-read-resource': true,
-      'may-read-fields': true,
-    });
+factory.addResource('grants', 'photo-world-read')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('types', [
+    { type: 'content-types', id: 'photos' }
+  ])
+  .withAttributes({
+    'may-read-resource': true,
+    'may-read-fields': true,
+  });
 ```
 
 Now, restart the server. You should be able to see `http://localhost:4200/photos/1` again. In this grant we are saying that everyone can read the whole photo Card.
@@ -357,52 +360,52 @@ Now, restart the server. You should be able to see `http://localhost:4200/photos
 Next let's hide that comment field from anonymous users. Whenever you add some permissions for a Card, you have the choice to apply them to the whole Card or to specific fields. Replace the grant above with some field-specific control:
 
 ```javascript
-  factory.addResource('grants', 'photo-resource-read')
-    .withRelated('who', [{ type: 'groups', id: 'everyone' }])
-    .withRelated('types', [
-      {type: 'content-types', id: 'photos'},
-    ])
-    .withAttributes({
-      'may-read-resource': true,
-    });
-  
-  factory.addResource('grants', 'photo-field-read')
-    .withRelated('who', [{ type: 'groups', id: 'everyone' }])
-    .withRelated('fields', [
-      {type: 'fields', id: 'photo-title'},
-      {type: 'fields', id: 'photographer'},
-      {type: 'fields', id: 'image-url'},
-      {type: 'fields', id: 'alt-text'}
-    ])
-    .withAttributes({
-      'may-read-fields': true,
-    });
+factory.addResource('grants', 'photo-resource-read')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('types', [
+    {type: 'content-types', id: 'photos'},
+  ])
+  .withAttributes({
+    'may-read-resource': true,
+  });
+
+factory.addResource('grants', 'photo-field-read')
+  .withRelated('who', [{ type: 'groups', id: 'everyone' }])
+  .withRelated('fields', [
+    {type: 'fields', id: 'photo-title'},
+    {type: 'fields', id: 'photographer'},
+    {type: 'fields', id: 'image-url'},
+    {type: 'fields', id: 'alt-text'}
+  ])
+  .withAttributes({
+    'may-read-fields': true,
+  });
 ```
 
 Here, we are saying that everyone has _some_ kind of read permissions related to type `photos`.
 Then, below we describe which fields on the Card are viewable. Now, if you restart your server, you should be able to see the photo Card, but the `"This should be a frontrunner"` comment should be missing.
 
-Next, we will add editing permissions for our logged-in users. Add this below the read permissions:
+Next, we will add editing permissions for our logged-in users. Add this below the read permissions for the `photo`, in `cards/photo/cardstack/static-model.js`:
 
 ```javascript
-  factory.addResource('grants', 'commenter-resource-update')
-    .withRelated('who', [{ type: 'groups', id: 'github-writers' }])
-    .withRelated('types', [
-      {type: 'content-types', id: 'photos'},
-    ])
-    .withAttributes({
-      'may-update-resource': true,
-    });
-  
-  factory.addResource('grants', 'commenter-field-update')
-    .withRelated('who', [{ type: 'groups', id: 'github-writers' }])
-    .withRelated('fields', [
-      {type: 'fields', id: 'comment'} 
-    ])
-    .withAttributes({
-      'may-read-fields': true,
-      'may-write-fields': true
-    });
+factory.addResource('grants', 'commenter-resource-update')
+  .withRelated('who', [{ type: 'groups', id: 'github-writers' }])
+  .withRelated('types', [
+    {type: 'content-types', id: 'photos'},
+  ])
+  .withAttributes({
+    'may-update-resource': true,
+  });
+
+factory.addResource('grants', 'commenter-field-update')
+  .withRelated('who', [{ type: 'groups', id: 'github-writers' }])
+  .withRelated('fields', [
+    {type: 'fields', id: 'comment'} 
+  ])
+  .withAttributes({
+    'may-read-fields': true,
+    'may-write-fields': true
+  });
 ```
 
 Here, we are saying that our commenters have _some_ kind of read permissions related to type `photos`, and then that they can both read and edit the `comment` field. We don't have to add any read permissions for the other fields, since  our commenter users automatically belong to the `everyone` group and receive those permissions too.
@@ -411,7 +414,11 @@ A commenter in this case is a user that belongs to the `github-writers` group.
 We could name this grant something different than `commenter-field-update` if we wanted. It's just a label.
 The real power of a grant is in making an association between a group of users and the permissions they have for the Card and its fields.
 
-Now if you restart the server, you should be able to log in, open the Right Edge, and edit only the `comment` field.
+### Success!
+
+We have achieved our goal! If you restart the server, you should be able to log in, open the Right Edge, and edit only the `comment` field:
+
+![screenshot showing the right edge and changes to the comment](/images/access-control-tutorial/finished.png)
 
 ### Alternative grants
 
@@ -432,7 +439,8 @@ factory.addResource('grants', 'photo-admin-update')
   });
 ```
 
-Give it a try!
+This allows for a logged-in user to do any operation on the `photo` card.
+Restart your server and give it a try!
 
 ## Tips for debugging grants
 
