@@ -105,7 +105,7 @@ let models = factory.getModels();
 module.exports = function() { return models; };
 ```
 
-### Seed data
+## Seed data
 
 To make testing easier, let's also create some seed data.
 In `cardhost/cardstack/seeds/data.js`, create at least one photo Card:
@@ -432,7 +432,7 @@ The real power of a grant is in making an association between a group of users a
 A commenter in this case is a user that belongs to the `github-writers` group, which was already defined in the `static-model.js` for the `cardhost`.
 If you take a close look at the `static-model.js` for the `cardhost`, you will also see where we create the Mock User and assign them to the group.
 
-### Success!
+## Success!
 
 If you restart the server, you should be able to visit `http://localhost:4200/photos/1`, log in, open the Right Edge, and edit _only_ the `comment` field. You should not be able to create new Cards.
 
@@ -440,7 +440,7 @@ If you restart the server, you should be able to visit `http://localhost:4200/ph
 
 If you log out and refresh, the comment should be hidden.
 
-### Alternative grants
+## Alternative grants
 
 It's helpful to see some variations on grants and try them out in order to understand how they work.
 For example, we wanted to have admins who are able to view, create, edit, and delete the whole Card, we could have used something like this instead:
