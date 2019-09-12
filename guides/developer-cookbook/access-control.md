@@ -19,7 +19,7 @@ The Card SDK supports very fine-grained permissions and roles, but we will keep 
 
 ## Prerequisites
 
-Before you get started, you should read through [Grants](../../grants/), and you should have done some of the other tutorials like [the quick start](../../getting-started/) and [Movie List](../movielist-tutorial/).
+Before you get started, you should read through [Grants](../../data/grants/), and you should have done some of the other tutorials like [the quick start](../../getting-started/) and [Movie List](../movielist-tutorial/).
 If you have already made a Card that you want to add permissions to, you can skip to [Add log in and log out buttons](./#Add-log-in-and-log-out-buttons)
 
 ## Create the project files
@@ -466,5 +466,5 @@ package to add real login permissions.
 
 ## Learn more
 
-You can read the [Grants guide](../../grants/) to learn about grants configuration in-depth.
+You can read the [Grants guide](../../data/grants/) to learn about grants configuration in-depth.
 Also check out the open source [Cardboard](https://github.com/cardstack/cardboard) project for examples of `@cardstack/github-auth` and more custom grants in action.
