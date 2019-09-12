@@ -115,6 +115,8 @@
   pages:
     - title: "Overview"
       url: "index"
+    - title: "Interactive Movie List Tutorial"
+      url: "movielist-tutorial"   
     - title: "Access control"
       url: "access-control"
     - title: "Forms"
@@ -123,8 +125,6 @@
       url: "third-party-api"
     - title: "Using Ethereum as a data source"
       url: "ethereum"
-    - title: "Interactive Movie List Tutorial"
-      url: "movielist-tutorial"   
 
 - title: "Deep dives"
   url: "deep-dives"
