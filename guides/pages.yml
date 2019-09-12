@@ -115,9 +115,9 @@
   pages:
     - title: "Overview"
       url: "index"
-    - title: "Interactive Movie List Tutorial"
+    - title: "Card relationships - movie list tutorial"
       url: "movielist-tutorial"   
-    - title: "Access control"
+    - title: "Access control tutorial"
       url: "access-control"
     - title: "Forms"
       url: "forms"
