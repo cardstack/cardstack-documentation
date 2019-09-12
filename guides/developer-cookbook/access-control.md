@@ -167,7 +167,7 @@ yarn start
 
 If you visit `http://localhost:4200/photos/1`, you should be able to see your seed data in use:
 
-
+![screenshot of the photo Card, showing the title, image, photographer, and comment](/images/access-control-tutorial/isolated-template.png)
 
 As you make changes to the schema of a Card, you will need to restart the server many times.
 Here is a tip to cut down on rebuild times.
