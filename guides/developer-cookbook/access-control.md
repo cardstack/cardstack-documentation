@@ -17,6 +17,10 @@ Over the course of this tutorial, we will create the following:
 
 The Card SDK supports very fine-grained permissions and roles, but we will keep the learning examples as simple as we can, while still showing a real-world scenario.
 
+### Example code
+
+You can find the completed tutorial code on the [`access-control-tutorial`](https://github.com/cardstack/project-template/tree/access-control-tutorial) branch of the project template repository.
+
 ## Prerequisites
 
 Before you get started, you should read through [Grants](../../data/grants/), and you should have done some of the other tutorials like [the quick start](../../getting-started/) and [Movie List](../movielist-tutorial/).
