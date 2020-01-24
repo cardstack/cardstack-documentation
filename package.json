@@ -54,7 +54,7 @@
     "ember-welcome-page": "^3.2.0",
     "eslint-plugin-ember": "^5.2.0",
     "guidemaker": "^1.4.0",
-    "guidemaker-cardstack-template": "github:cardstack/guidemaker-cardstack-template#ea1551e958e12d6d2950719b4584c4f3964306ca",
+    "guidemaker-cardstack-template": "github:cardstack/guidemaker-cardstack-template#87fa6eaedb46b9872320bd02093e51b6ae24c9d1",
     "guidemaker-link-checker": "^1.0.0",
     "guidemaker-toc-checker": "^1.0.0",
     "loader.js": "^4.7.0",
