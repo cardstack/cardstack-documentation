@@ -15,7 +15,6 @@
 
 - title: "Preparing the environment"
   url: "environment"
-  grouping: "Card SDK"
   pages:
     - title: "Overview"
       url: "index"
