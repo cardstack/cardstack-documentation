@@ -5,9 +5,11 @@
 # compiled output
 /dist/
 /tmp/
+/public/assets/
 
 # dependencies
 /bower_components/
+/node_modules/
 
 # misc
 /coverage/
@@ -17,4 +19,3 @@
 /.node_modules.ember-try/
 /bower.json.ember-try
 /package.json.ember-try
-/node_modules/

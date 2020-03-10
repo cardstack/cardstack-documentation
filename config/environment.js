@@ -37,7 +37,17 @@ module.exports = function(environment) {
         twitter: 'cardstack',
       },
       sourceRepo: 'https://github.com/cardstack/cardstack-documentation',
-    }
+    },
+
+    showdown: {
+      ghCompatibleHeaderId: true,
+      prefixHeaderId: 'toc_'
+    },
+
+
+    infoBanner: {
+      content: `Big things are happening! You don't have to build Cardstack apps from scratch anymore.`
+    },
   };
 
   if (environment === 'development') {
