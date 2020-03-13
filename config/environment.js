@@ -46,7 +46,7 @@ module.exports = function(environment) {
 
 
     infoBanner: {
-      content: `Big things are happening! You don't have to build Cardstack apps from scratch anymore.`
+      content: `Big things are happening! We are in the process of updating this article to reflect using the Card Builder instead of making Cards by hand.`
     },
   };
 
