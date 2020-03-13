@@ -1,3 +1,8 @@
-_This page is a work-in-progress! To help with content, click on the pencil icon in the top right corner._
+Animation is an automatic feature of Cards made using the Cardstack Builder.
 
-_Proposed content: Give some suggestions on how to use libraries to add transitions to cards, such as liquid-fire and ember-animated. Include a statement about plans to build animation into Cards out of the box._
+If you are interested to learn more about our underlying animation libraries
+used by the core team of Cardstack developers,
+you can check out [`ember-animated`](https://github.com/ember-animation/ember-animated);
+
+In addition, Card authors can use the Card Themer to add their own styles and animation.
+Modern CSS can do some pretty amazing things in just a few lines.
