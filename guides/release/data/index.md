@@ -1,3 +1,5 @@
+NOTE: This file is in the process of being updated for 0.18. Information may be outdated.
+
 When a developer defines a new, custom data source for their Cards, they need to ask themselves the following questions:
 
 - What data should be fetched and cached?

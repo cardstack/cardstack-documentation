@@ -1,3 +1,5 @@
+NOTE: This file is in the process of being updated for 0.18. Information may be outdated.
+
 With the [git plugin](https://github.com/cardstack/cardstack/tree/master/packages/git) for the Card SDK, you can store your card's data as JSON in a local or remote git repository.
 You get an instant, versioned data persistence layer that supports create, read, update, and delete.
 

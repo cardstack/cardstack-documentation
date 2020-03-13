@@ -1,3 +1,5 @@
+NOTE: This file is in the process of being updated for 0.18. Information may be outdated.
+
 Templates are where a developer writes HTML markup and more to display data and organize content.
 
 Each Card has two main templates, `isolated.hbs` and `embedded.hbs`.

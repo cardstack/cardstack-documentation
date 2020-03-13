@@ -2,6 +2,8 @@ Welcome to Cardstack! Follow these step-by-step instructions to start exploring 
 The Card SDK can be used to build complex apps that power companies and products, but 
 for this Quickstart, we'll start small.
 
+NOTE: This file is in the process of being updated for 0.18. It is not currently recommended to follow this tutorial.
+
 ## Installation
 
 First, you need the following installed on your Mac, Linux, or Windows computer:

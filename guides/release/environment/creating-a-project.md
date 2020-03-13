@@ -1,3 +1,5 @@
+NOTE: This file is in the process of being updated for 0.18. It is not currently recommended to follow this tutorial.
+
 Today, the best way to create a Cardstack project is to begin by copying one of the demo projects, such as [Cardboard](https://github.com/cardstack/cardboard) or [portfolio](https://github.com/cardstack/portfolio),
 and modifying it to fit your use case.
 

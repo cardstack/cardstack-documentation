@@ -1,3 +1,5 @@
+NOTE: This file is in the process of being updated for 0.18. Information may be outdated.
+
 Grants are the main way to define authorization roles for Cardstack data. Authorization controls what kinds of data are allowed to be returned to which groups of users.
 
 A grant is a combination of:

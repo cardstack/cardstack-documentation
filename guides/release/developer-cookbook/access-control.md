@@ -1,3 +1,5 @@
+NOTE: This file is in the process of being updated for 0.18. It is not currently recommended to follow this tutorial.
+
 How do you restrict who can see a Card's data?
 In this tutorial, you will learn how to use Card SDK features like groups, grants, and permissions.
 You can control read, write, edit, and deletion of Cards and their fields, without writing server-side validation checks and endpoints yourself.
