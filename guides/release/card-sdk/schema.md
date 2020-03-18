@@ -38,38 +38,38 @@ The following cs fields exist on cards:
   or any other file that can be serialized into a string. These files can also be 
   organized in a directory structure, like so:
 
-  ```js
-    csFiles: {
-      templates: {
-        "isolated.hbs": "Hello World",
-        "embedded.hbs": "Hello Mars"
-      },
-      styles: {
-        "isolated.css": ".card-boundary: { background-color: pink; }",
-        "embedded.css": ".card-boundary: { background-color: blue; }",
-      }
+```js
+  csFiles: {
+    templates: {
+      "isolated.hbs": "Hello World",
+      "embedded.hbs": "Hello Mars"
+    },
+    styles: {
+      "isolated.css": ".card-boundary: { background-color: pink; }",
+      "embedded.css": ".card-boundary: { background-color: blue; }",
     }
-  ```
+  }
+```
 
 **`csPeerDependencies`**: this represents the `peerDependencies` portion 
   of the `package.json` file that a card relies upon. e.g:
 
-  ```js
-    csPeerDependencies: {
-      '@cardstack/hub': '*',
-      '@cardstack/core': '*'
-    },
-  ```
+```js
+  csPeerDependencies: {
+    '@cardstack/hub': '*',
+    '@cardstack/core': '*'
+  },
+```
 
 **`csFieldSets`**: this is an object that holds the fields that are available
   in the card in various card formats, e.g.:
 
-  ```js
-    csFieldSets: {
-      isolated: ['title', 'author', 'body'],
-      embedded: ['title', 'author']
-    }
-  ```
+```js
+  csFieldSets: {
+    isolated: ['title', 'author', 'body'],
+    embedded: ['title', 'author']
+  }
+```
 
 **`csFields`**: this is an object that holds the field cards (as card values)
   for the fields that the card uses. Only the card's own fields appear here. The
@@ -109,16 +109,16 @@ The following cs fields exist on cards:
   directly in the card.
   E.g.:
 
-  ```json
-    csFeatures": {
-      "isolated-css": "isolated.css",
-      "embedded-css": "embedded.css",
-      "indexer": "indexer.js",
-      "writer": "writer.js",
-      "field-validate": ["field-hooks.js", "validate"],
-      "field-deserialize": ["field-hooks.js", "deserialize"]
-    }
-  ```
+```json
+  csFeatures": {
+    "isolated-css": "isolated.css",
+    "embedded-css": "embedded.css",
+    "indexer": "indexer.js",
+    "writer": "writer.js",
+    "field-validate": ["field-hooks.js", "validate"],
+    "field-deserialize": ["field-hooks.js", "deserialize"]
+  }
+```
 
 **`csFieldOrder`**: This is an ordered list of fields to render (both 
   the card's own fields and adopted fields). This is primarily used 
