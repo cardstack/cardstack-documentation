@@ -4,6 +4,7 @@ authenticator
 authenticators
 blockchain
 camelCase
+cardinality
 Cardstack
 cardstack.com
 CMS
@@ -13,6 +14,7 @@ commenter
 commenters
 composable
 CQRS
+dev
 discoverability
 dropdown
 EIP-55
@@ -24,6 +26,7 @@ etherscan.io
 filesystem
 frontend
 Geth
+Githereum
 GraphQL
 IMDb
 json:api
@@ -56,10 +59,13 @@ schemas
 SDK
 serializers
 Terraform
+Themer
 Tse
 tokenize
 tokenized
 Unsplash
+v1
+v2
 viewport
 viewports
 wei

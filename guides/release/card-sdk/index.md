@@ -14,7 +14,7 @@ additional powerful tools available, which we refer to as "dev mode." Keep readi
 ## Prerequisites
 
 You'll need the following installed on your computer:
-- Node v12
+- Node version 12 or later
 - Yarn
 - git
 - Docker
@@ -37,7 +37,7 @@ dependencies.
 You will be doing your own work in just a small number of files, so don't worry about most of these.
 
 Next, make sure you have Docker running. Then open up the `cardhost` app files, and run this command
-to create a temporary database for your dev work:
+to create a temporary database for your local development work:
 
 ```bash
 cd packages/cardhost
@@ -76,9 +76,9 @@ Feel free to explore! You can't permanently break anything, and your data is all
 stored on your computer only.
 
 
-## Enable Dev Mode
+## Enable dev mode
 
-Now that we know that your local server works, let's turn on Dev Mode.
+Now that we know that your local server works, let's turn on dev Mode.
 In dev mode, Cards are saved to your hard drive as files, and you can look at the data
 that they are made of.
 
@@ -98,7 +98,7 @@ Now, start your local server and set `DEV_DIR` to your own path:
 DEV_DIR="your/path/goes/here" yarn start
 ```
 
-If you change this path at any time, be sure to restart your prereqs too:
+If you change this path at any time, be sure to restart your prerequisites too:
 `yarn stop-prereqs` and `yarn start-prereqs`.
 
 Now, try creating another card in the builder.
@@ -114,10 +114,10 @@ builder; it is a tool at your disposal as a Card Creator!
 
 Having trouble? Not sure where to look? These notes might help you out as you create Cards, add sample data records, and try to display them.
 
-- Make sure you are running Node v12 or later. Try `node -v` in the terminal
+- Make sure you are running Node version 12 or later. Try `node -v` in the terminal
 - Is Docker running? Try `docker ps`. If it says "Cannot connect," launch the Docker app, wait until it is finished loading, and try again.
 - To see the data available in the local Cardstack Hub database, you can use postgres and SQL commands. In the terminal, run `docker exec -it cardstack-pg psql -U postgres pgsearch_cardboard_development`. This will open up a postgres shell. Many columns in tables are quite wide, so try selecting only from specific columns like `id`. The `documents` table is where Card data goes, so a sample query could be `SELECT id FROM documents;`
-- Did you get the latest commits from the `master` branch of the Cardstack repository, and now things don't work? You might have some build artifacts lying around. Commit any work you want to keep, then delete the `packages` and `cards` directories. Clear out your `node_modules` throughout the repo with `npx lerna clean`. Run `git reset --hard HEAD` to discard all uncommitted changes (i.e. get a clean slate), then `yarn install`. Stop your local database with `yarn stop-prereqs`. Finally, follow the tutorial steps above, beginning with `yarn install` to start the database and the app again.
+- Did you get the latest commits from the `master` branch of the Cardstack repository, and now things don't work? You might have some build artifacts lying around. Commit any work you want to keep, then delete the `packages` and `cards` directories. Clear out your `node_modules` throughout the repository with `npx lerna clean`. Run `git reset --hard HEAD` to discard all uncommitted changes (i.e. get a clean slate), then `yarn install`. Stop your local database with `yarn stop-prereqs`. Finally, follow the tutorial steps above, beginning with `yarn install` to start the database and the app again.
 - Visit our [Discord chat](http://localhost:4200) for help
 
 ## Learn more
