@@ -1,4 +1,4 @@
 CONTRIBUTING.*
 README.*
 MAINTAINERS.md
-guides/chinese-learning
+guides/**/chinese-learning

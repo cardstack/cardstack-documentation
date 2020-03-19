@@ -1,0 +1,1 @@
+Deployment of a Cardstack project varies by cloud provider. To see an example deployment pipeline, see these scripts and Docker containers for the [Cardboard demo app](https://github.com/cardstack/cardboard/tree/master/deploy).
