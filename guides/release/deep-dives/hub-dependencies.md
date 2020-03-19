@@ -52,5 +52,5 @@ For our purposes, it is easiest to allow the Cardstack Hub to use the Node.js se
 
 Now when we start our application we can see the Cardstack Hub starting up:
 
-![hub dependencies](https://docs.cardstack.com/images/hubdependencies.png)
+![hub dependencies](/images/hubdependencies.png)
 
