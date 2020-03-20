@@ -1,4 +1,4 @@
 allVersions:
-  - "v0.14.0"
-  - "v0.18.0"
-currentVersion: "v0.18.0"
+  - "v1.0.0"
+  - "v2.0.0"
+currentVersion: "v2.0.0"
