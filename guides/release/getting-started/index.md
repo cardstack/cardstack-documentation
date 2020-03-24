@@ -10,7 +10,8 @@ These guides are for web developers who want to use code to get _even more_ out 
 First, you need the following installed on your Mac, Linux, or Windows computer:
 
 - [git](https://git-scm.com/)
-- [npm](https://www.npmjs.com/get-npm) and [Node.js](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/) version 12 or higher
+- [npm](https://www.npmjs.com/get-npm)
 - [yarn](https://yarnpkg.com/en/)
 - [Docker](https://www.docker.com/get-started) - a free container manager
 - [Ember CLI](https://cli.emberjs.com/release/)
