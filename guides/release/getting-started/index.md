@@ -74,7 +74,7 @@ of the event and the date.
 Your changes will be saved automatically as you work!
 However, since this is just for local development, those changes will be gone
 if you restart your server. To learn more about saving cards long-term,
-read our [Card SDK tutorial](../../card-sdk/).
+read our [Card SDK tutorial](../card-sdk/).
 
 ### View your complete card
 
@@ -116,7 +116,7 @@ Any Card can be used as a template. Give it a try! Click on the `...` button in 
 
 ## Use dev mode
 
-Are you ready to try using code to build a card? Check out the [Card SDK tutorial](../../card-sdk/)!
+Are you ready to try using code to build a card? Check out the [Card SDK tutorial](../card-sdk/)!
 
 ## Learn more
 

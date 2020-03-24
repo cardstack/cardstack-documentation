@@ -12,7 +12,7 @@ additional powerful tools available, which we refer to as "Dev Mode." Keep readi
 
 ## Prerequisites
 
-See [The Quickstart](../../getting-started/) for the list of prerequisites that you should have installed on your computer in order to follow this tutorial.
+See [The Quickstart](../getting-started/) for the list of prerequisites that you should have installed on your computer in order to follow this tutorial.
 
 ## Running the builder app locally
 
@@ -52,7 +52,7 @@ If you are having trouble with any of these steps, read the "Troubleshooting Tip
 ## Try making a Card
 
 Before we look at the code, let's use the visual tools of the Builder to create a Card.
-This will be helpful context when we get to "dev mode" later.
+This will be helpful context when we get to "Dev Mode" later.
 
 From the browser, click on the Profile icon in the left edge and choose "log in."
 This allows you to simulate being a logged-in user, and make changes to your own local data,
@@ -68,10 +68,10 @@ Feel free to explore! You can't permanently break anything, and your data is all
 stored on your computer only.
 
 
-## Enable dev mode
+## Enable Dev Mode
 
-Now that we know that your local server works, let's turn on dev Mode.
-In dev mode, Cards are saved to your hard drive as files, and you can look at the data
+Now that we know that your local server works, let's turn on Dev Mode.
+In Dev Mode, Cards are saved to your hard drive as files, and you can look at the data
 that they are made of.
 
 Stop your server from the terminal with `Control-C`.
@@ -157,7 +157,7 @@ It will look something like this:
 }
 ```
 
-## Making changes using dev mode
+## Making changes using Dev Mode
 
 Now that we have the Card JSON, we can make changes to it using the
 Card Builder or modifying the JSON itself, aka the "Card Document."
