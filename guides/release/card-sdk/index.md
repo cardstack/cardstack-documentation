@@ -5,11 +5,10 @@ Every Card has its own templates, styling, JavaScript files, tests, and more.
 
 In this section of the Guides, you will learn how to run the Card Builder on your own computer
 so that you can learn and explore.
-In later sections, you will learn how to add and display data for your Card.
 
 The average Cardstack user never needs to look at a terminal or a code editor; they do their
 work using visual interactions in the browser. But for developers, there are some
-additional powerful tools available, which we refer to as "dev mode." Keep reading to learn more!
+additional powerful tools available, which we refer to as "Dev Mode." Keep reading to learn more!
 
 ## Prerequisites
 
@@ -55,7 +54,7 @@ which is the front end application that you could use to create cards in a visua
 
 Visit this URL in the browser to see your app running: [http://localhost:4200](http://localhost:4200)
 
-If you are having trouble with any of these steps, read the Troubleshooting Tips below or drop by our [Discord chat](http://localhost:4200), and we'll help you get going!
+If you are having trouble with any of these steps, read the "Troubleshooting Tips" at the end of this article or drop by our [Discord chat](http://localhost:4200), and we'll help you get going!
 
 ## Try making a Card
 
@@ -84,31 +83,160 @@ that they are made of.
 
 Stop your server from the terminal with `Control-C`.
 
-Next, create a new directory somewhere on your hard drive. This will be the folder for
+Next, create a new git repository somewhere on your hard drive, outside of the cardstack repository. This will be the directory for
 your new cards. Use `pwd` to print the full directory path. You'll need it in the next step.
 
 ```bash
 mkdir my-cards
+cd my-cards
+git init
 pwd
 ```
 
-Now, start your local server and set `DEV_DIR` to your own path:
+Now, back in `cardhost`, start your local server and set `DEV_DIR` to your own path:
 
 ```bash
 DEV_DIR="your/path/goes/here" yarn start
 ```
 
-If you change this path at any time, be sure to restart your prerequisites too:
-`yarn stop-prereqs` and `yarn start-prereqs`.
-
 Now, try creating another card in the builder.
+Drag at least one field into it, such as
+text or number. We'll need it later.
 
 You will see your card show up in the `DEV_DIR` you specified!
-If you want, you can create more cards just like it by constructing its
-associated files.
+There will be a new directory that has your card's
+randomly-generated id for the directory name.
+Inside is `card.json` and `package.json`.
+`card.json` has all the information needed to create a card.
+It will look something like this:
 
+```json
+{
+  "data": {
+    "attributes": {
+      "csCreated": "2020-03-23T21:11:05.993Z",
+      "csFields": {
+      },
+      "csTitle": "my-new-card",
+      "csUpdated": "2020-03-23T21:11:05.993Z"
+    },
+    "relationships": {
+      "csAdoptsFrom": {
+        "data": {
+          "id": "https://base.cardstack.com/public/cards/base",
+          "type": "cards"
+        }
+      }
+    },
+    "type": "cards"
+  },
+  "included": [
+    {
+      "attributes": {
+        "csCreated": "2020-03-23T21:11:06.016Z",
+        "csDescription": "This represents cards of any type",
+        "csFeatures": {
+          "embedded-css": "embedded.css",
+          "isolated-css": "isolated.css"
+        },
+        "csFiles": {
+          "card.json": "{\n  \"data\": {\n    \"type\": \"cards\",\n    \"attributes\": {\n      \"csTitle\": \"Base Card\",\n      \"csDescription\": \"This represents cards of any type\",\n      \"csFeatures\": {\n        \"isolated-css\": \"isolated.css\",\n        \"embedded-css\": \"embedded.css\"\n      }\n    },\n    \"relationships\": {\n    }\n  }\n}",
+          "embedded.css": "(omitted for the example)",
+          "isolated.css": "(omitted for the example)",
+          "package.json": "(omitted for the example)"
+        },
+        "csId": "base",
+        "csPeerDependencies": {
+          "@cardstack/hub": "*"
+        },
+        "csTitle": "Base Card",
+        "csUpdated": "2020-03-23T21:11:06.016Z"
+      },
+      "id": "https://base.cardstack.com/public/cards/base",
+      "meta": {
+        "cardDir": "/Users/jenweber/projects/cardstack/node_modules/@cardstack/base-card"
+      },
+      "relationships": {
+      },
+      "type": "cards"
+    }
+  ]
+}
+```
+
+## Making changes using dev mode
+
+Now that we have the Card JSON, we can make changes to it using the
+Card Builder or modifying the JSON itself, aka the "Card Document."
 In some cases, this is faster or more powerful than creating cards directly in the
 builder; it is a tool at your disposal as a Card Creator!
+
+Try changing the `csTitle` of the card you made earlier:
+
+```json
+"csTitle": "My New Title Goes Here",
+```
+
+Save, and refresh the browser page showing the card.
+You should see your new title in the card's header.
+If you study the JSON carefully, you will find that
+you can add new fields, change CSS, and more.
+
+Next, try adding a new field.
+Under `csFields`, copy one of the fields you created,
+paste it just inside the `csFields` block,
+and give it a new dasherized name, such as `dev-mode-field-name`.
+Don't forget to add a comma to separate your records.
+You will also need to add the new field name in the
+`isolated` fields list and the `csFieldOrder`, like shown below:
+
+```json
+"csFieldOrder": [
+  "field-1", "dev-mode-field-name"
+],
+"csFieldSets": {
+  "embedded": [
+  ],
+  "isolated": [
+    "field-1", "dev-mode-field-name"
+  ]
+},
+"csFields": {
+  "field-1": {
+    "attributes": {
+      "csFieldArity": "singular",
+      "csFields": {
+      }
+    },
+    "relationships": {
+      "csAdoptsFrom": {
+        "data": {
+          "id": "https://base.cardstack.com/public/cards/string-field",
+          "type": "cards"
+        }
+      }
+    }
+  },
+  "dev-mode-field-name": {
+    "attributes": {
+      "csFieldArity": "singular",
+      "csFields": {
+      }
+    },
+    "relationships": {
+      "csAdoptsFrom": {
+        "data": {
+          "id": "https://base.cardstack.com/public/cards/string-field",
+          "type": "cards"
+        }
+      }
+    }
+  }
+},
+```
+
+`csFieldOrder` determines the order of the fields on the page.
+`isolated` is a list of the fields that should be included when the card is show in isolated (full page) mode, as opposed to what is shown in the `embedded` (thumbnail size).
 
 ## Troubleshooting tips
 
@@ -118,7 +246,31 @@ Having trouble? Not sure where to look? These notes might help you out as you cr
 - Is Docker running? Try `docker ps`. If it says "Cannot connect," launch the Docker app, wait until it is finished loading, and try again.
 - To see the data available in the local Cardstack Hub database, you can use postgres and SQL commands. In the terminal, run `docker exec -it cardstack-pg psql -U postgres pgsearch_cardboard_development`. This will open up a postgres shell. Many columns in tables are quite wide, so try selecting only from specific columns like `id`. The `documents` table is where Card data goes, so a sample query could be `SELECT id FROM documents;`
 - Did you get the latest commits from the `master` branch of the Cardstack repository, and now things don't work? You might have some build artifacts lying around. Commit any work you want to keep, then delete the `packages` and `cards` directories. Clear out your `node_modules` throughout the repository with `npx lerna clean`. Run `git reset --hard HEAD` to discard all uncommitted changes (i.e. get a clean slate), then `yarn install`. Stop your local database with `yarn stop-prereqs`. Finally, follow the tutorial steps above, beginning with `yarn install` to start the database and the app again.
+- Did you update the version of the `cardstack` repository that you are using? There might be orphaned JavaScript files lying around. Delete the contents of `cardstack/packages` and then discard the changes and `yarn install` to get back to a fresh set of modules.
 - Visit our [Discord chat](http://localhost:4200) for help
+
+### Starting over
+
+Sometimes, you just need a clean environment for debugging if something is not working how you expect.
+Follow these steps to get back to square one.
+Please note that some of these commands are destructive to any uncommitted work, so don't do them if you are afraid of losing the changes you see during `git status`.
+
+From `cardstack/packages/cardhost`:
+
+`Control-C` to stop your local servers.
+
+```sh
+yarn stop-prereqs # stop the docker container, if one is running
+```
+
+From `cardhost`:
+
+```sh
+npx lerna clean # wipes out node_modules at all levels in the directory
+rm -rf packages cards # delete any lingering compiled/generated files
+git reset --hard HEAD # put the packages directory back to its original state in git
+yarn install
+```
 
 ## Learn more
 
