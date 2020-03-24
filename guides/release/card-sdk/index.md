@@ -12,14 +12,7 @@ additional powerful tools available, which we refer to as "Dev Mode." Keep readi
 
 ## Prerequisites
 
-You'll need the following installed on your computer:
-- Node version 12 or later
-- Yarn
-- git
-- Docker
-- A Code editor of your choice, such as VSCode, Atom, Vim, etc.
-
-Volta is strongly recommended, but not required.
+See [The Quickstart](../../getting-started/) for the list of prerequisites that you should have installed on your computer in order to follow this tutorial.
 
 ## Running the builder app locally
 
@@ -83,7 +76,7 @@ that they are made of.
 
 Stop your server from the terminal with `Control-C`.
 
-Next, create a new git repository somewhere on your hard drive, outside of the cardstack repository. This will be the directory for
+Next, create a new git repository somewhere on your hard drive, outside of the `cardstack` repository. This will be the directory for
 your new cards. Use `pwd` to print the full directory path. You'll need it in the next step.
 
 ```bash
@@ -237,6 +230,15 @@ You will also need to add the new field name in the
 
 `csFieldOrder` determines the order of the fields on the page.
 `isolated` is a list of the fields that should be included when the card is show in isolated (full page) mode, as opposed to what is shown in the `embedded` (thumbnail size).
+
+## Saving data long-term
+
+In this tutorial, we covered saving data to a local git repository. But what about saving it long-term?
+The Card Builder is designed to also save data to a private git repository hosted on GitHub.
+You can use this repository for deployed apps as well as local development.
+Stay tuned for more tutorials to help you get this set up!
+
+<!-- TODO -->
 
 ## Troubleshooting tips
 
