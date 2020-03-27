@@ -32,6 +32,8 @@
       url: "schema"
     - title: "Templates"
       url: "templates"
+    - title: "Realms"
+      url: "realms"
     - title: "Routing"
       url: "routing"
 
