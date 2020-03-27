@@ -4,12 +4,6 @@ Let’s cover how we can access content from the [Cardstack Hub](https://medium.
 
 The Cardstack Hub uses a **RESTful API** based on the JSON:API spec that web clients can use to interact with the Cardstack Hub. This allows web clients to perform find, create, update, and delete operations against the content within the Cardstack Hub.
 
-_Note: we’d love to include support for GraphQL too! If you’re interested in helping out, we’re very appreciative of pull requests._
-
-Along with this, Cardstack Hub leverages a sophisticated system of grants and permissions to ensure that clients of the API can only view and modify content for which they have been granted access. Accordingly, the Cardstack Hub’s Ethereum plugin applies a global _read-only_ grant to all the content that is indexed from the Cardstack Ethereum plugin.
-
-At this time we do not have a _writer_ feature for writing to the blockchain from the API, but this will change in the future. 
-
 ### JSON:API
 
 The Cardstack Hub exposes its underlying content via [JSON:API](http://jsonapi.org/). JSON:API is a very powerful specification for building API’s.

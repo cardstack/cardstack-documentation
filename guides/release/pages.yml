@@ -20,8 +20,6 @@
       url: "index"
     - title: "Environment"
       url: "contents"
-    - title: "Deck/project"
-      url: "creating-a-project"
 
 - title: "Creating a stand-alone Card"
   url: "card-sdk"
@@ -58,8 +56,6 @@
   pages:
     - title: "Styling"
       url: "index"
-    - title: "Variants"
-      url: "variants"
     - title: "Themes"
       url: "themes"
 
@@ -82,8 +78,6 @@
   pages:
     - title: "Overview"
       url: "index"
-    - title: "Publishing a Card"
-      url: "publish-a-card"
     - title: "Deploying your card experience"
       url: "deploying"
     - title: "Submitting to the catalog"
@@ -120,10 +114,6 @@
       url: "movielist-tutorial"   
     - title: "Access control tutorial"
       url: "access-control"
-    - title: "Forms"
-      url: "forms"
-    - title: "Connecting to a third-party API"
-      url: "third-party-api"
     - title: "Using Ethereum as a data source"
       url: "ethereum"
 

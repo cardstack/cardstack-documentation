@@ -1,6 +1,6 @@
-The Card Catalog is an essential part of the end-user facing software we are working on at Cardstack. It shows which cards have already been built by the community, thus enables developers and end users to leverage those cards, in order to create their own experience in the Cardstack universe.
+The Card Catalog is an essential part of the end-user facing software we are working on at Cardstack. It is a curated collection of cards have already been built by the community. It enables developers and end users to leverage those cards, in order to create their own experience in the Cardstack universe.
 
-The Catalog is a future feature of Cardstack. 
+You can view the source code for the [Card Catalog on GitHub](https://github.com/cardstack/card-catalog).
 
 ## Learn more
 
