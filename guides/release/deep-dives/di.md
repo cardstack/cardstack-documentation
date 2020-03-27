@@ -1,16 +1,3 @@
-In Ember you have the concept of "name a file the right thing and it will be picked up by the system". This is also true for Cardstack for both the Ember-specific parts and the more back end parts of the system.
+The Cardstack Hub makes heavy use of Dependency Injection in order to load different data sources and plugins.
 
-For the back end side of this equation we need to think of Cardstack plugins. A Cardstack plugin is just an npm package that has the keyword `cardstack-plugin` in its `package.json`. Cardstack plugins are automatically picked up in a very similar way to how Ember addons are automatically discovered in an Ember app.
-
-Cardstack plugins can have an extra config in the `package.json` file that defines the folder to look for Cardstack Dependency Injection Types/Files. Eg:
-
-```javascript
-  "cardstack-plugin": {
-    "api-version": 1,
-    "src": "cardstack"
-  },
-```
-
-If you don't have this config in the `package.json` then the Dependency Injection Types/Files will be in the top level of the npm package. A good example of this difference is the `@cardstack/mobiledoc` package (located in `cardstack/cardstack/packages/mobiledoc`) and the `@cardstack/jsonapi` package (located in `cardstack/cardstack/packages/jsonapi`).
-
-You will see that `@cardstack/mobiledoc` is an Ember-Addon, and because of this it is useful to have the Cardstack specific plugins in a subdirectory, where as `@cardstack/jsonapi` only provides a single Cardstack Dependency Injection Type/File `middleware.js` so it doesn't make sense to put it in a subdirectory.
+See `dependency-injection.ts` in the Cardstack repository for more information.
