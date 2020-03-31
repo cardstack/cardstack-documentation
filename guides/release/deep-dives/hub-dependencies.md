@@ -16,30 +16,6 @@ For our example, let’s just use the default PostgreSQL DB. We have provided a 
 
 This will start a PostgreSQL database on port 5432 on your local system.
 
-### Geth
-
-The Cardstack Hub uses [Geth](https://github.com/ethereum/go-ethereum/wiki/geth) as the interface to Ethereum. Geth is a Go implementation of an Ethereum client, and probably the most popular Ethereum client used today.
-
-The simplest way to setup [Geth is to use Docker](https://hub.docker.com/r/ethereum/client-go/). To run Geth, we’ll first setup a folder on your local machine to act as a filesystem volume for Docker.This allows your downloaded Ethereum blocks to persist between Docker container restarts.
-
-`mkdir ~/ethereum`
-
-Now we can start Geth using Docker, and tell Docker that we want to use `~/ethereum` as the filesystem volume.
-
-In this example, we’ll be attaching to the Rinkeby test network. Note that when you provide the path to your volume, you’ll need to use the absolute path. On my machine, `~/ethereum` resolves to `/Users/hassan/ethereum`.
-
-`docker run -d --name ethereum-node -v /Users/hassan/ethereum:/root -p 8545:8545 -p 8546:8546 -p 30303:30303 ethereum/client-go:stable --rinkeby --rpc --rpcapi eth,net,web3 --rpcaddr 0.0.0.0 --ws --wsaddr 0.0.0.0 --wsorigins '*' --wsapi eth,net,web3 --cache 4096`
-
-One item to point out: we are turning on both the RPC interface on port 8545 and the WebSocket interface on port 8546. The Cardstack Hub uses the WebSocket interface of Geth in order to index content from Ethereum.
-
-Geth will now start downloading blocks from the Rinkeby network. Depending on your internet connection this may take a couple hours. You can then use the following command to keep track of the downloading process:
-
-`docker logs -f ethereum-node`
-
-Until Geth has caught up to the latest block, it won’t respond to clients. So you’ll need to wait for Geth to download its blocks. From the Geth logs you can keep track of the block number that is being downloaded and compare it to the latest block on Rinkeby [here](https://www.rinkeby.io/#stats). Once Geth has caught up, it will be ready to use.
-
-In order to make life easier for AWS deployments, we have actually created a Terraform module to deploy a Geth node into AWS. If you are interested, you can find the Terraform module [here](https://registry.terraform.io/modules/cardstack/ethereum-node/aws/).
-
 ### Node.js
 
 The Cardstack Hub server is written in Node.js.
