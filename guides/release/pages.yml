@@ -32,8 +32,6 @@
       url: "templates"
     - title: "Realms"
       url: "realms"
-    - title: "Routing"
-      url: "routing"
 
 - title: "Assembling a deck of Cards"
   url: "deck"
