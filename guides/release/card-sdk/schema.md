@@ -161,6 +161,6 @@ This is possible using "isolated" and "embedded" fields.
 You can think of these as "full size" vs "thumbnail size."
 
 For example, you may want a card's title to show up every time it is displayed, but not its description.
-You could make that happen by either checking or un-checking the option for that field when working in Schema mode, or you could modify the `csFieldSets` property directly if you are working in [dev mode](./index/).
+You could make that happen by either checking or unchecking the option for that field when working in Schema mode, or you could modify the `csFieldSets` property directly if you are working in [dev mode](./index/).
 
 _Coming soon:_ You will be able to drop any card into another card as a field! The "embedded" layout will play an important role.
