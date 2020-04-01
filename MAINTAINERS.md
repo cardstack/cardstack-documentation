@@ -1,5 +1,18 @@
 # Maintainers
 
+## Architecture
+
+The Cardstack docs are mainly powered by 3 repos:
+
+- This repo, which contains the markdown files that form the docs. They are arranged by version number.
+- The [guidemaker-cardstack-template](https://github.com/cardstack/guidemaker-cardstack-template), which determines how the app looks (CSS and templates)
+- The [guidemaker](https://github.com/empress/guidemaker) dependency, which holds the build functionality
+
+For any work that needs to be done, you should first determine which repo is the right place.
+If you need to update the dependencies, it is recommended to follow what is being done in the [Ember Guides Repo](https://github.com/ember-learn/guides-source).
+
+## Deploying
+
 Whenever a PR is merged into `master`, Travis will automatically run the scripts that build the app and upload the results to AWS.
 
 ### Before deployment of a new version
