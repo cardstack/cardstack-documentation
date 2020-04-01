@@ -137,28 +137,30 @@ The following cs fields exist on cards:
   "singular" or the value "plural".
 
 
-### List of default fields available
+## Fields
 
-There are many different core types available. 
-An attribute can be defined like `fieldType: '@cardstack/core-types::<type>'`,
-where `type` is one of these: 
+Every card can contain other cards that display data, influence layout, or allow user inputs.
+Out of the box, the Card Builder provides some basic cards called "fields" that are form inputs of many different types:
 
-* `string` _(ex. `"sandwich", "Dave"`)_
-* `string-array` _(ex. `["red", "green", "blue"]`)_
-* `case-insensitive` case insensitive string, used for email addresses, among other things _(ex. `"CardSDK@cardstack.com"`)_
-* `integer` _(ex. `37`)_
 * `boolean` _(ex. `true`)_
+* `call-to-action` - a URL that looks like a button
 * `date` _(ex. `"2018-07-22"`)_
-* `object` _(ex. `{ flower: 'rose' }`)_
-* `any` any data type, useful for external data sources
-* `belongs-to` belongs to relationship to another content-type _(ex. `"author"`)_
-* `has-many` has many relationship to another content-type _(ex. `"pets"`)_
-* `cta` - a URL that looks like a button
-* `link` - a URL that looks like a text link
-* `decorative-image` - an image for display purposes
+* `datetime`
+* `image-reference` _(ex. `"https://example.com/images/some-photo.jpg"`)_
+* `relative-image-reference` _(ex. `"/images/some-photo.jpg"`)_
+* `integer` _(ex. `37`)_
+* `string` _(ex. `"sandwich", "Dave"`)_
+* `url` _(ex. `"https://example.com/about"`)_
 
-#### Isolated and Embedded
+Every field can have an id and name. The ID is used in the Card's HTML markup, and the name is displayed on the card.
 
-Cards can be displayed in one of two modes, `isolated` and `embedded`.
-Depending on where a Card is viewed from, different data may be fetched and displayed.
+## Isolated and Embedded
 
+Sometimes, you only want a field on a card to show up when it is viewed at different sizes.
+This is possible using "isolated" and "embedded" fields.
+You can think of these as "full size" vs "thumbnail size."
+
+For example, you may want a card's title to show up every time it is displayed, but not its description.
+You could make that happen by either checking or unchecking the option for that field when working in Schema mode, or you could modify the `csFieldSets` property directly if you are working in [dev mode](./index/).
+
+_Coming soon:_ You will be able to drop any card into another card as a field! The "embedded" layout will play an important role.

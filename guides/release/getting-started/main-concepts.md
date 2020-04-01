@@ -17,6 +17,10 @@ Each card contains both front and back end functionality, such as its own data s
 The information contained in that URL informs communication with the back end servers.
 You might say that a card is a vertical slice of an application. For example, a blog article card handles both the presentation of the article and the API endpoints that serve the JSON.
 
+### Realms
+
+A realm is a Card's home. It determines where a card comes from and who can access it.
+
 ### Schema
 
 Schema is a general term to describe the shape that data takes. What attributes come back from an API request? When developing with Cardstack, you may use a Card to define the schema that influences how data is stored, its relationships, and what it is named when it is used on the front end.

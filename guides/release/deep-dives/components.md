@@ -1,3 +1,6 @@
-CS field is a wrapper component that is used to display data from a card's schema in the card's template. By wrapping the rendering of the field in `cs-field` Cardstack is able to automatically pickup any editable fields for the editing toolbox. It is also what enables the overlays to render around a field in the render preview of a card when in editor mode.
+The `cardstack` codebase uses Ember to construct the front end application, `cardhost` aka Card Builder.
 
-When developing a new card in most cases you do not need to use the `{{cs-field}}` component directly because of a code-generator that makes this step automatic. Code generators are another type that is automatically discovered by the DI system in Cardstack.
+Most of the work done is in `app/components`. To learn more about the syntax and APIs of components,
+visit [Ember's official component guides](https://guides.emberjs.com/release/components/).
+Most other topics within the Ember Guides are not applicable to the Cardstack project,
+since `cardhost` has a custom router, data handling, and build pipeline.
