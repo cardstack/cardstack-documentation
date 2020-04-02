@@ -21,13 +21,17 @@
     - title: "Environment"
       url: "contents"
 
-- title: "Creating a stand-alone Card"
+- title: "Cards"
   url: "card-sdk"
   pages:
     - title: "Creating Cards"
       url: "index"
+    - title: "Card API Overview"
+      url: cards
     - title: "Schema"
       url: "schema"
+    - title: "Features"
+      url: "features"
     - title: "Templates"
       url: "templates"
     - title: "Realms"
