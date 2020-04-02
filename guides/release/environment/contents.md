@@ -6,7 +6,3 @@ A Cardstack environment is the context that Cards run in. By default, it contain
 - Many data plugins for connecting to different kinds of data sources
 - UI interfaces for editing content
 - A backing data persistence layer, such as a git repository
-
-## Learn more
-
-To learn more about the Cardstack environment, watch this [Introduction to the Cardstack Hub](https://www.youtube.com/watch?v=Jmc40SYS-uU).
