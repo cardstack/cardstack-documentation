@@ -1,4 +1,4 @@
-This section is a crash course in Cardstack concepts. It includes vocabulary that you'll find throughout the other topics, and it draws some parallels to other frameworks and JavaScript in general.
+This section is a crash course in Cardstack concepts aimed at developers. It includes vocabulary that you'll find throughout the other topics, and it draws some parallels to other frameworks and JavaScript in general.
 
 
 ## Essential Vocabulary
@@ -11,51 +11,92 @@ own projects.
 
 ### Cards
 
-Cards are reusable units of functionality - like a form, a text editor, a payment system, and more.
-A developer would use many cards, and cards inside of cards, to create the end user experience.
-Each card contains both front and back end functionality, such as its own data schema. When someone is looking at a card, it is reflected in the browser URL.
-The information contained in that URL informs communication with the back end servers.
-You might say that a card is a vertical slice of an application. For example, a blog article card handles both the presentation of the article and the API endpoints that serve the JSON.
+From a user experience perspective, cards are reusable units of functionality - like a form, an invitation to an event, a payment system, and more.
+People can create many different kinds of cards, make copies of them, share them, or use cards inside of other cards!
+
+From a technical perspective, a card is a group of schema, data, features, and code that all travel together. They can be serialized into JSON and extended.
+A helpful metaphor is to think about the browser as your operating system and the cards as apps.
+The code that is part of a card can be executed by the Hub.
+A card is responsible for only its own API, and should not manipulate the behavior of other cards. This is referred to as the "card boundary."
+
+### The Hub
+
+At a high level, the Hub is a back-end service that handles API requests for serializing, saving, searching, and updating cards.
+You can think of the Hub as the back-end Node.js runtime for a card.
+The Hub can have an index, which holds pointers to all the cards that exist in the system. The index gives you quick and easy access to cards.
+
+Whenever a Hub starts up, it looks at all the realms and loads cards into the index. For example, the Hub may load cards from a specific
+GitHub repository if there is a realm for them.
+The Hub also checks regularly for new data.
+This means that you can make requests to the Hub to create new cards, or you can create the card directly in a data source like a git repo,
+and the Hub will check for and index those changes every so often.
+
+The source code is part of the `hub` package in the [Cardstack mono-repo](https://github.com/cardstack/cardstack).
 
 ### Realms
 
 A realm is a Card's home. It determines where a card comes from and who can access it.
+A realm helps to establish the provenance of a card, i.e. its trail of ownership as it moves through a workflow.
+Whenever cards in a realm change, the Hub updates its own index.
+
+There are several types of realms:
+- The meta realm, which is the authoritative list of realms that the hub should look for cards in
+- The git realm, which is a hosted git repository that holds cards in the form of JSON files
+- The file realm, which is a directory on your own hard drive that contains cards
+- The ephemeral realm, which is a JavaScript map held in memory that is used only for testing
+
+You can have many different realms for each type. For example, perhaps you may want to load in cards from
+five different GitHub repositories. You would then have five git realms.
+Every project automatically has at least one default realm in addition to the meta realm, which is referred to as the "default realm."
+In most cases, the default realm is a git realm.
 
 ### Schema
 
-Schema is a general term to describe the shape that data takes. What attributes come back from an API request? When developing with Cardstack, you may use a Card to define the schema that influences how data is stored, its relationships, and what it is named when it is used on the front end.
+Schema is a general term to describe the shape that a card's data takes. What attributes come back from an API request?
+For example, a card may have a title, description, relationships to other cards, and more.
 
-### The Cardstack Environment
+### Adoption
 
-It’s helpful to think of Cardstack “environments” rather than "apps." 
-Although Cardstack is built for the web and not native, in some ways its mental model is more similar to an operating system than a web app.
-For example, say you make a Word doc, and then share it with someone else, who then makes revisions and sends it back to you via email.
-That’s analogous to a developer authoring a Card, making it available for others to use, and accepting revisions. Someone could build an app _using_ Cardstack, but Cardstack itself is not an app.
+Every card inherits from, or "adopts from" another card.
+If someone makes a brand-new blank card, it adopts from the built-in "base card" which is the most minimal form a card can take.
+If someone creates an awesome card to showcase a product for their business, and they wanted to make more cards like it, they could 
+adopt from that product card. All the cards that adopt from the product card inherit its schema. The schema cannot be overridden, but
+features like visual appearance, JavaScript behavior, and more can be overridden as needed.
 
-### Plugins and Data Adapters
+To give an example, if the original product card's styles change, so do the styles on the new card. But, the new card could also be edited
+to have styles that are different than the card it adopted from.
 
-A plugin, or data adapter, is the connection point for adding new data sources.
-For example, someone could write or use plugins to connect to GitHub, Firebase, and/or a blockchain source.
-That same plugin code could be used by anyone running a Cardstack environment who wants to connect to the same data source.
-
-A plugin is usually made up of four functions:
-
-1. Indexer - an asynchronous process that fetches data from external sources, does some JSON preprocessing, and add the data into an index to allow for quick access when the front end requests for it.
-2. Searcher - when querying/fetching data from the front end, the searcher will access the data from the index.
-3. Writer - when the front end sends a POST/PATCH request (want to write back to the data source), the writer handles that.
-4. Authenticator - handles authenticating the app or user to retrieve data
-
-### The Hub
-
-The Cardstack Hub is a smart caching layer that uses plugins to index data from different sources and make it quickly available for the front end.
-Developers can activate any number of plugins provided by Cardstack or insert their own.
-For example, the Hub could pull in data from GitHub, an enterprise CMS (content management system), and its own postgres database, and use it within the same project.
-To connect to a new data source, a developer only has to write a plugin, not modify the Hub directly. The Hub does all the heavy lifting that takes the data retrieved by plugins and preprocesses it into JSON responses. The source code is part of the [Cardstack mono-repo](https://github.com/cardstack/cardstack).
+Each card also still holds its own unique data like the values for a title, description, etc.
 
 ### The Cardstack mono-repo
 
-The [Cardstack mono-repo](https://github.com/cardstack/cardstack) is a collection of the features that could be used within a Cardstack project.
-It contains some commonly-used Cards, the Cardstack Hub that connects data sources, and the code that ties everything together behind the scenes.
+The [Cardstack mono-repo](https://github.com/cardstack/cardstack) is a collection of the packages that could be used within a Cardstack project.
+For example, it contains the Hub code and a front-end application.
+
+## Putting it all together, a metaphor
+
+Imagine a real library, where someone could go to borrow a copy of a new best-selling book.
+
+The Cards are like the books.
+
+The Hub has an index, which is like a library's catalog that you might use to quickly and easily locate books within the library.
+If you didn't have an index, you could still find books, but it would be difficult!
+The purpose of the index is to make it easy and fast to find a card.
+The index can be destroyed or recreated as needed. It is a pointer back to the cards that exist in the system.
+
+Realms are like the shelves that the books are found on.
+
+## Connecting with JavaScript Concepts
+
+To be able to read the codebase, get a sense of the mental models, and make your own creations using Cardstack, it helps to be familiar with these concepts.
+
+### The front end
+
+The front end is the code that runs in the browser. This includes the `cardhost` package, for example.
+
+## The back end
+
+The back end code runs in a Node.js server environment. This includes the `hub` package, for example.
 
 ### JSON:API
 
@@ -83,10 +124,6 @@ Here's an example of a JSON:API response to `GET /articles`:
   }]
 }
 ```
-
-## Connecting with JavaScript Concepts
-
-To be able to read the codebase, get a sense of the mental models, and make your own creations using Cardstack, it helps to be familiar with these concepts.
 
 ### Classes
 
