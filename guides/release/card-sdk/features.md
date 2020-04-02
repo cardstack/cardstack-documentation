@@ -19,7 +19,9 @@ Here, we will cover some of the most commonly edited features of a card:
 - `field-validate` - if a card is used as an editable field, it can have validation code. For example, this could check that something typed into a text input is a valid email.
 - `field-deserialize` - sometimes, the data for a field should not be shown in its raw form, but rather processed for display. An example is turning a date string into a date object that the front end can use.
 
-## Where are features used?
+### Frequently asked questions
+
+### Where are features used?
 
 A card's features span both front and back end concerns.
 For example, the `isolated-css` is used by the browser, while the `writer` code is used by the Hub on the back end.
@@ -35,7 +37,7 @@ Features are defined as part of cards and realms. For an example, see the [`file
 },
 ```
 
-## What if a card does not have a feature defined?
+### What if a card does not have a feature defined?
 
 If a card does not have a particular feature defined, the Hub looks up the adoption chain until it finds a card that has the feature, and uses that.
 

@@ -1,4 +1,4 @@
-_In Hub v2, the custom template system is still under development, so stay tuned for updates!_
+_In Hub v2, the custom template system is still under development, so stay tuned for updates! Currently, there is only scaffolding in place for this feature._
 
 Templates are where a developer writes HTML markup and more to display data and organize content.
 

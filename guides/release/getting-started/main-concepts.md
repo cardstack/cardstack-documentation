@@ -15,9 +15,6 @@ From a user experience perspective, cards are reusable units of functionality - 
 People can create many different kinds of cards, make copies of them, share them, or use cards inside of other cards!
 
 From a technical perspective, a card is a group of schema, data, features, and code that all travel together. They can be serialized into JSON and extended.
-A helpful metaphor is to think about the browser as your operating system and the cards as apps.
-The code that is part of a card can be executed by the Hub.
-A card is responsible for only its own API, and should not manipulate the behavior of other cards. This is referred to as the "card boundary."
 
 ### The Hub
 
@@ -36,19 +33,8 @@ The source code is part of the `hub` package in the [Cardstack mono-repo](https:
 ### Realms
 
 A realm is a Card's home. It determines where a card comes from and who can access it.
-A realm helps to establish the provenance of a card, i.e. its trail of ownership as it moves through a workflow.
-Whenever cards in a realm change, the Hub updates its own index.
-
-There are several types of realms:
-- The meta realm, which is the authoritative list of realms that the hub should look for cards in
-- The git realm, which is a hosted git repository that holds cards in the form of JSON files
-- The file realm, which is a directory on your own hard drive that contains cards
-- The ephemeral realm, which is a JavaScript map held in memory that is used only for testing
-
-You can have many different realms for each type. For example, perhaps you may want to load in cards from
-five different GitHub repositories. You would then have five git realms.
-Every project automatically has at least one default realm in addition to the meta realm, which is referred to as the "default realm."
-In most cases, the default realm is a git realm.
+For example, a Cardstack project might have a realm that contains cards loaded from a private GitHub repository,
+plus a realm for cards that come from a separate public, open source repository.
 
 ### Schema
 
@@ -60,13 +46,7 @@ For example, a card may have a title, description, relationships to other cards,
 Every card inherits from, or "adopts from" another card.
 If someone makes a brand-new blank card, it adopts from the built-in "base card" which is the most minimal form a card can take.
 If someone creates an awesome card to showcase a product for their business, and they wanted to make more cards like it, they could 
-adopt from that product card. All the cards that adopt from the product card inherit its schema. The schema cannot be overridden, but
-features like visual appearance, JavaScript behavior, and more can be overridden as needed.
-
-To give an example, if the original product card's styles change, so do the styles on the new card. But, the new card could also be edited
-to have styles that are different than the card it adopted from.
-
-Each card also still holds its own unique data like the values for a title, description, etc.
+adopt from that product card. All the cards that adopt from the product card inherit its schema, styles, and more.
 
 ### The Cardstack mono-repo
 
