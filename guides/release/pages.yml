@@ -46,10 +46,6 @@
       url: "relationships"
     - title: "Computed fields"
       url: "computed-fields"
-    - title: "Linking Cards"
-      url: "linking"
-    - title: "Embedding Cards"
-      url: "embedding-cards"
     - title: "Space"
       url: "space"
 
