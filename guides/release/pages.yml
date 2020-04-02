@@ -27,7 +27,7 @@
     - title: "Creating Cards"
       url: "index"
     - title: "Card API Overview"
-      url: cards
+      url: card-api
     - title: "Schema"
       url: "schema"
     - title: "Features"
@@ -92,15 +92,3 @@
       url: "protocols"
     - title: "Tokens"
       url: "tokens"
-
-- title: "Developer Cookbook"
-  url: "developer-cookbook"
-  pages:
-    - title: "Overview"
-      url: "index"
-    - title: "Card relationships - movie list tutorial"
-      url: "movielist-tutorial"   
-    - title: "Access control tutorial"
-      url: "access-control"
-    - title: "Using Ethereum as a data source"
-      url: "ethereum"
