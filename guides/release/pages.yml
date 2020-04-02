@@ -61,20 +61,6 @@
     - title: "Themes"
       url: "themes"
 
-- title: "Connecting Cards to data sources"
-  url: "data"
-  pages:
-    - title: "Commands"
-      url: "index"
-    - title: "Queries"
-      url: "queries"
-    - title: "Grants"
-      url: "grants"
-    - title: "git as the default data source"
-      url: "git"
-    - title: "Plugins"
-      url: "plugins"
-
 - title: "Letting anyone use your stuff"
   url: "publishing"
   pages:
