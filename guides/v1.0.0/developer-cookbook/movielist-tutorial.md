@@ -898,7 +898,7 @@ This is a special way to introduce `fields` of a card if you only need its data,
 
 ## Bonus section - saving data to git
 
-So far in this tutorial, we have been saving data to the "ephemeral" data source, but now it is time to save the data long-term! Ephemeral means temporary, and it disappears when the Docker containers are restarted, but the [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/master/packages/git) plugin can save the Card data to a git repository on your hard drive, or even a remote repository like on GitHub.
+So far in this tutorial, we have been saving data to the "ephemeral" data source, but now it is time to save the data long-term! Ephemeral means temporary, and it disappears when the Docker containers are restarted, but the [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/git) plugin can save the Card data to a git repository on your hard drive, or even a remote repository like on GitHub.
 
 This section is not included in the [`movielist-complete`](https://github.com/cardstack/project-template/tree/movielist-complete) example, since most of the work happens outside of the movie list project, but if you have any issues, visit the [Cardstack Discord Chat](https://medium.com/cardstack/the-brand-new-official-cardstack-discord-channel-4a2ffd925cee) for help!
 

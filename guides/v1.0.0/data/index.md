@@ -8,7 +8,7 @@ When a developer defines a new, custom data source for their Cards, they need to
 
 In Cardstack, we have grouped these various tasks into indexers, searchers, writers, and authenticators within the data plugins.
 
-To see an example of a data plugin, check out the [`@cardstack/ephemeral`](https://github.com/cardstack/cardstack/tree/master/packages/ephemeral) plugin.
+To see an example of a data plugin, check out the [`@cardstack/ephemeral`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/ephemeral) plugin.
 
 ## Anatomy of a data plugin
 
@@ -23,7 +23,7 @@ In the following sections, we'll cover the available commands for these data sou
 
 ## Indexer
 
-An indexer fetches data on a regular interval and indexes it into a cache for speedy retrieval. The source code for the Indexer class can be found [here](https://github.com/cardstack/cardstack/blob/master/packages/hub/indexers.js).
+An indexer fetches data on a regular interval and indexes it into a cache for speedy retrieval. The source code for the Indexer class can be found [here](https://github.com/cardstack/cardstack/blob/v0.14.49/packages/hub/indexers.js).
 
 ### `update`
 
@@ -66,13 +66,13 @@ sequences of writes.
 
 ## Writer
 
-Writers have three main functions: `create`, `update`, `schemaTypes`, and `delete`. You can view the source code for the Writer class [here](https://github.com/cardstack/cardstack/blob/master/packages/hub/writers.js).  
+Writers have three main functions: `create`, `update`, `schemaTypes`, and `delete`. You can view the source code for the Writer class [here](https://github.com/cardstack/cardstack/blob/v0.14.49/packages/hub/writers.js).  
 
 ## Searcher
 
-Searchers handle GET requests to the cache. The source code for the Searcher class can be found [here](https://github.com/cardstack/cardstack/blob/master/packages/hub/searchers.js).
+Searchers handle GET requests to the cache. The source code for the Searcher class can be found [here](https://github.com/cardstack/cardstack/blob/v0.14.49/packages/hub/searchers.js).
 
 ## Authenticator
 
 Authentication strategies vary significantly across projects.
-To see a sample authenticator, see the [Portfolio](https://github.com/cardstack/portfolio/blob/master/cards/user/cardstack/authenticator.js) source code.
+To see a sample authenticator, see the [Portfolio](https://github.com/cardstack/portfolio/blob/v0.14.49/cards/user/cardstack/authenticator.js) source code.

@@ -56,7 +56,7 @@ cd cardhost
 yarn install @cardstack/package-name@<x.y.z> --exact
 ```
 
-You can find the source code for these packages on [GitHub](https://github.com/cardstack/cardstack/tree/master/packages).
+You can find the source code for these packages on [GitHub](https://github.com/cardstack/cardstack/tree/v0.14.49/packages).
 
 ## Create the photo Card
 
@@ -126,8 +126,8 @@ In `cardhost/cardstack/seeds/data.js`, create at least one photo Card:
 
 In this example, we've downloaded a free photo by [John Lee](https://unsplash.com/photos/oMneOBYhJxY) on [Unsplash](https://unsplash.com/), named it `moraine-lake-john-lee.jpg`, and placed it in `cardhost/public/images`.
 For a challenge, you could use the
-[`@cardstack/image`](https://github.com/cardstack/cardstack/tree/master/packages/image) and
-[`@cardstack/s3`](https://github.com/cardstack/cardstack/tree/master/packages/s3) plugins instead of 
+[`@cardstack/image`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/image) and
+[`@cardstack/s3`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/s3) plugins instead of 
 placing the photo directly in `public`.
 However for this tutorial, we will keep it as simple as possible.
 
@@ -484,7 +484,7 @@ After this tutorial, there are many directions you could take!
 For example:
 - turn `comment` into its own Card type, and build a dashboard that shows all the comments by using Card relationships
 - use the
-[`@cardstack/github-auth`](https://github.com/cardstack/cardstack/tree/master/packages/github-auth)
+[`@cardstack/github-auth`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/github-auth)
 package to add real login permissions.
 - create many different groups with different tiers of editing ability
 - write grants that only allow the creator to edit the record

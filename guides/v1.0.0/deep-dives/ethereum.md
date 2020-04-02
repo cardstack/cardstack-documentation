@@ -1,4 +1,4 @@
-In a nutshell, the [Ethereum plugin](https://github.com/cardstack/cardstack/tree/master/packages/ethereum) makes it so that:
+In a nutshell, the [Ethereum plugin](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/ethereum) makes it so that:
 
 1. The Cardstack Hub can introspect your smart contract to derive a schema.
 2. The Cardstack Hub can ingest content from your smart contract as it emits Ethereum events.
@@ -23,7 +23,7 @@ Within Cardstack we define the schema of an entity as a **_content-type_**. We u
 
 Let’s take a look at the unit tests that we use for the Cardstack Hub’s Ethereum plugin as an example. (For those that are curious, we integrate Truffle into our testing framework to be able to fully test Ethereum contracts in our tests.)
 
-In our unit tests we leverage a simple ERC20 contract that has a few extra methods to make things interesting. (You can find the Solidity code for the contract we use for testing [here](https://github.com/cardstack/cardstack/blob/master/packages/ethereum/contracts/SampleToken.sol).) See how we assert the schema is built correctly from our unit tests:
+In our unit tests we leverage a simple ERC20 contract that has a few extra methods to make things interesting. (You can find the Solidity code for the contract we use for testing [here](https://github.com/cardstack/cardstack/blob/v0.14.49/packages/ethereum/contracts/SampleToken.sol).) See how we assert the schema is built correctly from our unit tests:
 ```js 
 const contractName = 'sample-token';
 

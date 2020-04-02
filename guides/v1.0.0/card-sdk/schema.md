@@ -84,14 +84,14 @@ where `type` is one of these:
 * `belongs-to` belongs to relationship to another content-type _(ex. `"author"`)_
 * `has-many` has many relationship to another content-type _(ex. `"pets"`)_
 
-You can learn more about core types in the [`@cardstack/core-types`](https://github.com/cardstack/cardstack/tree/master/packages/core-types) source code.
+You can learn more about core types in the [`@cardstack/core-types`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/core-types) source code.
 
 ### Custom types
 
 If you need to show data that is more complex than the `core-types` cover,
 the Card SDK has some built-in, such as `@cardstack/mobiledoc`, or you can write your own!
 
-To write your own custom `fieldType`, see the source code for [`@cardstack/core-types`](https://github.com/cardstack/cardstack/tree/master/packages/core-types) and [`@cardstack/mobiledoc`](https://github.com/cardstack/cardstack/tree/master/packages/mobiledoc) for inspiration.
+To write your own custom `fieldType`, see the source code for [`@cardstack/core-types`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/core-types) and [`@cardstack/mobiledoc`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/mobiledoc) for inspiration.
 
 ## Adding seed data
 
@@ -136,7 +136,7 @@ What else can a Card's schema do? The schema is the place to:
 ### Example advanced schema
 
 Here's an example of advanced schema for blog articles in the
-[Cardboard](https://github.com/cardstack/cardboard/blob/master/cards/article/cardstack/static-model.js) demo project:
+[Cardboard](https://github.com/cardstack/cardboard/blob/v0.14.49/cards/article/cardstack/static-model.js) demo project:
 
 ```js
 // cardboard/cards/article/cardstack/static-model.js

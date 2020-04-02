@@ -34,4 +34,4 @@ If you would like to contribute to Cardstack itself, please see GitHub for the
 our
 [other repositories](https://github.com/cardstack),
 and the
-[Code of Conduct](https://github.com/cardstack/cardstack/blob/master/CODE_OF_CONDUCT.md).
+[Code of Conduct](https://github.com/cardstack/cardstack/blob/v0.14.49/CODE_OF_CONDUCT.md).

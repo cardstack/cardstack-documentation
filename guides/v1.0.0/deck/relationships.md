@@ -1,6 +1,6 @@
 Cards can have relationships to other cards, as defined in their [Card Schema](../../card-sdk/schema/).
 
-Relationships can be specified using the `belongs-to` and `has-many` core types, as shown in the example below from the [Portfolio](https://github.com/cardstack/portfolio/tree/master/cards) project:
+Relationships can be specified using the `belongs-to` and `has-many` core types, as shown in the example below from the [Portfolio](https://github.com/cardstack/portfolio/tree/v0.14.49/cards) project:
 
 ```js
 const JSONAPIFactory = require('@cardstack/test-support/jsonapi-factory');
