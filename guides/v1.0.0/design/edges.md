@@ -11,7 +11,7 @@ Each "edge" refers to a different aspect of data flow in an application. There a
 
 ## Developer toolkit
 
-Developers who want to add the Four Edges to their Cards can use [ember-toolbars](https://github.com/cardstack/ember-toolbars/), [cardstack-edges](https://github.com/cardstack/cardstack/tree/master/packages/edges), and [card-picker](https://github.com/cardstack/cardstack/tree/master/packages/card-picker) to get started.
+Developers who want to add the Four Edges to their Cards can use [ember-toolbars](https://github.com/cardstack/ember-toolbars/), [cardstack-edges](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/edges), and [card-picker](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/card-picker) to get started.
 
 ## Learn more
 

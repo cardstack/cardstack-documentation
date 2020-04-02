@@ -1,11 +1,11 @@
-With the [git plugin](https://github.com/cardstack/cardstack/tree/master/packages/git) for the Card SDK, you can store your card's data as JSON in a local or remote git repository.
+With the [git plugin](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/git) for the Card SDK, you can store your card's data as JSON in a local or remote git repository.
 You get an instant, versioned data persistence layer that supports create, read, update, and delete.
 
 In this guide, we will show how to save Card data to git by default.
 
 ## Installing and configuring
 
-Install [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/master/packages/git) in the `cardhost` of your project:
+Install [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/git) in the `cardhost` of your project:
 
 ```sh
 cd cardhost
@@ -124,7 +124,7 @@ If you watch the console for your server, you will see it pull the repository an
 
 ## Advanced use
 
-There are many more configurations possible with the git plugin than we have shown here. Check out the `README` for [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/master/packages/git) to learn how to customize the file paths, branches, and more.
+There are many more configurations possible with the git plugin than we have shown here. Check out the `README` for [`@cardstack/git`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/git) to learn how to customize the file paths, branches, and more.
 
 ## Why use git?
 
@@ -134,4 +134,4 @@ Data stored using git can be persisted in many different ways, such as in a post
 
 ## Learn more
 
-You can find the source code for the `@cardstack/git` package [here](https://github.com/cardstack/cardstack/tree/master/packages/git).
+You can find the source code for the `@cardstack/git` package [here](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/git).

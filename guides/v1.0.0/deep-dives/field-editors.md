@@ -76,7 +76,7 @@ factory.addResource('fields', 'is-admin-user').withAttributes({
 })
 ```
 
-To see which options are available for each of the built-in field editors, see the [core types documentation](https://github.com/cardstack/cardstack/tree/master/packages/core-types).
+To see which options are available for each of the built-in field editors, see the [core types documentation](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/core-types).
 
 ## Creating your own field editor component
 
@@ -139,5 +139,5 @@ export default Component.extend({
 
 ## Learn more
 
-To see more examples of custom field editors, check out the [editor JavaScript files](https://github.com/cardstack/cardboard/tree/master/cards/article/addon/components/field-editors) and [Templates](https://github.com/cardstack/cardboard/tree/master/cards/article/addon/templates/field-editors) in the Cardboard demo app.
-These field editors are used in the [schema](https://github.com/cardstack/cardboard/blob/master/cards/article/cardstack/static-model.js) of the article Card.
+To see more examples of custom field editors, check out the [editor JavaScript files](https://github.com/cardstack/cardboard/tree/v0.14.49/cards/article/addon/components/field-editors) and [Templates](https://github.com/cardstack/cardboard/tree/v0.14.49/cards/article/addon/templates/field-editors) in the Cardboard demo app.
+These field editors are used in the [schema](https://github.com/cardstack/cardboard/blob/v0.14.49/cards/article/cardstack/static-model.js) of the article Card.

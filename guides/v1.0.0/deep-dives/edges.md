@@ -1,4 +1,4 @@
-Developers who want to add the 4 Edges to their Cards should check out [`ember-toolbars`](https://github.com/cardstack/ember-toolbars/) and [`cardstack-edges`](https://github.com/cardstack/cardstack/tree/master/packages/edges).
+Developers who want to add the 4 Edges to their Cards should check out [`ember-toolbars`](https://github.com/cardstack/ember-toolbars/) and [`cardstack-edges`](https://github.com/cardstack/cardstack/tree/v0.14.49/packages/edges).
 
 While Cardstack has a very strong design philosophy about "edges" and how they should be used, there is not very much that is technically complicated/specific in the implementation.
 The main implementation that drives the edge system is provided by `ember-toolbars` which is an external dependency (albeit maintained by Cardstack). The only Cardstack-specific concept that I have come across with edges is the idea of `registerTopLevelComponent()` on the `cardstack-edges` service (which is provided by the `@cardstack/edges` package).
