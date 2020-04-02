@@ -1,3 +1,5 @@
+The best way to understand what a card can do is to first get some hands-on experience making one!
+
 You can think of a Card as a "mini app" that can be run in different places within an app, or shared between different apps.
 For example, someone might build a Card that fetches and displays user information from a GitHub profile.
 The information could be displayed on a standalone page, or as a small widget on another page.
@@ -9,6 +11,12 @@ so that you can learn and explore.
 The average Cardstack user never needs to look at a terminal or a code editor; they do their
 work using visual interactions in the browser. But for developers, there are some
 additional powerful tools available, which we refer to as "Dev Mode." Keep reading to learn more!
+
+## Watch and Learn
+
+This tutorial below will take you through step-by-step, but here's a video if you prefer to watch instead:
+
+<iframe width="928" height="522" src="https://www.youtube.com/embed/JEHgZ_yOM7E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Prerequisites
 
@@ -275,6 +283,8 @@ yarn install
 ```
 
 ## Learn more
+
+Are you ready to dig into how cards work? Keep reading the articles within the guides to level up.
 
 Cards are a lot more than just components. See [Cards at Rest, Cards in Motion](https://medium.com/cardstack/cards-at-rest-cards-in-motion-4a0f88a8b6c5) and [Building the Card Catalog](https://medium.com/cardstack/building-the-card-catalog-bf034445d05e) to learn more about what makes them different from traditional web apps.
 
