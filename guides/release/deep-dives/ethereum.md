@@ -2,7 +2,7 @@ In the Cardstack ecosystem, data is saved to git by default. But what should som
 
 Githereum is a smart contract and set of tools that aim to be a distributed replacement for centralized repository hosting. It consists of an ethereum smart contract and a CLI for interacting with it.
 
-The contract allows administring and sharing repositoriess, the state of which is tracked on-chain. This allows setting owners and writers, offering distributed control of who has access to a repository, along with cryptographic guarantees that different users have the same view of the state of the repository.
+The contract allows administering and sharing repositories, the state of which is tracked on-chain. This allows setting owners and writers, offering distributed control of who has access to a repository, along with cryptographic guarantees that different users have the same view of the state of the repository.
 
 Storage is off-chain, with a pluggable storage back end that supports S3, IPFS, Google Drive, and more.
 

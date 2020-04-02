@@ -13,6 +13,7 @@ codegens
 commenter
 commenters
 composable
+cryptographic
 CQRS
 dev
 discoverability
@@ -41,6 +42,7 @@ non-routable
 param
 params
 Params
+pluggable
 postgres
 pre-fetched
 pre-load
