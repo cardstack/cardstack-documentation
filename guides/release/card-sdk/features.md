@@ -1,4 +1,4 @@
-Every card has a set of features that can be inherited from other cards or overidden.
+Every card has a set of features that can be inherited from other cards or overridden.
 Features determine how a card is saved, what it looks like, data validation, and more.
 
 Every Cardstack project has a base card with some built-in features to get you started.

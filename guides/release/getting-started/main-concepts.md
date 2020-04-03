@@ -25,7 +25,7 @@ The Hub can have an index, which holds pointers to all the cards that exist in t
 Whenever a Hub starts up, it looks at all the realms and loads cards into the index. For example, the Hub may load cards from a specific
 GitHub repository if there is a realm for them.
 The Hub also checks regularly for new data.
-This means that you can make requests to the Hub to create new cards, or you can create the card directly in a data source like a git repo,
+This means that you can make requests to the Hub to create new cards, or you can create the card directly in a data source like a git repository,
 and the Hub will check for and index those changes every so often.
 
 The source code is part of the `hub` package in the [Cardstack mono-repo](https://github.com/cardstack/cardstack).

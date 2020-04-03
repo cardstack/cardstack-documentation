@@ -19,7 +19,7 @@ The logs found inside Docker containers can be cumbersome to access
 
 ## Examples
 
-You can choose your own testing, deployment, and data persistence struture. However, it may be helpful to know one possible configuration,
+You can choose your own testing, deployment, and data persistence structure. However, it may be helpful to know one possible configuration,
 which you will see reflected in our deploy scripts for `cardhost`.
 
 The Cardstack Core Team prefers using GitHub Actions for continuous integration testing and deployment of Cardstack projects.
