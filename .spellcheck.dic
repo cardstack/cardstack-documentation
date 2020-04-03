@@ -21,6 +21,7 @@ dropdown
 EIP-55
 Ember.js
 ERC20
+EC2
 Ethereum
 ethereum
 etherscan.io
@@ -31,6 +32,7 @@ Githereum
 GraphQL
 IMDb
 json:api
+keypairs
 middleware
 mono-repo
 namespacing

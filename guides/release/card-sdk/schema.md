@@ -16,7 +16,7 @@ The schema is a Card's attributes and configuration.
 Every Card inherits from the `base-card`. A base card has some default styling and features to get
 you going. If you inspect a Card's JSON, you will see some of the following properties:
 
-The following cs fields exist on cards:
+The following `cs` fields exist on cards:
 
 **`csRealm`**: The realm that the card currently resides in.
 
@@ -136,31 +136,7 @@ The following cs fields exist on cards:
   the cardinality of the field and currently can be either the value
   "singular" or the value "plural".
 
+## Protected card attributes
 
-## Fields
-
-Every card can contain other cards that display data, influence layout, or allow user inputs.
-Out of the box, the Card Builder provides some basic cards called "fields" that are form inputs of many different types:
-
-* `boolean` _(ex. `true`)_
-* `call-to-action` - a URL that looks like a button
-* `date` _(ex. `"2018-07-22"`)_
-* `datetime`
-* `image-reference` _(ex. `"https://example.com/images/some-photo.jpg"`)_
-* `relative-image-reference` _(ex. `"/images/some-photo.jpg"`)_
-* `integer` _(ex. `37`)_
-* `string` _(ex. `"sandwich", "Dave"`)_
-* `url` _(ex. `"https://example.com/about"`)_
-
-Every field can have an id and name. The ID is used in the Card's HTML markup, and the name is displayed on the card.
-
-## Isolated and Embedded
-
-Sometimes, you only want a field on a card to show up when it is viewed at different sizes.
-This is possible using "isolated" and "embedded" fields.
-You can think of these as "full size" vs "thumbnail size."
-
-For example, you may want a card's title to show up every time it is displayed, but not its description.
-You could make that happen by either checking or unchecking the option for that field when working in Schema mode, or you could modify the `csFieldSets` property directly if you are working in [dev mode](./index/).
-
-_Coming soon:_ You will be able to drop any card into another card as a field! The "embedded" layout will play an important role.
+If an attribute of a Card's JSON starts with `cs`, it cannot be overridden.
+So, if you make your own custom attributes for a card, don't start them with `cs`.

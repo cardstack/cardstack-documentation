@@ -2,7 +2,7 @@ Once you have built something with Cardstack, how can you share it?
 
 Sharing your Card can mean one of the following things:
 
-1. Deploying your Cardstack project to your own server, which uses your Cards
+1. Creating your own git repository of Cards, and sharing it
 2. Adding your Card to the [Card Catalog](https://github.com/cardstack/card-catalog), a curated collection of many cards that developers can choose from.
 3. In the future, publishing your Card to the [npm registry](https://www.npmjs.com/), so that others can install and use it via `yarn install` or `npm install` in their own projects
 
