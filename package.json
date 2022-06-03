@@ -66,7 +66,7 @@
     "guidemaker-cardstack-template": "github:cardstack/guidemaker-cardstack-template#3e6cf4e3656bd238021081f63d209d6fb366cc04",
     "loader.js": "^4.7.0",
     "lodash": "^4.17.15",
-    "markdown-link-extractor": "^1.2.2",
+    "markdown-link-extractor": "^3.0.2",
     "mocha": "^7.0.0",
     "prember": "^1.0.3",
     "qunit-dom": "^0.9.2",
